@@ -71,19 +71,10 @@ export default {
 </script>
 
 <style lang="less">
-	@import '~@/style/common/variables.less';
+	@import '~@/pages/common/ding/index.less';
 
 	page {
 		height: 100%;
 		background: #efeff4;
-	}
-	.cur-location {
-		height: 50px;
-		line-height: 50px;
-		color: #333;
-		background: white;
-	}
-	.cur-location__light {
-		color: @main;
 	}
 </style>

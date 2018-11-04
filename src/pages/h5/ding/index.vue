@@ -4,8 +4,8 @@
 			title='找铺' />
 		<p class="cur-location pd-box" id="test">定位城市：<span class="cur-location__light">{{location}}</span></p>
 		<city-item 
-			v-for="item in cityList" 
-			:key="item.id" 
+			v-for="(item, index) in cityList" 
+			:key="index" 
 			:title='item.title' 
 			:city-list='item.city' 
 			city-field='name'
@@ -52,19 +52,10 @@ export default {
 </script>
 
 <style lang="less">
-	@import '~@/style/common/variables.less';
+	@import '~@/pages/common/ding/index.less';
 
 	html, body {
 		height: 100%;
 		background: #efeff4;
-	}
-	.cur-location {
-		height: 50px;
-		line-height: 50px;
-		color: #333;
-		background: white;
-	}
-	.cur-location__light {
-		color: @main;
 	}
 </style>
