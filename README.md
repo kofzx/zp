@@ -21,4 +21,7 @@ npm run build --report
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 
-1. 安装、配置less-loader
+1. 定位文字过多处理 √
+2. 右侧优化触摸定点
+	+ 中文id处理 √
+3. 当前位置接口

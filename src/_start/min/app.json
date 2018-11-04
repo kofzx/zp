@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "pages/min/index/main",
+    "pages/min/ding/main",
+    "pages/min/counter/main"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#189ccd",
+    "navigationBarTitleText": "找铺",
+    "navigationBarTextStyle": "white"
+  }
+}

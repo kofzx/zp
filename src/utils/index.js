@@ -18,7 +18,21 @@ export function formatTime (date) {
   return `${t1} ${t2}`
 }
 
+function queryAll(selector) {
+  const query = wx.createSelectorQuery();
+  return query.selectAll(selector);
+}
+
+function scrollTo(scrollTop, duration = 300) {
+  wx.pageScrollTo({
+    scrollTop: scrollTop,
+    duration: duration
+  });
+}
+
 export default {
   formatNumber,
-  formatTime
+  formatTime,
+  queryAll,
+  scrollTo
 }

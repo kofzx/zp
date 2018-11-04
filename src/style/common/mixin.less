@@ -1,0 +1,41 @@
+.text-overflow() {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.text-overflow-line(@lines) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: @lines;
+    overflow: hidden;
+}
+
+.size(@width; @height) {
+    width: @width;
+    height: @height;
+}
+
+.fix-img(@h) {
+    width: 100%;
+    min-height: @h;
+    max-height: @h;
+}
+
+.bg-pic() {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.bg-position(@x; @y) {
+    background-position-x: @x;
+    background-position-y: @y;
+}
+
+// 适应iconfont的before策略
+.iconfix() {
+    font-size: 1.5em;
+    position: absolute;
+    top: 0;
+}
