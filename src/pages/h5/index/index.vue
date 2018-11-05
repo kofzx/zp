@@ -162,43 +162,49 @@
 </template>
 
 <script>
-import mock from '@/pages/mock'
+import Index from '@/pages/common/index/index.vue'
 
 import Swiper from 'swiper'
 import 'swiper/dist/css/swiper.css'
+
+import { ytApi, api, fullApi } from '@/service/api'
 
 import storeItem from '@/components/core/common/store-item/index'
 
 import searchBox from '@/components/core/h5/search-box/index'
 import headline from '@/components/core/h5/headline/index'
 
-let { pic, newsList, storeList } = mock;
-
 export default {
-  data () {
-    return {
-      "pics": pic,
-      "newsList": newsList,
-      storeList: storeList
-    }
-  },
-
+  extends: Index,
   components: {
     'search-box': searchBox,
     'store-item': storeItem,
     headline,
   },
-
   methods: {
-    fetchData () {
-      this.$flyio.get('/Api/Index/index')
+    async getStoreList (cat_id = this.catActive, page = 1) {
+      this.$flyio.request(ytApi + api.STROE_LIST, {
+          cid: cat_id,
+          p: page
+        })
         .then(res => {
-          console.log(res);
-          this.storeList = res.data.data;
+          let storeList = res.data.news;
+
+          if (storeList == null || storeList == 'undefined') {
+            this.isReachLastPage = true;
+            this.loadingHide();
+            this.showNoMore = true;
+            return;
+          }
+
+          this.storeList = this.storeList.concat(storeList);
+          this.modifyStoreList();
+
+          console.log(this.storeList);
+          this.isReachBottom = false;
         });
     }
   },
-
   mounted () {
     /*
      * 实例化轮播
@@ -216,17 +222,12 @@ export default {
           loop: true
         });    
       });
-  },
-
-  created () {
-    // this.fetchData();
   }
 }
 </script>
 
 <style lang="less">
-  @import '~@/pages/common/index/index.less';
-
+  @import '~@/style/common/variables.less';
   // 更改组件样式
   .wh_indicator {
     bottom: 12px !important;

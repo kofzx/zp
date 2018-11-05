@@ -1,6 +1,9 @@
-const api = {
-	STROE_LIST_PGJ: 'https://www.puguanjiacn.com/Api/Index/index',
-	STROE_LIST_WD: 'https://ytxcx.6mo.cc/Wxapi/News/getMore'
+export const ytApi = 'https://ytxcx.6mo.cc';
+
+export const api = {
+	STROE_LIST: '/Wxapi/News/getMore'
 };
 
-export default api;
+export const fullApi = {
+	STROE_LIST: ytApi + '/Wxapi/News/getMore'
+};

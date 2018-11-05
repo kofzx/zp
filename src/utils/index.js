@@ -30,9 +30,14 @@ function scrollTo(scrollTop, duration = 300) {
   });
 }
 
+function formatAnimationFrameTime(t) {
+  return 1000 / 60 * t;
+}
+
 export default {
   formatNumber,
   formatTime,
   queryAll,
-  scrollTo
+  scrollTo,
+  formatAnimationFrameTime
 }

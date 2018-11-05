@@ -1,9 +1,9 @@
 <template>
 	<div>
-		<p class="cur-location pd-box" id="test">定位城市：<span class="cur-location__light">{{location}}</span></p>
+		<p class="cur-location pd-box">定位城市：<span class="cur-location__light">{{location}}</span></p>
 		<city-item 
-			v-for="item in cityList" 
-			:key="item.id" 
+			v-for="(item, index) in cityList" 
+			:key="index" 
 			:id = 'item.title === "热门城市" ? "remen" : item.title'
 			:title='item.title' 
 			:city-list='item.city' 
@@ -17,23 +17,16 @@
 </template>
 
 <script>
+import Ding from '@/pages/common/ding/index.vue'
+
 import wx from 'wx'
-import mock from '@/pages/mock'
 import util from '@/utils/index'
 
 import cityItem from '@/components/core/common/city-item/index'
 import cityFixed from '@/components/core/common/city-fixed/index'
 
-let { cityList, cityTitles } = mock;
-
 export default {
-	data() {
-		return {
-			location: '东莞',
-			cityList: cityList,
-			cityTitles: cityTitles
-		}
-	},
+	extends: Ding,
 	methods: {
 		// 获取视口以外的scrollTop
 		_getScrollTop () {
@@ -47,10 +40,6 @@ export default {
 			      }
 			    }).exec();
 		    });
-		},
-		// 更换城市
-		changeCity (detail) {
-			this.location = detail.name;
 		},
 		// 右侧字母目录点击
 		titleClick (title) {
@@ -71,8 +60,6 @@ export default {
 </script>
 
 <style lang="less">
-	@import '~@/pages/common/ding/index.less';
-
 	page {
 		height: 100%;
 		background: #efeff4;
