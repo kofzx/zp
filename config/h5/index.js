@@ -11,11 +11,12 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-        '/ytApi': {
+        '/api': {
             target: 'https://ytxcx.6mo.cc',
+            secure: false,
             changeOrigin: true,
             pathRewrite: {
-                '^/ytApi': 'https://ytxcx.6mo.cc'
+                '^/api': ''
             }
         }
     },
