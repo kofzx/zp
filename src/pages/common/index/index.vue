@@ -7,12 +7,12 @@ import mock from '@/pages/mock'
 
 import { ytApi, api, fullApi } from '@/service/api'
 
-let { pic, newsList, storeList } = mock;
+let { pics, newsList, storeList } = mock;
 
 export default {
 	data () {
 	    return {
-	      pics: pic,
+	      pics: pics,
 	      newsList: newsList,
 	      storeList: [],
 	      isReachLastPage: false,
@@ -24,33 +24,11 @@ export default {
 	    }
 	},
 	methods: {
-	    async getStoreList (cat_id = this.catActive, page = 1) {
-	      this.$flyio.request(fullApi.STROE_LIST, {
-	          cid: cat_id,
-	          p: page
-	        })
-	        .then(res => {
-	          let storeList = res.data.news;
-
-	          if (storeList == null || storeList == 'undefined') {
-	            this.isReachLastPage = true;
-	            this.loadingHide();
-	            this.showNoMore = true;
-	            return;
-	          }
-
-	          this.storeList = this.storeList.concat(storeList);
-	          this.modifyStoreList();
-
-	          console.log(this.storeList);
-	          this.isReachBottom = false;
-	        });
-	    },
-	    async modifyStoreList () {
-	      this.storeList.forEach(value => {
+	    modifyStoreList (storeList) {
+	      storeList.forEach(value => {
 	        this.$set(value, 'show', false);
-	        this.$set(value, 'def', 'https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png');
 	      });
+	      return storeList;
 	    },
 	    loadingShow () {
 	      this.isLoading = true;
@@ -59,9 +37,9 @@ export default {
 	      this.isLoading = false;
 	    }
 	},
-	async created () {
-	    await this.getStoreList();
-	    await this.modifyStoreList();
+	created () {
+	    this.getStoreList();
+	    this.modifyStoreList(this.storeList);
 	}
 }
 </script>

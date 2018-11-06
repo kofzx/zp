@@ -1,8 +1,8 @@
 <template>
 	<div class="headline-wrapper container row">
 		<img class="headline-wrapper__logo" src="https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png" alt="">
-	    <div class="swiper-container headline-swiper">
-	        <div class="swiper-wrapper headline-wrapper__carousel rel flex-1">
+	    <div class="swiper-container headline-swiper flex-1">
+	        <div class="swiper-wrapper headline-wrapper__carousel rel">
 	            <div class="swiper-slide headline-wrapper__slide container row" v-for='(item, index) in newsList' :key='index'>
 	              <p class="container row flex-1">
 		        	<span class="headline-wrapper__title f12">{{item[newsTitleField]}}</span>
@@ -32,6 +32,7 @@ export default {
 	mounted () {
 	    new Swiper ('.headline-swiper', {
 	      loop: true,
+	      autoplay:true,
 	      direction : 'vertical'
 	    })        
 	},

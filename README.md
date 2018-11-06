@@ -20,6 +20,6 @@ npm run build --report
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-1. 移动端跨域解决方案
+1. 加载中
 
 await. 当前位置接口

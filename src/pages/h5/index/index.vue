@@ -13,7 +13,9 @@
     <!-- 轮播 -->
     <div class="swiper-container top-swiper carousel">
         <div class="swiper-wrapper">
-            <div class="swiper-slide" v-for='(item, index) in pics' :key='index'>
+            <div class="swiper-slide" 
+              v-for='(item, index) in pics' 
+              :key='index'>
               <img class='carousel-img' :src='item.pic' />
             </div>
         </div>
@@ -23,36 +25,36 @@
     <section class="nav-wrapper zp-container pd-box rel">
       <div class="container row wrap">
         <div class="nav-item tc">
-          <img class="inb img-box--mini" src="../../../images/navs/quick.png" />
-          <p class='f12'>快速转店</p>
+          <img class="inb img-box--medium" src="../../../images/navs/quick.png" />
+          <p class='f14'>快速转店</p>
         </div>
         <div class="nav-item tc">
-          <img class="inb img-box--mini" src="../../../images/navs/assign.png" />
-          <p class='f12'>商铺转让</p>
+          <img class="inb img-box--medium" src="../../../images/navs/assign.png" />
+          <p class='f14'>商铺转让</p>
         </div>
         <div class="nav-item tc">
-          <img class="inb img-box--mini" src="../../../images/navs/ding.png" />
-          <p class='f12'>找店选址</p>
+          <img class="inb img-box--medium" src="../../../images/navs/ding.png" />
+          <p class='f14'>找店选址</p>
         </div>
         <div class="nav-item tc">
-          <img class="inb img-box--mini" src="../../../images/navs/hezuo.png" />
-          <p class='f12'>招商加盟</p>
+          <img class="inb img-box--medium" src="../../../images/navs/hezuo.png" />
+          <p class='f14'>招商加盟</p>
         </div>
         <div class="nav-item tc">
-          <img class="inb img-box--mini" src="../../../images/navs/seek.png" />
-          <p class='f12'>快速找店</p>
+          <img class="inb img-box--medium" src="../../../images/navs/seek.png" />
+          <p class='f14'>快速找店</p>
         </div>
         <div class="nav-item tc">
-          <img class="inb img-box--mini" src="../../../images/navs/help.png" />
-          <p class='f12'>开店百科</p>
+          <img class="inb img-box--medium" src="../../../images/navs/help.png" />
+          <p class='f14'>开店百科</p>
         </div>
         <div class="nav-item tc">
-          <img class="inb img-box--mini" src="../../../images/navs/case.png" />
-          <p class='f12'>经典案例</p>
+          <img class="inb img-box--medium" src="../../../images/navs/case.png" />
+          <p class='f14'>经典案例</p>
         </div>
         <div class="nav-item tc">
-          <img class="inb img-box--mini" src="../../../images/navs/join.png" />
-          <p class='f12'>人才招聘</p>
+          <img class="inb img-box--medium" src="../../../images/navs/join.png" />
+          <p class='f14'>人才招聘</p>
         </div>
       </div>
       <!-- 头条 -->
@@ -145,9 +147,11 @@
         <a class=''>查看更多 &gt; </a>
       </div>
       <!-- 商铺列表 -->
-      <!-- <store-item v-for='(item, index) in storeList' :key='index'
+      <store-item v-for='(item, index) in storeList' :key='index'
         color='189ccd'
-        :pic='item.pic_path'
+        :show='item.show'
+        :src='item.pic_path'
+        def='https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png'
         :title='item.title'
         :area='item.area'
         :cate='item.rname'
@@ -155,8 +159,15 @@
         :time='item.addtime'
         :tags='item.tags'
         tag-field='name'>
-      </store-item> -->
+      </store-item>
     </section>
+    <ko-loading 
+      :is-load='isLoading'
+      :no-more='showNoMore' />
+    <tabbar
+      :color='tabBar.color'
+      :selectedColor='tabBar.selectedColor'
+      :tabList='tabBar.list' />
     <!-- <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a> -->
   </div>
 </template>
@@ -164,31 +175,44 @@
 <script>
 import Index from '@/pages/common/index/index.vue'
 
+import util from '@/utils/index'
+
 import Swiper from 'swiper'
 import 'swiper/dist/css/swiper.css'
 
-import { ytApi, api, fullApi } from '@/service/api'
+import tabBar from '@/_start/h5/tabBar'
+import { apiName, ytApi, api, fullApi } from '@/service/api'
+
+import loading from '@/components/layouts/ko-loading/index'
 
 import storeItem from '@/components/core/common/store-item/index'
 
 import searchBox from '@/components/core/h5/search-box/index'
 import headline from '@/components/core/h5/headline/index'
+import tabbar from '@/components/core/h5/tabbar/index'
 
 export default {
   extends: Index,
+  data() {
+    return {
+      tabBar
+    }
+  },
   components: {
     'search-box': searchBox,
     'store-item': storeItem,
+    'ko-loading': loading,
     headline,
+    tabbar
   },
   methods: {
-    async getStoreList (cat_id = this.catActive, page = 1) {
-      this.$flyio.request(ytApi + api.STROE_LIST, {
+    getStoreList (cat_id = this.catActive, page = 1) {
+      this.$flyio.request(apiName + api.STROE_LIST, {
           cid: cat_id,
           p: page
         })
         .then(res => {
-          let storeList = res.data.news;
+          let storeList = JSON.parse(res.data).news;
 
           if (storeList == null || storeList == 'undefined') {
             this.isReachLastPage = true;
@@ -197,12 +221,45 @@ export default {
             return;
           }
 
-          this.storeList = this.storeList.concat(storeList);
-          this.modifyStoreList();
+          this.storeList = this.storeList.concat(this.modifyStoreList(storeList));
 
           console.log(this.storeList);
           this.isReachBottom = false;
         });
+    },
+    _lazyLoad () {
+      if (!this.isReachBottom) {  // 函数节流
+        // 图片懒加载
+        let storeImgs = document.getElementsByClassName("store-item__left");
+        for (let i = 0; i < storeImgs.length; i++) {
+          let itemTop = storeImgs[i].getBoundingClientRect().top;
+          if (itemTop <= this.screenH) {
+            this.$set(this.storeList[i], 'show', true);
+          }
+        }
+      }
+    },
+    _reachBottom () {
+      // scrollTop + 屏幕高 === 文档总高
+      if (util.getScrollTop() + util.getScreenHeight() === util.getScrollHeight()) {
+        this.loadingShow();
+        this.isReachBottom = true;
+        let curPage = this.curPage;
+
+        if (!this.isReachLastPage) {   // 当前不是最后一页
+          this.curPage = curPage + 1;
+
+          this.getStoreList(this.catActive, this.curPage);
+        }
+        this.loadingHide();
+      }
+    },
+    // 注册滚动事件
+    registerScrollEvent () {
+      window.onscroll = () => {
+        this._lazyLoad();
+        this._reachBottom();
+      };
     }
   },
   mounted () {
@@ -213,15 +270,18 @@ export default {
       .then(() => {
         new Swiper('.top-swiper', {
           loop: true,
-          // 如果需要分页器
+          autoplay:true,
           pagination: {
             el: '.swiper-pagination'
           }
         });   
         new Swiper('.join-swiper', {
-          loop: true
+          loop: true,
+          autoplay:true
         });    
       });
+    this.screenH = util.getScreenHeight();
+    this.registerScrollEvent();
   }
 }
 </script>
@@ -240,5 +300,28 @@ export default {
   }
   .swiper-pagination-bullet-active {
     background: @main !important;
+  }
+
+  .nav-item {
+    p {
+      margin: 5px 0;
+    }
+  }
+  .store-data__item {
+    &:nth-child(1) {
+      .data {
+        color: #f44336;
+      }
+    }
+    &:nth-child(2) {
+      .data {
+        color: #ffae1a;
+      }
+    }
+    &:nth-child(3) {
+      .data {
+        color: #2196F3;
+      }
+    }
   }
 </style>

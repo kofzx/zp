@@ -71,7 +71,7 @@
 	}
 	.store-item__right {
 		.title {
-			width: 216px;
+			width: 196px;
 			color: #565656;
 			.text-overflow();
 		}

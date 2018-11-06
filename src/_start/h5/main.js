@@ -5,6 +5,8 @@ import App from './App'
 import router from '../../router'
 import flyio from 'flyio'
 
+import layuicss from 'layui-src/dist/css/layui.css'
+
 Vue.config.productionTip = false
 Vue.prototype.$flyio = new flyio()
 

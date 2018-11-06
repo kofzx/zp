@@ -1,7 +1,10 @@
 <template>
 	<div>
 		<header class="ko-header">
-			<a href="javascript:;" class="link" :style="{'background-image': svg}" @click="goBack"></a>
+			<a href="javascript:;" class="link" 
+				v-if='hasBack'
+				:style="{'background-image': svg}" 
+				@click="goBack"></a>
 			<h1 :style="{'color': '#' + color}">{{title}}</h1>
 		</header>
 		<div class="ko-header--fix"></div>
@@ -11,6 +14,10 @@
 <script>
 export default {
 	props: {
+		hasBack: {
+			type: Boolean,
+			default: true
+		},
 		title: {
 			type: String,
 			require: true

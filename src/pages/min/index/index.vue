@@ -144,7 +144,7 @@
         color='189ccd'
         :show='item.show'
         :src='item.pic_path'
-        :def='item.def'
+        def='https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png'
         :title='item.title'
         :area='item.area'
         :cate='item.rname'
@@ -166,6 +166,8 @@ import Index from '@/pages/common/index/index.vue'
 
 import wx from 'wx'
 
+import { ytApi, api, fullApi } from '@/service/api'
+
 import loading from '@/components/layouts/ko-loading/index'
 
 import storeItem from '@/components/core/common/store-item/index'
@@ -181,7 +183,30 @@ export default {
     'ko-loading': loading,
     headline
   },
-  async mounted () {
+  methods: {
+    getStoreList (cat_id = this.catActive, page = 1) {
+      this.$flyio.request(fullApi.STROE_LIST, {
+          cid: cat_id,
+          p: page
+        })
+        .then(res => {
+          let storeList = res.data.news;
+
+          if (storeList == null || storeList == 'undefined') {
+            this.isReachLastPage = true;
+            this.loadingHide();
+            this.showNoMore = true;
+            return;
+          }
+
+          this.storeList = this.storeList.concat(this.modifyStoreList(storeList));
+
+          console.log(this.storeList);
+          this.isReachBottom = false;
+        });
+    }
+  },
+  mounted () {
     wx.getSystemInfo({
       success: res => {
         this.screenH = res.screenHeight;
@@ -191,7 +216,7 @@ export default {
   /*
    * 页面滚动
   */
-  async onPageScroll () {
+  onPageScroll () {
     if (!this.isReachBottom) {  // 函数节流
       // 图片懒加载
       const query = wx.createSelectorQuery();
@@ -207,7 +232,7 @@ export default {
   /*
    * 上拉触底
   */
-  async onReachBottom () {
+  onReachBottom () {
     this.loadingShow();
     this.isReachBottom = true;
     let curPage = this.curPage;
@@ -215,7 +240,7 @@ export default {
     if (!this.isReachLastPage) {   // 当前不是最后一页
       this.curPage = curPage + 1;
 
-      await this.getStoreList(this.catActive, this.curPage);
+      this.getStoreList(this.catActive, this.curPage);
     }
     this.loadingHide();
   }

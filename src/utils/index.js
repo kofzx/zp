@@ -18,11 +18,19 @@ export function formatTime (date) {
   return `${t1} ${t2}`
 }
 
+/*
+ * platform: 小程序
+ * 选择器： 选择所有同类元素
+*/
 function queryAll(selector) {
   const query = wx.createSelectorQuery();
   return query.selectAll(selector);
 }
 
+/*
+ * platform: 小程序
+ * 滚动至指定位置
+*/
 function scrollTo(scrollTop, duration = 300) {
   wx.pageScrollTo({
     scrollTop: scrollTop,
@@ -34,10 +42,25 @@ function formatAnimationFrameTime(t) {
   return 1000 / 60 * t;
 }
 
+function getScreenHeight() {
+  return window.innerHeight;
+}
+
+function getScrollTop() {
+  return document.body.scrollTop || document.documentElement.scrollTop;
+}
+
+function getScrollHeight() {
+  return document.body.scrollHeight || document.documentElement.scrollHeight;
+}
+
 export default {
   formatNumber,
   formatTime,
   queryAll,
   scrollTo,
-  formatAnimationFrameTime
+  formatAnimationFrameTime,
+  getScreenHeight,
+  getScrollTop,
+  getScrollHeight
 }
