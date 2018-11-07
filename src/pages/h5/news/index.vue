@@ -39,11 +39,11 @@
 	        <!--分页器-->
 	        <div id="page" class="tc"></div>
 	    </div>
-
-		<tabbar
+	    <tabbar 
 	      :color='tabBar.color'
 	      :selectedColor='tabBar.selectedColor'
-	      :tabList='tabBar.list' />
+	      :tabList='tabBar.list'
+	      />
 	</div>
 </template>
 
@@ -55,9 +55,9 @@ import tabbar from '@/components/core/h5/tabbar/index'
 
 export default {
 	data() {
-		return {
-			tabBar
-		}
+	    return {
+	      tabBar
+	    }
 	},
 	components: {
 		'ko-header': koHeader,
@@ -143,7 +143,6 @@ export default {
 	}
 	.l-news-bor {
 		display: flex;
-    	flex-wrap: wrap;
 	}
 	.l-news-bor-w{
 	    width: 69%;

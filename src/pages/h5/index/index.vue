@@ -24,22 +24,22 @@
     <!-- 导航块 -->
     <section class="nav-wrapper zp-container pd-box rel">
       <div class="container row wrap">
-        <div class="nav-item tc">
+        <router-link class="nav-item tc" to='/quick'>
           <img class="inb img-box--medium" src="../../../images/navs/quick.png" />
           <p class='f14'>快速转店</p>
-        </div>
-        <div class="nav-item tc">
+        </router-link>
+        <router-link class="nav-item tc" to='/assign'>
           <img class="inb img-box--medium" src="../../../images/navs/assign.png" />
           <p class='f14'>商铺转让</p>
-        </div>
-        <div class="nav-item tc">
+        </router-link>
+        <router-link class="nav-item tc" to='/seek'>
           <img class="inb img-box--medium" src="../../../images/navs/ding.png" />
           <p class='f14'>找店选址</p>
-        </div>
-        <div class="nav-item tc">
+        </router-link>
+        <router-link class="nav-item tc" to='/join'>
           <img class="inb img-box--medium" src="../../../images/navs/hezuo.png" />
           <p class='f14'>招商加盟</p>
-        </div>
+        </router-link>
         <div class="nav-item tc">
           <img class="inb img-box--medium" src="../../../images/navs/seek.png" />
           <p class='f14'>快速找店</p>
@@ -48,14 +48,14 @@
           <img class="inb img-box--medium" src="../../../images/navs/help.png" />
           <p class='f14'>开店百科</p>
         </div>
-        <div class="nav-item tc">
+        <router-link class="nav-item tc" to='/case'>
           <img class="inb img-box--medium" src="../../../images/navs/case.png" />
           <p class='f14'>经典案例</p>
-        </div>
-        <div class="nav-item tc">
+        </router-link>
+        <router-link class="nav-item tc" to='/about'>
           <img class="inb img-box--medium" src="../../../images/navs/join.png" />
-          <p class='f14'>人才招聘</p>
-        </div>
+          <p class='f14'>关于我们</p>
+        </router-link>
       </div>
       <!-- 头条 -->
       <headline 
@@ -164,10 +164,11 @@
     <ko-loading 
       :is-load='isLoading'
       :no-more='showNoMore' />
-    <tabbar
+    <tabbar 
       :color='tabBar.color'
       :selectedColor='tabBar.selectedColor'
-      :tabList='tabBar.list' />
+      :tabList='tabBar.list'
+      />
     <!-- <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a> -->
   </div>
 </template>
@@ -303,6 +304,7 @@ export default {
   }
 
   .nav-item {
+    color: #323232;
     p {
       margin: 5px 0;
     }

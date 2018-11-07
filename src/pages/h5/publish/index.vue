@@ -18,10 +18,11 @@
 		        <i class="iconfont icon-ding-sp l-ico-release"></i>
 		    </div>
 		</div>
-		<tabbar
+		<tabbar 
 	      :color='tabBar.color'
 	      :selectedColor='tabBar.selectedColor'
-	      :tabList='tabBar.list' />
+	      :tabList='tabBar.list'
+	      />
 	</div>
 </template>
 
@@ -33,9 +34,9 @@ import tabbar from '@/components/core/h5/tabbar/index'
 
 export default {
 	data() {
-		return {
-			tabBar
-		}
+	    return {
+	      tabBar
+	    }
 	},
 	components: {
 		'ko-header': koHeader,
