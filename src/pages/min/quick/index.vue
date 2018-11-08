@@ -1,9 +1,7 @@
 <template>
 	<div>
-		<ko-header
-			title='找铺' />
 		<!-- 转店承诺 -->
-		<div class="l-qk-tf-bgbox" v-if='type === "assign"'>
+		<div class="l-qk-tf-bgbox" v-if="type === 'assign'">
 		    <div class="l-qk-tf-bgword">
 		        <p>快速转店承诺服务</p>
 		        <p>为您成功转让为止</p>
@@ -11,7 +9,7 @@
 		    </div>
 		</div>
 		<!-- 找店承诺 -->
-		<div class="l-qk-tf-bgbox" v-else-if='type === "seek"'>
+		<div class="l-qk-tf-bgbox" v-else-if="type === 'seek'">
 		    <div class="l-qk-tf-bgword">
 		        <p>近30天有 <span>4821</span> 位开店人在</p>
 		        <p>铺莞家找到满意店铺</p>
@@ -24,8 +22,8 @@
 		    <form action="">
 		        <p class="l-qk-tf-word">留下手机号5分钟内有工作人员联系你！</p>
 		        <div class="l-qk-tf-put">
-		            <input type="text" name="phone" placeholder="请输入手机号">
-		            <button type="submit" class="mui-btn">提交</button>
+		            <input class="inb tl bgc-fff" type="text" name="phone" placeholder="请输入手机号">
+		            <button class="mui-btn inb btn-clear f14" type="submit">提交</button>
 		        </div>
 		    </form>
 		</div>
@@ -107,16 +105,22 @@
 <script>
 import Quick from '@/pages/common/quick/index'
 
-import koHeader from '@/components/layouts/ko-header/index'
-
 export default {
-	extends: Quick,
-	components: {
-		'ko-header': koHeader
-	}
+	extends: Quick
 }
 </script>
 
 <style lang="less">
-	
+	.l-qk-tf-bgbox,
+	.l-qk-tf-swrv {
+		background-image: url('https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png') !important;
+	}
+	.l-qk-tf-put {
+		input {
+			width: 71% !important;
+		}
+		button {
+			line-height: 2.8;
+		}
+	}
 </style>

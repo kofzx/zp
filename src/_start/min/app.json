@@ -2,6 +2,8 @@
   "pages": [
     "pages/min/index/main",
     "pages/min/ding/main",
+    "pages/min/quick/main",
+    "pages/min/assign/main",
     "pages/min/counter/main"
   ],
   "window": {

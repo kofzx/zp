@@ -29,5 +29,15 @@ export default {
 </script>
 
 <style lang="less">
-	@import './index.less';
+	@import '~@/style/common/variables.less';
+
+	.cur-location {
+		height: 50px;
+		line-height: 50px;
+		color: #333;
+		background: white;
+	}
+	.cur-location__light {
+		color: @main;
+	}
 </style>

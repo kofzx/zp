@@ -19,14 +19,14 @@
     <!-- 导航块 -->
     <section class="nav-wrapper zp-container pd-box rel">
       <div class="container row wrap">
-        <div class="nav-item tc">
+        <navigator url='/pages/min/quick/main' class="nav-item tc" hover-class='none'>
           <img class="inb img-box--mini" src="../../../images/navs/quick.png" />
           <p class='f12'>快速转店</p>
-        </div>
-        <div class="nav-item tc">
+        </navigator>
+        <navigator url='/pages/min/assign/main' class="nav-item tc" hover-class='none'>
           <img class="inb img-box--mini" src="../../../images/navs/assign.png" />
           <p class='f12'>商铺转让</p>
-        </div>
+        </navigator>
         <div class="nav-item tc">
           <img class="inb img-box--mini" src="../../../images/navs/ding.png" />
           <p class='f12'>找店选址</p>
@@ -162,11 +162,12 @@
 </template>
 
 <script>
-import Index from '@/pages/common/index/index.vue'
+import Index from '@/pages/common/index/index'
+import reachBottom from '@/mixins/reach-bottom/index'
 
 import wx from 'wx'
 
-import { ytApi, api, fullApi } from '@/service/api'
+import { fullApi } from '@/service/api'
 
 import loading from '@/components/layouts/ko-loading/index'
 
@@ -177,6 +178,7 @@ import headline from '@/components/core/min/headline/index'
 
 export default {
   extends: Index,
+  mixins: [reachBottom],
   components: {
     'search-box': searchBox,
     'store-item': storeItem,
@@ -185,64 +187,37 @@ export default {
   },
   methods: {
     getStoreList (cat_id = this.catActive, page = 1) {
-      this.$flyio.request(fullApi.STROE_LIST, {
-          cid: cat_id,
-          p: page
-        })
-        .then(res => {
-          let storeList = res.data.news;
+      return new Promise((resolve) => {
+        this.$flyio.request(fullApi.STROE_LIST, {
+                cid: cat_id,
+                p: page
+              })
+              .then(res => {
+                console.log(res);
+                let storeList = res.data.news;
 
-          if (storeList == null || storeList == 'undefined') {
-            this.isReachLastPage = true;
-            this.loadingHide();
-            this.showNoMore = true;
-            return;
-          }
+                if (storeList == null || storeList == 'undefined') {
+                  this.isReachLastPage = true;
+                  this.loadingHide();
+                  this.showNoMore = true;
+                  return;
+                }
 
-          this.storeList = this.storeList.concat(this.modifyStoreList(storeList));
+                this.isReachBottom = false;
+                
+                this.storeList = this.storeList.concat(this.onLazyLoad(storeList));
+                console.log(this.storeList);
 
-          console.log(this.storeList);
-          this.isReachBottom = false;
-        });
-    }
-  },
-  mounted () {
-    wx.getSystemInfo({
-      success: res => {
-        this.screenH = res.screenHeight;
-      }
-    });
+                resolve(storeList);
+              });
+      });
+    },
   },
   /*
    * 页面滚动
   */
   onPageScroll () {
-    if (!this.isReachBottom) {  // 函数节流
-      // 图片懒加载
-      const query = wx.createSelectorQuery();
-      query.selectAll(".store-item__left").boundingClientRect(ret => {
-        ret.forEach((item, index) => {
-          if (item.top <= this.screenH) {
-            this.$set(this.storeList[index], 'show', true);
-          }
-        });
-      }).exec();
-    }
-  },
-  /*
-   * 上拉触底
-  */
-  onReachBottom () {
-    this.loadingShow();
-    this.isReachBottom = true;
-    let curPage = this.curPage;
-
-    if (!this.isReachLastPage) {   // 当前不是最后一页
-      this.curPage = curPage + 1;
-
-      this.getStoreList(this.catActive, this.curPage);
-    }
-    this.loadingHide();
+    this.lazyLoad(".store-item__left");
   }
 }
 </script>

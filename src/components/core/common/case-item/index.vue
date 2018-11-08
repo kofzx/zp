@@ -10,7 +10,7 @@
 			</div>
 			<p class="store-item__center container row">
 				<span class="area f12">{{region}} :{{cate}}</span>
-				<span class="rental">{{status}}</span>
+				<span class="rental status">{{status}}</span>
 			</p>
 		</div>
 	</div>
@@ -67,7 +67,9 @@
 		}
 		.rental {
 			// color: #f86648;
-			color: #1aad19;
+			&.status {
+				color: #1aad19;
+			}
 		}
 	}
 	.store-item__center {
