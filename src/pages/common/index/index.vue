@@ -39,17 +39,11 @@ export default {
 	.icon-menu--fix {
 	  margin-left: 10px;
 	}
-	// 轮播
-	.carousel,
-	.carousel-img {
-	  width: 100%;
-	  height: 185px;
-	}
 	// nav-wrapper
 	// loops
 	.nav-item-top(@n, @i: 1) when (@i <= @n) {
 	  &:nth-child(@{i}) {
-	    margin: 10px 0 12px 0;
+	    margin: 18px 0 12px 0;
 	  }
 	  .nav-item-top(@n, @i + 1);
 	}

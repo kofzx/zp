@@ -44,36 +44,25 @@
 		</form>
 		<!-- 商铺列表 -->
 		<section class="zp-container card-box">
-			<store-item v-for='(item, index) in storeList' :key='index'
+			<case-item v-for='(item, index) in storeList' :key='index'
 		        color='189ccd'
-		        :show='item.show'
-		        :src='item.pic_path'
-		        def='https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png'
 		        :title='item.title'
-		        :area='item.area'
-		        :cate='item.rname'
-		        :rental='item.rent'
-		        :time='item.addtime'
-		        :tags='item.tags'
-		        tag-field='name'>
-		    </store-item>
+		        status='转让成功'
+		        region='东莞'
+		        cate='小吃'
+		        :time='item.addtime'>
+		    </case-item>
 		</section>
-		<ko-loading 
-	      :is-load='isLoading'
-	      :no-more='showNoMore'></ko-loading>
 	</div>
 </template>
 
 <script>
 import reachBottom from '@/mixins/reach-bottom/index'
 
-import globalData from '@/_start/min/config'
-import { fullApi } from '@/service/api'
 import mock from '@/pages/mock'
+import { fullApi } from '@/service/api'
 
-import loading from '@/components/layouts/ko-loading/index'
-
-import storeItem from '@/components/core/common/store-item/index'
+import caseItem from '@/components/core/common/case-item/index'
 
 let { tradeArray, regionArray, areaArray, orderArray } = mock;
 
@@ -90,8 +79,7 @@ export default {
 		}
 	},
 	components: {
-		'store-item': storeItem,
-		'ko-loading': loading,
+		'case-item': caseItem,
 	},
 	methods: {
 		getStoreList (cat_id = this.catActive, page = 1) {
@@ -101,6 +89,7 @@ export default {
 			          p: page
 			        })
 			        .then(res => {
+			        	console.log(res);
 			          let storeList = res.data.news;
 
 			          if (storeList == null || storeList == 'undefined') {
@@ -112,33 +101,18 @@ export default {
 
 			          this.isReachBottom = false;
 			          
-			          this.storeList = this.storeList.concat(this.onLazyLoad(storeList));
+			          this.storeList = this.storeList.concat(storeList);
 
 			          resolve(storeList);
 			        });
 			});
 	    },
-	    getTradeArray () {
-	    	this.$flyio.post(fullApi.TRADE_ARRAY, {
-	    		key: globalData.requestKey
-	    	})
-	    	.then(res => {
-	    		console.log(res);
-	    	});
-	    },
-	    onSelector (name) {
+		onSelector (name) {
 	    	this.selectorName = name;
 	    }
 	},
 	created () {
-	    this.getStoreList()
-	    	.then(storeList => {
-	    		this.storeList = this.modifyStoreList(storeList, true);
-	    	});
-	    // this.getTradeArray();
-	},
-	onPageScroll () {
-	  this.lazyLoad(".store-item__left");
+	    this.getStoreList();
 	}
 }
 </script>

@@ -1,0 +1,45 @@
+@import '~@/style/common/variables.less';
+@import '~@/style/common/mixin.less';
+
+.l-st-dtl-tit-box{
+    background-color: #fff;
+    padding: 10px 0;
+}
+.l-st-dtl-tit{
+    font-size: 17px;
+    text-align: center;
+    line-height: 1.5;
+    margin: 0 auto 10px;
+    width: 80%;
+    color: #333;
+    .text-overflow-line(2);
+}
+.l-st-dtl-time{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #9b9b9b;
+    font-size: 12px;
+}
+.l-st-dtl-time p{
+    margin: 0 5px;
+}
+.l-st-dtl-abox{
+    background-color: #fff;
+    display: flex;
+    padding-bottom: 10px;
+}
+.l-st-dtl-abox div{
+    display: flex;
+    flex-direction: column;
+    width: 33.3333%;
+    text-align: center;
+    color: #666;
+}
+.l-st-dtl-abox div p{
+    margin: 8px 0;
+}
+.l-st-dtl-abox div p:nth-child(2){
+    color: @main;
+    font-weight: bold;
+}

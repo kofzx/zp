@@ -1,5 +1,5 @@
 const tabBar = {
-	"color": "#333",
+	  "color": "#333",
     "selectedColor": "orange",
     "list": [
       {

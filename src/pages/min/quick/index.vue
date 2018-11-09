@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<!-- 转店承诺 -->
-		<div class="l-qk-tf-bgbox" v-if="type === 'assign'">
+		<div class="l-qk-tf-bgbox" v-if="quickType === 'assign'">
 		    <div class="l-qk-tf-bgword">
 		        <p>快速转店承诺服务</p>
 		        <p>为您成功转让为止</p>
@@ -9,7 +9,7 @@
 		    </div>
 		</div>
 		<!-- 找店承诺 -->
-		<div class="l-qk-tf-bgbox" v-else-if="type === 'seek'">
+		<div class="l-qk-tf-bgbox" v-else-if="quickType === 'seek'">
 		    <div class="l-qk-tf-bgword">
 		        <p>近30天有 <span>4821</span> 位开店人在</p>
 		        <p>铺莞家找到满意店铺</p>
@@ -106,7 +106,15 @@
 import Quick from '@/pages/common/quick/index'
 
 export default {
-	extends: Quick
+	extends: Quick,
+	data() {
+		return {
+			quickType: ''
+		}
+	},
+	mounted () {
+		this.quickType = this.$root.$mp.query.type;
+	}
 }
 </script>
 

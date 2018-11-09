@@ -297,5 +297,57 @@ export default {
         'M', 'N', 'O', 'P', 'Q', 'R',
         'S', 'T', 'U', 'V', 'W', 'X',
         'Y', 'Z'
+      ],
+      "tradeArray": [
+        [
+          {
+            id: 1,
+            title: 'a'
+          },
+          {
+            id: 2,
+            title: 'b'
+          },
+        ],
+        [
+          {
+            id: 3,
+            title: 'a'
+          },
+          {
+            id: 4,
+            title: 'b'
+          },
+        ]
+      ],
+      "regionArray": [
+        {
+            id: 1,
+            title: 'a'
+          },
+          {
+            id: 2,
+            title: 'b'
+          },
+      ],
+      "areaArray": [
+        {
+            id: 1,
+            title: 'a'
+          },
+          {
+            id: 2,
+            title: 'b'
+          },
+      ],
+      "orderArray": [
+        {
+            id: 1,
+            title: 'a'
+          },
+          {
+            id: 2,
+            title: 'b'
+          },
       ]
 }

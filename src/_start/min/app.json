@@ -4,6 +4,15 @@
     "pages/min/ding/main",
     "pages/min/quick/main",
     "pages/min/assign/main",
+    "pages/min/assign-detail/main",
+    "pages/min/assign-form/main",
+    "pages/min/seek/main",
+    "pages/min/seek-detail/main",
+    "pages/min/case/main",
+    "pages/min/case-detail/main",
+    "pages/min/join/main",
+    "pages/min/news/main",
+    "pages/min/about/main",
     "pages/min/counter/main"
   ],
   "window": {
@@ -11,5 +20,21 @@
     "navigationBarBackgroundColor": "#189ccd",
     "navigationBarTitleText": "找铺",
     "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#333",
+    "selectedColor": "#ffae1a",
+    "backgroundColor": "#fff",
+    "list": [{
+      "pagePath": "pages/min/index/main",
+      "text": "首页",
+      "iconPath": "/static/images/tabs/home.png",
+      "selectedIconPath": "/static/images/tabs/home_on.png"
+    }, {
+      "pagePath": "pages/min/news/main",
+      "text": "运营",
+      "iconPath": "/static/images/tabs/store.png",
+      "selectedIconPath": "/static/images/tabs/store_on.png"
+    }]
   }
 }

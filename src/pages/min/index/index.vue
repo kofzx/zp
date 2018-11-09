@@ -11,7 +11,7 @@
         <p class="iconfont icon-menu icon-menu--fix icon-fix white"></p>
     </search-box>
     <!-- 轮播 -->
-    <swiper class='carousel' autoplay circular>
+    <swiper class='carousel swiper-box' autoplay circular indicator-dots>
       <swiper-item v-for='(item, index) in pics' :key='index'>
         <img class='carousel-img' :src='item.pic' />
       </swiper-item>
@@ -19,7 +19,7 @@
     <!-- 导航块 -->
     <section class="nav-wrapper zp-container pd-box rel">
       <div class="container row wrap">
-        <navigator url='/pages/min/quick/main' class="nav-item tc" hover-class='none'>
+        <navigator url='/pages/min/quick/main?type=assign' class="nav-item tc" hover-class='none'>
           <img class="inb img-box--mini" src="../../../images/navs/quick.png" />
           <p class='f12'>快速转店</p>
         </navigator>
@@ -27,30 +27,30 @@
           <img class="inb img-box--mini" src="../../../images/navs/assign.png" />
           <p class='f12'>商铺转让</p>
         </navigator>
-        <div class="nav-item tc">
+        <navigator url='/pages/min/seek/main' class="nav-item tc" hover-class='none'>
           <img class="inb img-box--mini" src="../../../images/navs/ding.png" />
           <p class='f12'>找店选址</p>
-        </div>
-        <div class="nav-item tc">
+        </navigator>
+        <navigator url='/pages/min/join/main' class="nav-item tc" hover-class='none'>
           <img class="inb img-box--mini" src="../../../images/navs/hezuo.png" />
           <p class='f12'>招商加盟</p>
-        </div>
-        <div class="nav-item tc">
+        </navigator>
+        <navigator url='/pages/min/quick/main?type=seek' class="nav-item tc" hover-class='none'>
           <img class="inb img-box--mini" src="../../../images/navs/seek.png" />
           <p class='f12'>快速找店</p>
-        </div>
-        <div class="nav-item tc">
+        </navigator>
+        <navigator url='/pages/min/news/main' open-type='switchTab' class="nav-item tc" hover-class='none'>
           <img class="inb img-box--mini" src="../../../images/navs/help.png" />
           <p class='f12'>开店百科</p>
-        </div>
-        <div class="nav-item tc">
+        </navigator>
+        <navigator url='/pages/min/case/main' class="nav-item tc" hover-class='none'>
           <img class="inb img-box--mini" src="../../../images/navs/case.png" />
           <p class='f12'>经典案例</p>
-        </div>
-        <div class="nav-item tc">
+        </navigator>
+        <navigator url='/pages/min/about/main' class="nav-item tc" hover-class='none'>
           <img class="inb img-box--mini" src="../../../images/navs/join.png" />
-          <p class='f12'>人才招聘</p>
-        </div>
+          <p class='f12'>关于我们</p>
+        </navigator>
       </div>
       <!-- 头条 -->
       <headline 
@@ -83,7 +83,7 @@
       </div>
       <!-- 内容 -->
       <div class='container row'>
-        <navigator class="publish__store container row center flex-1">
+        <navigator url='/pages/min/assign-form/main' class="publish__store container row center flex-1">
           <img src="https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png" alt="">
           <div class="tc">
             <p>我要转铺</p>
@@ -223,5 +223,5 @@ export default {
 </script>
 
 <style lang="less">
-  
+  @import '~@/style/min/swiper.less';
 </style>
