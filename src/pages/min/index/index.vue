@@ -90,7 +90,7 @@
             <p class="publish__desc f12">快速转让店铺</p>
           </div>
         </navigator>
-        <navigator class="publish__store container row center flex-1">
+        <navigator url='/pages/min/seek-form/main' class="publish__store container row center flex-1">
           <img src="https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png" alt="">
           <div class="tc">
             <p>我要选址</p>

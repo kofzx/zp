@@ -21,3 +21,56 @@
     border-radius: 2px;
     cursor: pointer;
 }
+.layui-btn+.layui-btn {
+    margin-left: 10px;
+}
+.layui-btn-primary {
+    border: 1px solid #C9C9C9;
+    background-color: #fff;
+    color: #555;
+}
+.layui-form-item {
+    margin-bottom: 15px;
+    clear: both;
+    &::after {
+        content: '\20';
+        clear: both;
+        display: block;
+        height: 0;
+    }
+}
+.layui-form-label {
+    float: left;
+    display: block;
+    padding: 9px 15px;
+    width: 80px;
+    font-weight: 400;
+    line-height: 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.layui-input-block {
+    margin-left: 110px;
+    min-height: 36px;
+    line-height: 36px;
+}
+.layui-input, .layui-textarea {
+    display: block;
+    width: 100%;
+    padding-left: 10px;
+    height: 36px;
+    line-height: 36px;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #fff;
+    border-radius: 2px;
+    color: #666;
+}
+.layui-textarea {
+    min-height: 100px;
+    height: auto;
+    line-height: 20px;
+    padding: 6px 10px;
+    resize: vertical;
+}
