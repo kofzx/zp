@@ -1,5 +1,8 @@
 <template>
-	<div class="store-item container row">
+	<a 
+		class="store-item container row"
+		:href='url'
+		hover-class='none'>
 		<img class="store-item__left" :class="{'loaded': show}" :src="show ? src : def" alt="">
 		<div class="store-item__right flex-1">
 			<div class="container row">
@@ -21,24 +24,24 @@
 				<span class="time inb f12">{{time}}</span>
 			</div>
 		</div>
-	</div>
+	</a>
 </template>
 
 <script>
 	import tag from '@/components/layouts/ko-tag/index';
 
 	export default {
-		// props: ['color', 'src', 'title', 'area', 'cate', 'rental', 'time', 'tagField'],
 		props: {
+			url: String,
 			color: String,
 			show: Boolean,
 			src: String,
 			def: String,
 			title: String,
-			area: String,
+			area: [String, Number],
 			cate: String,
-			rental: String,
-			time: String,
+			rental: [String, Number],
+			time: [String, Number],
 			tagField: String,
 			tags: Array
 		},

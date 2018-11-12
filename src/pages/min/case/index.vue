@@ -46,6 +46,7 @@
 		<section class="zp-container card-box">
 			<case-item v-for='(item, index) in storeList' :key='index'
 		        color='189ccd'
+		        :url="'/pages/min/case-detail/main?id=' + item.id"
 		        :title='item.title'
 		        status='转让成功'
 		        region='东莞'
@@ -57,7 +58,7 @@
 </template>
 
 <script>
-import reachBottom from '@/mixins/reach-bottom/index'
+import reachBottom from '@/mixins/reach-bottom/index.min'
 
 import mock from '@/pages/mock'
 import { fullApi } from '@/service/api'

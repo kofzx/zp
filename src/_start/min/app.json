@@ -14,9 +14,15 @@
     "pages/min/join/main",
     "pages/min/publish/main",
     "pages/min/news/main",
+    "pages/min/news-detail/main",
     "pages/min/about/main",
     "pages/min/user/main",
     "pages/min/settings/main",
+    "pages/min/suggest/main",
+    "pages/min/register/main",
+    "pages/min/alter/main",
+    "pages/min/login/main",
+    "pages/min/reset/main",
     "pages/min/counter/main"
   ],
   "window": {

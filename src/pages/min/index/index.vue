@@ -19,38 +19,16 @@
     <!-- 导航块 -->
     <section class="nav-wrapper zp-container pd-box rel">
       <div class="container row wrap">
-        <navigator url='/pages/min/quick/main?type=assign' class="nav-item tc" hover-class='none'>
-          <img class="inb img-box--mini" src="../../../images/navs/quick.png" />
-          <p class='f12'>快速转店</p>
-        </navigator>
-        <navigator url='/pages/min/assign/main' class="nav-item tc" hover-class='none'>
-          <img class="inb img-box--mini" src="../../../images/navs/assign.png" />
-          <p class='f12'>商铺转让</p>
-        </navigator>
-        <navigator url='/pages/min/seek/main' class="nav-item tc" hover-class='none'>
-          <img class="inb img-box--mini" src="../../../images/navs/ding.png" />
-          <p class='f12'>找店选址</p>
-        </navigator>
-        <navigator url='/pages/min/join/main' class="nav-item tc" hover-class='none'>
-          <img class="inb img-box--mini" src="../../../images/navs/hezuo.png" />
-          <p class='f12'>招商加盟</p>
-        </navigator>
-        <navigator url='/pages/min/quick/main?type=seek' class="nav-item tc" hover-class='none'>
-          <img class="inb img-box--mini" src="../../../images/navs/seek.png" />
-          <p class='f12'>快速找店</p>
-        </navigator>
-        <navigator url='/pages/min/news/main' open-type='switchTab' class="nav-item tc" hover-class='none'>
-          <img class="inb img-box--mini" src="../../../images/navs/help.png" />
-          <p class='f12'>开店百科</p>
-        </navigator>
-        <navigator url='/pages/min/case/main' class="nav-item tc" hover-class='none'>
-          <img class="inb img-box--mini" src="../../../images/navs/case.png" />
-          <p class='f12'>经典案例</p>
-        </navigator>
-        <navigator url='/pages/min/about/main' class="nav-item tc" hover-class='none'>
-          <img class="inb img-box--mini" src="../../../images/navs/join.png" />
-          <p class='f12'>关于我们</p>
-        </navigator>
+        <a 
+          v-for='(item, index) in navBar'
+          :key='index'
+          class="nav-item tc"
+          :open-type='item.openType'
+          :href='item.url'
+          hover-class='none'>
+          <img class="inb img-box--mini" :src="item.pic" />
+          <p class='f12'>{{item.title}}</p>
+        </a>
       </div>
       <!-- 头条 -->
       <headline 
@@ -83,20 +61,24 @@
       </div>
       <!-- 内容 -->
       <div class='container row'>
-        <navigator url='/pages/min/assign-form/main' class="publish__store container row center flex-1">
+        <a 
+          href='/pages/min/assign-form/main'
+          class="publish__store container row center flex-1">
           <img src="https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png" alt="">
           <div class="tc">
             <p>我要转铺</p>
             <p class="publish__desc f12">快速转让店铺</p>
           </div>
-        </navigator>
-        <navigator url='/pages/min/seek-form/main' class="publish__store container row center flex-1">
+        </a>
+        <a 
+          href='/pages/min/seek-form/main'
+          class="publish__store container row center flex-1">
           <img src="https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png" alt="">
           <div class="tc">
             <p>我要选址</p>
             <p class="publish__desc f12">找到心怡店铺</p>
           </div>
-        </navigator>
+        </a>
       </div>
     </section>
     <!-- 在线客服 -->
@@ -104,13 +86,16 @@
       <!-- 标题 -->
       <div class="title-grp container row">
         <p class="f16">在线咨询</p>
-        <navigator class=''>查看更多 &gt; </navigator>
+        <a class=''>查看更多 &gt; </a>
       </div>
       <div class="container row">
-          <navigator class='flex-1 tc' hover-class='none' v-for='(item, index) in 4' :key='index'>
+          <a 
+            class='flex-1 tc' hover-class='none' 
+            v-for='(item, index) in 4' 
+            :key='index'>
             <img class="online__avator inb" src="https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png" alt="">
             <p class="online__name inb">客服徐小姐</p>
-          </navigator>
+          </a>
       </div>
     </section>
     <!-- 项目加盟 -->
@@ -118,7 +103,7 @@
       <!-- 标题 -->
       <div class="title-grp container row">
         <p class="f16">招商加盟</p>
-        <navigator class=''>查看更多 &gt; </navigator>
+        <a class=''>查看更多 &gt; </a>
       </div>
       <!-- 轮播 -->
       <swiper class='join__carousel' autoplay circular>
@@ -137,11 +122,12 @@
       <!-- 标题 -->
       <div class="title-grp container row">
         <p class="f16">猜你喜欢</p>
-        <navigator class=''>查看更多 &gt; </navigator>
+        <a class=''>查看更多 &gt; </a>
       </div>
       <!-- 商铺列表 -->
       <store-item v-for='(item, index) in storeList' :key='index'
         color='189ccd'
+        :url="'/pages/min/assign-detail/main?id=' + item.id"
         :show='item.show'
         :src='item.pic_path'
         def='https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png'
@@ -163,22 +149,24 @@
 
 <script>
 import Index from '@/pages/common/index/index'
-import reachBottom from '@/mixins/reach-bottom/index'
+import reachBottom from '@/mixins/reach-bottom/index.min'
 
 import wx from 'wx'
-
+import localData from '@/pages/common/index/localData'
 import { fullApi } from '@/service/api'
 
 import loading from '@/components/layouts/ko-loading/index'
-
 import storeItem from '@/components/core/common/store-item/index'
-
 import searchBox from '@/components/core/min/search-box/index'
 import headline from '@/components/core/min/headline/index'
 
 export default {
-  extends: Index,
-  mixins: [reachBottom],
+  mixins: [Index, reachBottom],
+  data() {
+    return {
+      navBar: localData.navBar
+    }
+  },
   components: {
     'search-box': searchBox,
     'store-item': storeItem,
@@ -223,5 +211,6 @@ export default {
 </script>
 
 <style lang="less">
+  @import '~@/pages/common/index/index.less';
   @import '~@/style/min/swiper.less';
 </style>

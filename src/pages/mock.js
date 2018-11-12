@@ -23,6 +23,7 @@ export default {
       ],
       "storeList": [
         {
+          "id": 0,
           "pic": "https://nc.6mo.cc/nmwuploads/20180925/22491d1ed966f0c2b0fe1e70f0c25bcf.jpg",
           "title": "3万接手/清溪金阳广场 奶茶店急转/租金便宜",
           "area": 100,
@@ -41,6 +42,7 @@ export default {
           ]
         },
         {
+          "id": 0,
           "pic": "https://nc.6mo.cc/nmwuploads/20180925/22491d1ed966f0c2b0fe1e70f0c25bcf.jpg",
           "title": "3万接手/清溪金阳广场 奶茶店急转/租金便宜",
           "area": 50,
@@ -59,6 +61,7 @@ export default {
           ]
         },
         {
+          "id": 0,
           "pic": "https://nc.6mo.cc/nmwuploads/20180925/22491d1ed966f0c2b0fe1e70f0c25bcf.jpg",
           "title": "3万接手/清溪金阳广场 奶茶店急转/租金便宜",
           "area": 50,
@@ -77,6 +80,7 @@ export default {
           ]
         },
         {
+          "id": 0,
           "pic": "https://nc.6mo.cc/nmwuploads/20180925/22491d1ed966f0c2b0fe1e70f0c25bcf.jpg",
           "title": "3万接手/清溪金阳广场 奶茶店急转/租金便宜",
           "area": 50,
@@ -95,6 +99,7 @@ export default {
           ]
         },
         {
+          "id": 0,
           "pic": "https://nc.6mo.cc/nmwuploads/20180925/22491d1ed966f0c2b0fe1e70f0c25bcf.jpg",
           "title": "3万接手/清溪金阳广场 奶茶店急转/租金便宜",
           "area": 50,

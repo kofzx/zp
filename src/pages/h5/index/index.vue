@@ -24,38 +24,16 @@
     <!-- 导航块 -->
     <section class="nav-wrapper zp-container pd-box rel">
       <div class="container row wrap">
-        <router-link class="nav-item tc" to='/quick'>
-          <img class="inb img-box--medium" src="../../../images/navs/quick.png" />
-          <p class='f14'>快速转店</p>
-        </router-link>
-        <router-link class="nav-item tc" to='/assign'>
-          <img class="inb img-box--medium" src="../../../images/navs/assign.png" />
-          <p class='f14'>商铺转让</p>
-        </router-link>
-        <router-link class="nav-item tc" to='/seek'>
-          <img class="inb img-box--medium" src="../../../images/navs/ding.png" />
-          <p class='f14'>找店选址</p>
-        </router-link>
-        <router-link class="nav-item tc" to='/join'>
-          <img class="inb img-box--medium" src="../../../images/navs/hezuo.png" />
-          <p class='f14'>招商加盟</p>
-        </router-link>
-        <div class="nav-item tc">
-          <img class="inb img-box--medium" src="../../../images/navs/seek.png" />
-          <p class='f14'>快速找店</p>
-        </div>
-        <div class="nav-item tc">
-          <img class="inb img-box--medium" src="../../../images/navs/help.png" />
-          <p class='f14'>开店百科</p>
-        </div>
-        <router-link class="nav-item tc" to='/case'>
-          <img class="inb img-box--medium" src="../../../images/navs/case.png" />
-          <p class='f14'>经典案例</p>
-        </router-link>
-        <router-link class="nav-item tc" to='/about'>
-          <img class="inb img-box--medium" src="../../../images/navs/join.png" />
-          <p class='f14'>关于我们</p>
-        </router-link>
+        <a 
+          v-for='(item, index) in navBar'
+          :key='index'
+          class="nav-item tc"
+          :open-type='item.openType'
+          :href='item.url'
+          hover-class='none'>
+          <img class="inb img-box--mini" :src="item.pic" />
+          <p class='f12'>{{item.title}}</p>
+        </a>
       </div>
       <!-- 头条 -->
       <headline 
@@ -149,6 +127,7 @@
       <!-- 商铺列表 -->
       <store-item v-for='(item, index) in storeList' :key='index'
         color='189ccd'
+        :url="'/pages/min/assign-detail/main?id=' + item.id"
         :show='item.show'
         :src='item.pic_path'
         def='https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png'
@@ -174,29 +153,30 @@
 </template>
 
 <script>
-import Index from '@/pages/common/index/index.vue'
-
-import util from '@/utils/index'
-
 import Swiper from 'swiper'
 import 'swiper/dist/css/swiper.css'
 
+import Index from '@/pages/common/index/index'
+import reachBottom from '@/mixins/reach-bottom/index.h5'
+
+import util from '@/utils/index'
+
+import localData from '@/pages/common/index/localData'
 import tabBar from '@/_start/h5/tabBar'
 import { apiName, ytApi, api, fullApi } from '@/service/api'
 
 import loading from '@/components/layouts/ko-loading/index'
-
 import storeItem from '@/components/core/common/store-item/index'
-
 import searchBox from '@/components/core/h5/search-box/index'
 import headline from '@/components/core/h5/headline/index'
 import tabbar from '@/components/core/h5/tabbar/index'
 
 export default {
-  extends: Index,
+  mixins: [Index, reachBottom],
   data() {
     return {
-      tabBar
+      tabBar,
+      navBar: localData.navBar
     }
   },
   components: {
@@ -288,7 +268,13 @@ export default {
 </script>
 
 <style lang="less">
+  @import '~@/pages/common/index/index.less';
   @import '~@/style/common/variables.less';
+  .carousel,
+  .carousel-img {
+    width: 100%;
+    height: 185px;
+  }
   // 更改组件样式
   .wh_indicator {
     bottom: 12px !important;

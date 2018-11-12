@@ -12,7 +12,7 @@
 		<div class="l-set-box">
 		    <div class="l-center">
 		        <div class="l-set-list">
-		            <a hover-class='none' href="set-suggest.html"><p>意见反馈</p><i class="iconfont icon-arrow-right"></i></a>
+		            <a hover-class='none' href='/pages/min/suggest/main'><p>意见反馈</p><i class="iconfont icon-arrow-right"></i></a>
 		            <a hover-class='none' href="set-pwd.html"><p>修改密码</p><i class="iconfont icon-arrow-right"></i></a>
 		        </div>
 		    </div>

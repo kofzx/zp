@@ -1,5 +1,8 @@
 <template>
-	<div class="store-item container row">
+	<a 
+		class="store-item container row"
+		:href='url'
+		hover-class='none'>
 		<div class="store-item__right flex-1">
 			<div class="container row">
 				<div>
@@ -13,7 +16,7 @@
 				<span class="rental status">{{status}}</span>
 			</p>
 		</div>
-	</div>
+	</a>
 </template>
 
 <script>
@@ -21,6 +24,7 @@
 
 	export default {
 		props: {
+			url: String,
 			color: String,
 			title: String,
 			status: String,

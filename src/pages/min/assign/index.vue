@@ -46,6 +46,7 @@
 		<section class="zp-container card-box">
 			<store-item v-for='(item, index) in storeList' :key='index'
 		        color='189ccd'
+		        :url="'/pages/min/assign-detail/main?id=' + item.id"
 		        :show='item.show'
 		        :src='item.pic_path'
 		        def='https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png'
@@ -65,7 +66,7 @@
 </template>
 
 <script>
-import reachBottom from '@/mixins/reach-bottom/index'
+import reachBottom from '@/mixins/reach-bottom/index.min'
 
 import globalData from '@/_start/min/config'
 import { fullApi } from '@/service/api'

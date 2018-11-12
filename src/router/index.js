@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import index from '@/pages/h5/index'
 import ding from '@/pages/h5/ding'
 import news from '@/pages/h5/news'
+import newsDetail from '@/pages/h5/news-detail'
 import publish from '@/pages/h5/publish'
 import user from '@/pages/h5/user'
 import quick from '@/pages/h5/quick'
@@ -18,6 +19,10 @@ import join from '@/pages/h5/join'
 import about from '@/pages/h5/about'
 import settings from '@/pages/h5/settings'
 import suggest from '@/pages/h5/suggest'
+import login from '@/pages/h5/login'
+import reset from '@/pages/h5/reset'
+import register from '@/pages/h5/register'
+import alter from '@/pages/h5/alter'
 import counter from '@/pages/h5/counter'
 
 Vue.use(Router)
@@ -39,6 +44,11 @@ export default new Router({
       path: '/news',
       name: 'news',
       component: news
+    },
+    {
+      path: '/newsDetail',
+      name: 'newsDetail',
+      component: newsDetail
     },
     {
       path: '/publish',
@@ -114,6 +124,26 @@ export default new Router({
       path: '/suggest',
       name: 'suggest',
       component: suggest
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: login
+    },
+    {
+      path: '/reset',
+      name: 'reset',
+      component: reset
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: register
+    },
+    {
+      path: '/alter',
+      name: 'alter',
+      component: alter
     },
     {
       path: '/counter',
