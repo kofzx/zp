@@ -12,6 +12,9 @@
     "pages/min/case/main",
     "pages/min/case-detail/main",
     "pages/min/join/main",
+    "pages/min/kefu/main",
+    "pages/min/kefu-list/main",
+    "pages/min/kefu-detail/main",
     "pages/min/publish/main",
     "pages/min/news/main",
     "pages/min/news-detail/main",
@@ -46,6 +49,11 @@
       "iconPath": "/static/images/tabs/store.png",
       "selectedIconPath": "/static/images/tabs/store_on.png"
     }, {
+      "pagePath": "pages/min/kefu/main",
+      "text": "客服",
+      "iconPath": "/static/images/tabs/kefu.png",
+      "selectedIconPath": "/static/images/tabs/kefu_on.png"
+    },{
       "pagePath": "pages/min/publish/main",
       "text": "发布",
       "iconPath": "/static/images/tabs/publish.png",

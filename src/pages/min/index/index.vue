@@ -1,15 +1,20 @@
 <template>
   <div class='index-wrapper'>
-    <!-- 搜索 -->
-    <search-box 
-      ss-color='189ccd' 
-      :has-ding='true' 
-      ding-url='/pages/min/ding/main'
-      :is-jump='true' 
-      jump-url='/pages/min/ding/main'
-      placeholder='找店铺/找项目'>
-        <p class="iconfont icon-menu icon-menu--fix icon-fix white"></p>
-    </search-box>
+    <div class="top-wrapper container row">
+        <!-- 定位 -->
+        <navigator class="top-wrapper__url white" hover-class='none' url="/pages/min/ding/main">东莞</navigator>
+        <div class="flex-1">
+          <!-- 搜索 -->
+          <search-box 
+            ss-color='189ccd' 
+            :has-ding='true' 
+            :is-jump='true' 
+            jump-url='/pages/min/ding/main'
+            placeholder='找店铺/找项目'>
+              <a href="/pages/min/ding/main" hover-class='none' class="white ml-10">搜索</a>
+          </search-box>
+        </div>
+    </div>
     <!-- 轮播 -->
     <swiper class='carousel swiper-box' autoplay circular indicator-dots>
       <swiper-item v-for='(item, index) in pics' :key='index'>
@@ -200,6 +205,24 @@ export default {
               });
       });
     },
+    fetchIndex () {
+      // this.$flyio.get(fullApi.INDEX_DATA)
+      //   .then(res => {
+      //     console.log(res);
+      //   });
+      wx.request({
+        url: fullApi.INDEX_DATA,
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success (res) {
+          console.log(res)
+        }
+      });
+    },
+  },
+  created () {
+    this.fetchIndex();
   },
   /*
    * 页面滚动

@@ -1,8 +1,6 @@
 <template>
     <form @submit='searchSubmit'>
     	<div class="search-wrapper container row">
-    		<!-- 定位 -->
-	      <navigator class="search-wrapper__url white" hover-class='none' :url="dingUrl" v-if='hasDing'>东莞</navigator>
 	      <div class='search-wrapper__box flex-1 white rel container row'>
 	      	<div class="search-wrapper__icon--ss" :style="{'background-image': ssUrl}"></div>
 	      	<input class="search-wrapper__input flex-1" type="text" :placeholder="placeholder">
@@ -58,9 +56,6 @@
 		background: white;
 		border-radius: 20px;
 		padding: 0 10px;
-	}
-	.search-wrapper__url {
-		margin: 0 15px 0 5px;
 	}
 	.search-wrapper__mask {
 		width: 100%;

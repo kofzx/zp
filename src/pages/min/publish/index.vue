@@ -51,7 +51,7 @@ export default {
 	.l-ico-release {
 	    position: absolute;
 	    right: 34px;
-	    font-size: 90px;
+	    font-size: 90px !important;
 	    top: 27px;
 	}
 </style>

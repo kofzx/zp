@@ -55,9 +55,6 @@ export default {
 			    }
 			};
 			step();
-			
-
-			// document.body.scrollTop = scrollTop + elementTop - headerH;
 		}
 	},
 	components: {
