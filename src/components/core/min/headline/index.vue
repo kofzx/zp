@@ -7,23 +7,31 @@
 	        	<span class="headline-wrapper__title f12">{{item[newsTitleField]}}</span>
 	        	<span class="f10" :style="{color: lightColor}">{{item[newsTimeField]}}</span>
 	        </p>
-	        <img class="headline-wrapper__img" src="https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png" alt="">
+	        <img class="headline-wrapper__img" :src="img_url + item[newsSrcField]" alt="">
 	      </swiper-item>
 	    </swiper>
 	</div>
 </template>
 
 <script>
+import { pgjApi } from '@/service/api'
+
 export default {
 	props: {
 		newsList: Array,	// 新闻列表
 		newsTitleField: String,		// 新闻标题字段
 		newsTimeField: String,		// 新闻时间字段
+		newsSrcField: String,		// 新闻图片字段
 		lightColor: {		// 时间高亮颜色
 			type: String,
 			default: 'red'
 		}
-	}
+	},
+	data() {
+		return {
+			img_url: pgjApi
+		}
+	},
 }
 </script>
 

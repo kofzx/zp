@@ -119,6 +119,10 @@ export default {
 	@import '~@/style/min/layui.less';
 	@import '~@/style/common/components/form.less';
 
+	.iconfont {
+		font-size: 16px !important;
+	}
+
 	.l-r-tf-box {
 		margin-top: 0 !important;
 	}

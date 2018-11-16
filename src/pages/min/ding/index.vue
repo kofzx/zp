@@ -2,12 +2,11 @@
 	<div>
 		<p class="cur-location pd-box">定位城市：<span class="cur-location__light">{{location}}</span></p>
 		<city-item 
-			v-for="(item, index) in cityList" 
+			v-for="(val, key, index) in cityList" 
 			:key="index" 
-			:id = 'item.title === "热门城市" ? "remen" : item.title'
-			:title='item.title' 
-			:city-list='item.city' 
-			city-field='name'
+			:title='key' 
+			:city-list='val'
+			city-field='area_name'
 			@changeCity='changeCity' />
 		<city-fixed
 			:city-titles='cityTitles'
@@ -21,12 +20,19 @@ import Ding from '@/pages/common/ding/index.vue'
 
 import wx from 'wx'
 import util from '@/utils/index'
+import { fullApi } from '@/service/api'
 
 import cityItem from '@/components/core/common/city-item/index'
 import cityFixed from '@/components/core/common/city-fixed/index'
 
 export default {
 	extends: Ding,
+	data () {
+		return {
+			cityList: {},
+			cityTitles: []
+		}
+	},
 	methods: {
 		// 获取视口以外的scrollTop
 		_getScrollTop () {
@@ -50,12 +56,31 @@ export default {
 							util.scrollTo(ret[0].top + scrollTop);
 						});
 				}).exec();
+		},
+		getCityTitles (list) {
+			let array = [];
+			for (let key in list) {
+				array.push(key);
+			}
+			return array;
+		},
+		fetchCityList () {
+			this.$flyio.get(fullApi.CITY_LIST)
+				.then(res => {
+					let cityList = res.data;
+					this.cityList = cityList;
+
+					this.cityTitles = this.getCityTitles(cityList);
+				});
 		}
 	},
 	components: {
 		cityItem,
 		cityFixed
-	}
+	},
+	created () {
+		this.fetchCityList();
+	},
 }
 </script>
 

@@ -1,4 +1,5 @@
 @import '~@/style/common/variables.less';
+@import '~@/style/common/mixin.less';
 
 @top-h: 40px;
 .top-filter {
@@ -33,5 +34,9 @@
 			left: 0;
 			bottom: 0;
 		}
+	}
+	div {
+		max-width: 375 / 4px;
+		.text-overflow();
 	}
 }

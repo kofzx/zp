@@ -17,8 +17,10 @@
     </div>
     <!-- 轮播 -->
     <swiper class='carousel swiper-box' autoplay circular indicator-dots>
-      <swiper-item v-for='(item, index) in pics' :key='index'>
-        <img class='carousel-img' :src='item.pic' />
+      <swiper-item 
+        v-for='(item, index) in carousel' 
+        :key='index'>
+        <img class='carousel-img' :src='img_url + item.pic_path' />
       </swiper-item>
     </swiper>
     <!-- 导航块 -->
@@ -38,12 +40,13 @@
       <!-- 头条 -->
       <headline 
         light-color='#f86648'
-        :news-list='newsList'
+        :news-list='urgentList'
         news-title-field='title'
-        news-time-field='time' />
+        news-time-field='finishtime'
+        news-src-field='images_path' />
     </section>
     <!-- 店铺数据 -->
-    <section class="store-data zp-container container row">
+    <!-- <section class="store-data zp-container container row">
       <div class="store-data__item flex-1">
         <p class="data">487</p>
         <p class="title f12">新增铺位</p>
@@ -56,15 +59,13 @@
         <p class="data">1470</p>
         <p class="title f12">在线找店</p>
       </div>
-    </section>
+    </section> -->
     <!-- 精准发布 -->
-    <section class="publish zp-container">
-      <!-- 标题 -->
+    <!-- <section class="publish zp-container">
       <div class="publish__title title-grp container row">
         <p class="f16">精准发布</p>
         <p>已匹配 <span class="light-color">4371</span>次</p>
       </div>
-      <!-- 内容 -->
       <div class='container row'>
         <a 
           href='/pages/min/assign-form/main'
@@ -85,9 +86,9 @@
           </div>
         </a>
       </div>
-    </section>
+    </section> -->
     <!-- 在线客服 -->
-    <section class="online zp-container">
+    <section class="online zp-container" style="margin-top: 0">
       <!-- 标题 -->
       <div class="title-grp container row">
         <p class="f16">在线咨询</p>
@@ -96,139 +97,151 @@
       <div class="container row">
           <a 
             class='flex-1 tc' hover-class='none' 
-            v-for='(item, index) in 4' 
+            v-for='(item, index) in customer' 
             :key='index'>
-            <img class="online__avator inb" src="https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png" alt="">
-            <p class="online__name inb">客服徐小姐</p>
+            <img 
+              class="online__avator inb" 
+              :src="img_url + item.headimg">
+            <p class="online__name inb">{{item.name}}</p>
           </a>
       </div>
     </section>
     <!-- 项目加盟 -->
-    <section class="join zp-container">
-      <!-- 标题 -->
+    <!-- <section class="join zp-container">
       <div class="title-grp container row">
         <p class="f16">招商加盟</p>
         <a class=''>查看更多 &gt; </a>
       </div>
-      <!-- 轮播 -->
       <swiper class='join__carousel' autoplay circular>
-        <swiper-item class='join__carousel__item container row' v-for='(item, index) in 3' :key='index'>
-          <img src="https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png" />
+        <swiper-item 
+          class='join__carousel__item container row' 
+          v-for='(item, index) in league' 
+          :key='index'>
+          <img :src="img_url + item.pic_path" />
           <div class="flex-1">
-            <h2 class="title">aaa</h2>
-            <p class="desc f12">泰芒以多元化经营闻名，打开品牌高速发展打开全新的局面，泰芒作为全国的轻餐品牌，品牌调性清新、阳光、广受年轻人喜欢，现在如今有很多分店，已经遍布全国各个省份。中国的茶饮历史源远流长，结合时代的变迁要求，茶饮的品类日益增多，调查显示，中国14亿人口，人均年消费茶叶0.36公斤，数额可观。近年茶饮饮料年产量都在10000万吨，茶饮占餐饮市场份额超过20%，根据目前市场需求预测，中国以后平均每1000人就会拥有一家皇茶连锁店。</p>
-            <p class="f12 light-color">1.2-13.7</p>
+            <h2 class="title">{{item.title}}</h2>
+            <p class="desc f12">{{item.description}}</p>
+            <p class="f12 light-color">{{item.money}}</p>
           </div>
         </swiper-item>
       </swiper>
-    </section>
-    <!-- 猜你喜欢 -->
+    </section> -->
+    <!-- 推荐店铺 -->
     <section class="like zp-container">
       <!-- 标题 -->
       <div class="title-grp container row">
-        <p class="f16">猜你喜欢</p>
+        <p class="f16">推荐店铺</p>
         <a class=''>查看更多 &gt; </a>
       </div>
       <!-- 商铺列表 -->
-      <store-item v-for='(item, index) in storeList' :key='index'
+      <store-item v-for='(item, index) in normalList' :key='index'
         color='189ccd'
         :url="'/pages/min/assign-detail/main?id=' + item.id"
-        :show='item.show'
-        :src='item.pic_path'
-        def='https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png'
+        :src='img_url + item.images_path'
         :title='item.title'
         :area='item.area'
-        :cate='item.rname'
+        :cate='item.cat_name'
         :rental='item.rent'
         :time='item.addtime'
         :tags='item.tags'
         tag-field='name'>
       </store-item>
     </section>
-    <ko-loading 
-      :is-load='isLoading'
-      :no-more='showNoMore'></ko-loading>
+    <!-- 成功案例 -->
+    <section class="like zp-container">
+      <!-- 标题 -->
+      <div class="title-grp container row">
+        <p class="f16">成功案例</p>
+        <a class=''>查看更多 &gt; </a>
+      </div>
+      <!-- 商铺列表 -->
+      <store-item v-for='(item, index) in finishList' :key='index'
+        color='189ccd'
+        :url="'/pages/min/assign-detail/main?id=' + item.id"
+        :src='img_url + item.images_path'
+        :title='item.title'
+        :area='item.area'
+        :cate='item.cat_name'
+        :rental='item.rent'
+        :time='item.addtime'
+        :tags='item.tags'
+        tag-field='name'>
+      </store-item>
+    </section>
+    <section class="expect">
+        <p>更多内容，敬请期待</p>
+        <p></p>
+    </section>
     <!-- <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a> -->
   </div>
 </template>
 
 <script>
 import Index from '@/pages/common/index/index'
-import reachBottom from '@/mixins/reach-bottom/index.min'
 
 import wx from 'wx'
 import localData from '@/pages/common/index/localData'
-import { fullApi } from '@/service/api'
+import { pgjApi, fullApi } from '@/service/api'
 
-import loading from '@/components/layouts/ko-loading/index'
 import storeItem from '@/components/core/common/store-item/index'
 import searchBox from '@/components/core/min/search-box/index'
 import headline from '@/components/core/min/headline/index'
 
 export default {
-  mixins: [Index, reachBottom],
+  mixins: [Index],
   data() {
     return {
-      navBar: localData.navBar
+      navBar: localData.navBar,
+      img_url: pgjApi,
+      carousel: [],
+      customer: [],
+      finishList: [],
+      normalList: [],
+      urgentList: [],
+      league: []
     }
   },
   components: {
     'search-box': searchBox,
     'store-item': storeItem,
-    'ko-loading': loading,
     headline
   },
   methods: {
-    getStoreList (cat_id = this.catActive, page = 1) {
+    getStoreList (cat_id = 40, page = 1) {
       return new Promise((resolve) => {
         this.$flyio.request(fullApi.STROE_LIST, {
                 cid: cat_id,
                 p: page
               })
               .then(res => {
-                console.log(res);
+
                 let storeList = res.data.news;
 
-                if (storeList == null || storeList == 'undefined') {
-                  this.isReachLastPage = true;
-                  this.loadingHide();
-                  this.showNoMore = true;
-                  return;
-                }
-
-                this.isReachBottom = false;
+                if (storeList == null || storeList == 'undefined') return;
                 
-                this.storeList = this.storeList.concat(this.onLazyLoad(storeList));
-                console.log(this.storeList);
+                this.storeList = storeList;
 
                 resolve(storeList);
               });
       });
     },
     fetchIndex () {
-      // this.$flyio.get(fullApi.INDEX_DATA)
-      //   .then(res => {
-      //     console.log(res);
-      //   });
-      wx.request({
-        url: fullApi.INDEX_DATA,
-        header: {
-          'content-type': 'application/json' // 默认值
-        },
-        success (res) {
-          console.log(res)
-        }
-      });
+      this.$flyio.get(fullApi.INDEX_DATA)
+        .then(res => {
+
+          let { carousel, customer, is_finish, is_normal, is_urgent, league } = res.data;
+          this.carousel = carousel;
+          this.customer = customer;
+          this.finishList = is_finish;
+          this.normalList = is_normal;
+          this.urgentList = is_urgent;
+          this.league = league;
+        });
     },
   },
   created () {
+    // this.getStoreList();
     this.fetchIndex();
-  },
-  /*
-   * 页面滚动
-  */
-  onPageScroll () {
-    this.lazyLoad(".store-item__left");
   }
 }
 </script>

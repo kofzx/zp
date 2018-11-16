@@ -34,7 +34,7 @@
 		props: {
 			url: String,
 			color: String,
-			show: Boolean,
+			show: { type: Boolean, default: true },
 			src: String,
 			def: String,
 			title: String,

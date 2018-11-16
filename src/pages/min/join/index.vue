@@ -1,16 +1,19 @@
 <template>
 	<div>
 		<!-- 加盟列表 -->
-		<div class="l-join-box">
+		<div 
+			v-for='(item, index) in list'
+			:key='index'
+			class="l-join-box">
 		    <div class="l-center">
 		        <div class="l-join-bor">
-		            <div class="l-join-img"><img src="../../../../static/images/header.png"></div>
+		            <div class="l-join-img"><img :src="img_url + item.pic_path"></div>
 		            <div class="l-join-word">
-		                <p class="l-join-tit">美宜佳便利店</p>
-		                <p class="l-join-mint">便利店</p>
-		                <p class="l-join-money">3.2万-5.5万</p>
+		                <p class="l-join-tit">{{item.title}}</p>
+		                <p class="l-join-mint">{{item.description}}</p>
+		                <p class="l-join-money">{{item.money}}</p>
 		            </div>
-		            <a href="" class="l-join-call">免费咨询</a>
+		            <p class="l-join-call" @click='makeCall(item.phone)'>免费咨询</p>
 		        </div>
 		    </div>
 		</div>
@@ -18,8 +21,36 @@
 </template>
 
 <script>
-export default {
+import wx from 'wx'
 
+import { pgjApi, fullApi } from '@/service/api'
+
+export default {
+	data() {
+		return {
+			img_url: pgjApi,
+			list: []
+		}
+	},
+	methods: {
+		getLeague () {
+			return new Promise((resolve) => {
+		        this.$flyio.get(fullApi.JOIN_LOAD)
+		            .then(res => {
+		            	console.log(res);
+		            	this.list = res.data.data;
+		            });
+		    });
+		},
+		makeCall (phone) {
+			wx.makePhoneCall({
+				phoneNumber: phone
+			});
+		}
+	},
+	created () {
+		this.getLeague();
+	}
 }
 </script>
 

@@ -131,6 +131,10 @@ export default {
 @import '~@/style/min/layui.less';
 @import '~@/style/common/components/form.less';
 
+.iconfont {
+	font-size: 16px !important;
+}
+
 // .l-release-box{
 // 	background: url("https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png") no-repeat center;
 // 	background-size: 100%;
