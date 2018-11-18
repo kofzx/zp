@@ -1,21 +1,39 @@
 <template>
 	<div class="pd-box">
 		<call-item
-			url=''
-			src='../../../../static/images/header.png'
-			title='网络客服客服徐小姐'
-			phone='13424446056'
-			count1='524'
-			count2='638' />
+			v-for='(item, index) in list'
+			:key='index'
+			:src="img_url + item.headimg"
+			:title='item.name'
+			:phone='item.phone' />
 	</div>
 </template>
 
 <script>
+import { pgjApi, fullApi } from '@/service/api'
+
 import callItem from '@/components/core/common/call-item/index'
 
 export default {
+	data() {
+		return {
+			img_url: pgjApi,
+			list: []
+		}
+	},
 	components: {
 		'call-item': callItem
+	},
+	methods: {
+		getKefu () {
+			this.$flyio.get(fullApi.KEFU_INIT)
+				.then(res => {
+					this.list = res.data;
+				});
+		}
+	},
+	created () {
+		this.getKefu();
 	}
 }
 </script>

@@ -92,13 +92,15 @@
       <!-- 标题 -->
       <div class="title-grp container row">
         <p class="f16">在线咨询</p>
-        <a class=''>查看更多 &gt; </a>
+        <a href='/pages/min/kefu-list/main' hover-class='none'>查看更多 &gt; </a>
       </div>
       <div class="container row">
           <a 
-            class='flex-1 tc' hover-class='none' 
+            class='flex-1 tc' 
+            hover-class='none' 
             v-for='(item, index) in customer' 
-            :key='index'>
+            :key='index'
+            @click='makeCall(item.phone)'>
             <img 
               class="online__avator inb" 
               :src="img_url + item.headimg">
@@ -131,19 +133,20 @@
       <!-- 标题 -->
       <div class="title-grp container row">
         <p class="f16">推荐店铺</p>
-        <a class=''>查看更多 &gt; </a>
+        <a href='/pages/min/assign/main' hover-class='none'>查看更多 &gt; </a>
       </div>
       <!-- 商铺列表 -->
       <store-item v-for='(item, index) in normalList' :key='index'
         color='189ccd'
-        :url="'/pages/min/assign-detail/main?id=' + item.id"
+        url="../assign-detail/main"
+        :query='item'
         :src='img_url + item.images_path'
         :title='item.title'
         :area='item.area'
         :cate='item.cat_name'
         :rental='item.rent'
         :time='item.addtime'
-        :tags='item.tags'
+        :tags="[{name: '认证成功'}]"
         tag-field='name'>
       </store-item>
     </section>
@@ -152,19 +155,20 @@
       <!-- 标题 -->
       <div class="title-grp container row">
         <p class="f16">成功案例</p>
-        <a class=''>查看更多 &gt; </a>
+        <a href='/pages/min/case/main' hover-class='none'>查看更多 &gt; </a>
       </div>
       <!-- 商铺列表 -->
       <store-item v-for='(item, index) in finishList' :key='index'
         color='189ccd'
-        :url="'/pages/min/assign-detail/main?id=' + item.id"
+        url="../case-detail/main"
+        :query='item'
         :src='img_url + item.images_path'
         :title='item.title'
         :area='item.area'
         :cate='item.cat_name'
         :rental='item.rent'
         :time='item.addtime'
-        :tags='item.tags'
+        :tags="[{name: '成功转出'}]"
         tag-field='name'>
       </store-item>
     </section>
@@ -238,6 +242,11 @@ export default {
           this.league = league;
         });
     },
+    makeCall (phone) {
+      wx.makePhoneCall({
+        phoneNumber: phone
+      });
+    }
   },
   created () {
     // this.getStoreList();

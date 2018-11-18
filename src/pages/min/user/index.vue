@@ -12,8 +12,8 @@
 		        	<img src="/static/images/header.png">
 		        </a>
 		        <div>
-		            <p>TEL：<span>请登录</span></p>
-		            <p class="l-user-header__id">ID：<span>请登录</span></p>
+		            <p>TEL：<span @click='login'>请登录</span></p>
+		            <p class="l-user-header__id">ID：<span @click='login'>请登录</span></p>
 		        </div>
 		    </div>
 		</div>
@@ -43,7 +43,7 @@
 		    </div>
 		</div>
 		<!-- 个人中心 -->
-		<div class="l-center l-user-box">
+		<!-- <div class="l-center l-user-box">
 		    <ul class="l-user-list">
 		        <li><a href=""><i class="iconfont icon-publish color-03A9F4"></i><p>我的发布</p></a></li>
 		        <li><a href="building.html" hover-class='none'><i class="iconfont icon-card color-FF5722"></i><p>积分卡券</p></a></li>
@@ -58,13 +58,21 @@
 		        <li><a href="building.html"><i class="iconfont icon-yq color-ffae1a"></i><p>我要邀请</p></a></li>
 		        <li><a href="building.html"><i class="iconfont icon-record color-f00"></i><p>我的邀请</p></a></li>
 		    </ul>
-		</div>
+		</div> -->
 	</div>
 </template>
 
 <script>
-export default {
+import wx from 'wx'
 
+export default {
+	methods: {
+		login () {
+			wx.navigateTo({
+				url: '../login/main'
+			});
+		}
+	}
 }
 </script>
 

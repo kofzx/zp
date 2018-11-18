@@ -4,14 +4,22 @@
 		<div class="nav-fixed l-center">
 		    <div class="icon-box l-news-ibox">
 		        <ul class="l-icon-list">
-		            <li class="l-news-icon l-news-active">
-		            	<a href=""><i class="iconfont icon-help"></i><p>开店百科</p></a>
-		            </li>
-		            <li class="l-news-icon">
-		            	<a href=""><i class="iconfont icon-ding-normal"></i><p>选址技巧</p></a>
-		            </li>
-		            <li class="l-news-icon">
-		            	<a href=""><i class="iconfont icon-assign"></i><p>经营攻略</p></a>
+		            <li 
+		            	class="l-news-icon"
+		            	:class="{ 'l-news-active': item.key == catActive }"
+		            	v-for='(item, index) in cate'
+		            	:key='index'
+		            	@click='switchTabbar(item.key)'>
+		            	<a>
+		            		<i 
+		            			class="iconfont" 
+		            			:class="[{
+		            				'icon-help': index === 0, 
+		            				'icon-ding-normal': index === 1, 
+		            				'icon-assign': index === 2
+		            			}]"></i>
+		            		<p>{{item.value.cname}}</p>
+		            	</a>
 		            </li>
 		        </ul>
 		    </div>
@@ -21,25 +29,113 @@
 		<!-- 新闻列表 -->
 		<div class="l-center">
 	        <ul class="l-news-list">
-	            <li v-for='(item, index) in 15' :key='index'>
-	                <a class="l-news-bor">
+	            <li 
+	            	v-for='(item, index) in storeList' 
+	            	:key='index'>
+	                <a 
+	                	class="l-news-bor"
+	                	hover-class='none'
+	                	@click="routeTo('../news-detail/main', item)">
 	                    <div class="l-news-bor-w">
-	                        <p class="l-news-tit">餐饮后厨管理就应该这样做：这八点节省后厨成本有这样的早餐店铺转让广告语您还怕转不出？</p>
-	                        <p class="l-news-time">发布时间：2018.11.01 <span>20浏览</span></p>
+	                        <p class="l-news-tit">{{item.title}}</p>
+	                        <p class="l-news-time">发布时间：{{item.addtime}} <span>{{item.click}}浏览</span></p>
 	                    </div>
 	                    <div class="l-news-bor-img">
-	                        <img src="/static/images/t1.jpg" alt="">
+	                        <img :src="img_url + item.pic_path" alt="">
 	                    </div>
 	                </a>
 	            </li>
 	        </ul>
 	    </div>
+	    <ko-loading 
+	      :is-load='isLoading'
+	      :no-more='showNoMore'></ko-loading>
 	</div>
 </template>
 
 <script>
-export default {
+import reachBottom from '@/mixins/reach-bottom/index.min'
 
+import qs from 'qs'
+import util from '@/utils/index'
+import { pgjApi, fullApi } from '@/service/api'
+
+import loading from '@/components/layouts/ko-loading/index'
+
+export default {
+	mixins: [reachBottom],
+	data() {
+		return {
+			img_url: pgjApi,
+			cate: [],
+		}
+	},
+	methods: {
+		init () {
+			this.$flyio.get(fullApi.NEWS_INIT)
+				.then(res => {
+					let { cat, list } = res.data;
+					this.cate = util.objectToArray(cat);
+					this.catActive = this.cate[0].key;
+					// 新闻列表
+					this.storeList = list;
+				});
+		},
+		// 新闻列表（懒得改名）
+		getStoreList (cat_id = this.catActive, page = 1) {
+			return new Promise((resolve) => {
+				this.$flyio.post(fullApi.NEWS_LOAD, qs.stringify({
+						cid: cat_id,
+						start: page
+		    		}))
+			        .then(res => {
+			        	console.log(res);
+			          let storeList = res.data.data;
+
+			          if (storeList == null || storeList == 'undefined') {
+			            this.isReachLastPage = true;
+			            this.loadingHide();
+			            this.showNoMore = true;
+			            return;
+			          }
+
+			          this.isReachBottom = false;
+			          
+			          this.storeList = this.storeList.concat(storeList);
+
+			          resolve(storeList);
+			        });
+			});
+	    },
+	    resetStatus () {
+	    	this.curPage = 1;
+	    	this.isReachLastPage = false;
+            this.showNoMore = false;
+	    },
+		switchTabbar (cur_cat) {
+			this.catActive = cur_cat;
+			this.$flyio.post(fullApi.NEWS_LOAD, qs.stringify({
+						cid: cur_cat
+		    		}))
+			        .then(res => {
+			        	console.log(res);
+			          this.storeList = res.data.data;
+			          // 重置状态
+			          this.resetStatus();
+			        });
+		},
+		routeTo (url, query) {
+			wx.navigateTo({
+				url: url + '?data=' + JSON.stringify(query) 
+			});
+		}
+	},
+	components: {
+		'ko-loading': loading,
+	},
+	created () {
+		this.init();
+	}
 }
 </script>
 

@@ -46,7 +46,8 @@
 		<section class="zp-container card-box">
 			<store-item v-for='(item, index) in storeList' :key='index'
 		        color='189ccd'
-		        :url="'/pages/min/assign-detail/main?id=' + item.id"
+		        url='../case-detail/main'
+		        :query='item'
 		        :show='item.show'
 		        :src='img_url + item.images_path'
 		        def='https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png'
@@ -119,7 +120,7 @@ export default {
 			});
 	    },
 	    getCase () {
-	    	this.$flyio.get(fullApi.CASE_LOAD)
+	    	this.$flyio.get(fullApi.CASE_INIT)
 		    	.then(res => {
 		    		this.storeList = res.data.list;
 		    	});

@@ -6,9 +6,9 @@
     	>
         <img class="call-item__avatar" :src="src">
         <div class="call-item__info">
-            <p>{{title}}</p>
-            <p>电话 : {{phone}}</p>
-            <p>资源<span> {{count1}} </span>&nbsp;&nbsp;案列<span> {{count2}} </span></p>
+            <p>网络客服： {{title}}</p>
+            <p>电话: {{phone}}</p>
+            <p v-if="count1 || count2">资源<span> {{count1}} </span>&nbsp;&nbsp;案列<span> {{count2}} </span></p>
         </div>
         <i class="iconfont icon-phone" @click='makeCall(phone)'></i>
     </a>
@@ -39,7 +39,7 @@ export default {
 <style lang="less">
 	.call-item {
 		border-bottom: 1px solid #e2e2e2;
-	    padding: 10px 0;
+	    padding: 5px 0;
 	    margin-bottom: 10px;
 	    display: flex;
     	align-items: center;

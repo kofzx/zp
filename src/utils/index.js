@@ -54,6 +54,18 @@ function getScrollHeight() {
   return document.body.scrollHeight || document.documentElement.scrollHeight;
 }
 
+function objectToArray(object) {
+  let array = [];
+  for (let key in object) {
+    let o = {};
+    o.key = key;
+    o.value = object[key];
+
+    array.push(o);
+  }
+  return array
+}
+
 export default {
   formatNumber,
   formatTime,
@@ -62,5 +74,6 @@ export default {
   formatAnimationFrameTime,
   getScreenHeight,
   getScrollTop,
-  getScrollHeight
+  getScrollHeight,
+  objectToArray
 }

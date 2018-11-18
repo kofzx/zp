@@ -8,20 +8,20 @@
 	    </swiper>
 
 		<div class="l-st-dtl-tit-box">
-		    <p class="l-st-dtl-tit">（繁华中心地段）南城兴隆新街爆棚旺铺餐饮店急转！！</p>
+		    <p class="l-st-dtl-tit">{{detail.title}}</p>
 		    <div class="l-st-dtl-time">
-		        <p>2018-11-05</p>
+		        <p>{{detail.addtime}}</p>
 		        <p>编号:27346</p>
 		    </div>
 		</div>
 		<div class="l-st-dtl-abox">
 		    <div>
 		        <p>面积</p>
-		        <p>100平米</p>
+		        <p>{{detail.area}}平米</p>
 		    </div>
 		    <div>
 		        <p>租金</p>
-		        <p>8000元/月</p>
+		        <p>{{detail.rent}}元/月</p>
 		    </div>
 		    <div>
 		        <p>转让费</p>
@@ -31,21 +31,21 @@
 		<!--物业类型-->
 		<div class="l-st-dtl-list">
 		    <ul class="center">
-		        <li>物业类型 : 临街门面</li>
+		        <li>物业类型 : {{detail.cat_name}}</li>
 		        <li>目前经营 : 湘菜馆</li>
 		        <li>适合经营 : 餐馆</li>
-		        <li><i class="iconfont icon-ding-normal"></i>南城区</li>
+		        <li><i class="iconfont icon-ding-normal"></i>{{detail.rname}}</li>
 		    </ul>
 		</div>
 		<!-- 在线咨询 -->
 		<call-card 
 			avatar='../../../../static/images/header.png'
-			phone='133333' />
+			:phone='detail.phone' />
 		<!--租约信息-->
 		<div class="l-st-dtl-list">
 		    <ul class="center">
 		        <li><i class="iconfont icon-help"></i> 租约信息</li>
-		        <li>租金 : 8000 元/月</li>
+		        <li>租金 : {{detail.rent}} 元/月</li>
 		    </ul>
 		</div>
 		<!--转让信息-->
@@ -80,7 +80,7 @@
 		</div>
 		<call-bottom
 			color='189ccd'
-			phone='133333' />
+			:phone='detail.phone' />
 	</div>
 </template>
 
@@ -89,10 +89,18 @@ import callCard from '@/components/core/common/call-card'
 import callBottom from '@/components/core/common/call-bottom'
 
 export default {
+	data() {
+		return {
+			detail: {}
+		}
+	},
 	components: {
 		'call-card': callCard,
 		'call-bottom': callBottom
-	}
+	},
+	mounted () {
+		this.detail = JSON.parse(this.$mp.query.data);
+	},
 }
 </script>
 

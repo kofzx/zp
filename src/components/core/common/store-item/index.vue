@@ -1,8 +1,8 @@
 <template>
 	<a 
 		class="store-item container row"
-		:href='url'
-		hover-class='none'>
+		hover-class='none'
+		@click='routeTo(url, query)'>
 		<img class="store-item__left" :class="{'loaded': show}" :src="show ? src : def" alt="">
 		<div class="store-item__right flex-1">
 			<div class="container row">
@@ -33,6 +33,7 @@
 	export default {
 		props: {
 			url: String,
+			query: [Object, String, Array, Number, Boolean],
 			color: String,
 			show: { type: Boolean, default: true },
 			src: String,
@@ -48,6 +49,13 @@
 		computed: {
 			safe: function() {
 				return `url("data:image/svg+xml,%3Csvg class='icon' viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cdefs%3E%3Cstyle/%3E%3C/defs%3E%3Cpath d='M817.347 174.5s-51.435 0-135-32.144c-90-32.143-144.648-67.5-144.648-67.5L511.987 62l-22.5 12.857s-57.857 35.356-144.644 67.5c-86.787 28.93-135 32.143-135 32.143l-41.787 3.213v443.57C168.056 785.217 473.412 962 511.982 962c35.361 0 343.926-176.782 343.926-340.717v-443.57l-38.56-3.213zm-327.86 511.07L328.772 537.716l48.213-61.074 102.857 93.213L672.7 328.782l57.856 54.644-241.07 302.144z' fill='%23${this.color}'/%3E%3C/svg%3E")`;
+			}
+		},
+		methods: {
+			routeTo (url, query) {
+				wx.navigateTo({
+					url: url + '?data=' + JSON.stringify(query) 
+				});
 			}
 		},
 		components: {

@@ -35,9 +35,8 @@ export default {
 	methods: {
 		getLeague () {
 			return new Promise((resolve) => {
-		        this.$flyio.get(fullApi.JOIN_LOAD)
+		        this.$flyio.get(fullApi.JOIN_INIT)
 		            .then(res => {
-		            	console.log(res);
 		            	this.list = res.data.data;
 		            });
 		    });
@@ -55,6 +54,8 @@ export default {
 </script>
 
 <style lang="less">
+	@import '~@/style/common/variables.less';
+
 	.l-join-box {
 	    margin: 10px 0;
 	}
@@ -100,7 +101,7 @@ export default {
 	    display: block;
 	}
 	.l-join-money {
-	    color: #ffae1a;
+	    color: @main;
 	    font-size: 20px;
 	    font-weight: bold;
 	}
