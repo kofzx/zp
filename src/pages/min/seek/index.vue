@@ -123,7 +123,7 @@ export default {
 			});
 	    },
 	    getSelectors () {
-	    	this.$flyio.get(fullApi.ASSIGN_SELECTORS)
+	    	this.$flyio.get(fullApi.ASSIGN_INIT)
 		    	.then(res => {
 		    		let { cat, region, area, rent, list } = res.data;
 		    		this.tradeArray = cat;

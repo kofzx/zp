@@ -81,3 +81,23 @@
     width: auto;
     vertical-align: middle;
 }
+// 动画
+.layui-anim {
+    animation-duration: .3s;
+    animation-fill-mode: both;
+}
+.layui-anim-up {
+    animation-name: layui-up;
+}
+@keyframes layui-up 
+{
+    0% {
+        transform: translate3d(0,100%,0);
+        opacity: .3;
+    }
+
+    100% {
+        transform: translate3d(0,0,0);
+        opacity: 1;
+    }
+}

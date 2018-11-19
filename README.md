@@ -20,6 +20,8 @@ npm run build --report
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-1. 通用跳转方式
+1. 登录
+2. 忘记密码
+3. 登出
 
 await. 当前位置接口

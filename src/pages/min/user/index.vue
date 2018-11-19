@@ -9,11 +9,18 @@
 		<div class="l-user-login">
 		    <div class="l-user-header">
 		        <a class="l-user-head">
-		        	<img src="/static/images/header.png">
+		        	<img :src="login.headimg ? login.headimg : '/static/images/header.png'">
 		        </a>
 		        <div>
-		            <p>TEL：<span @click='login'>请登录</span></p>
-		            <p class="l-user-header__id">ID：<span @click='login'>请登录</span></p>
+		        	<p>TEL：
+		        		<span v-if="login.phone">{{login.phone}}</span>
+		        		<span v-else @click="goLogin">请登录</span>
+		        	</p>
+		        	<p class="l-user-header__id">名称：
+		        		<span v-if="login.name">{{login.name}}</span>
+		        		<span v-else-if="login.name != null || login.name === undefined" @click="goLogin">请登录</span>
+		        	</p>
+		            <p v-if="login" @click='logout'>安全登出</p>
 		        </div>
 		    </div>
 		</div>
@@ -65,14 +72,46 @@
 <script>
 import wx from 'wx'
 
+import { fullApi } from '@/service/api'
+
 export default {
+	data() {
+		return {
+			login: ''
+		}
+	},
 	methods: {
-		login () {
+		goLogin () {
 			wx.navigateTo({
 				url: '../login/main'
 			});
+		},
+		logout () {
+			this.$flyio.get(fullApi.LOGOUT)
+				.then(res => {
+					console.log(res);
+					let { code, msg } = res.data;
+					if (code == 1) {
+						this.$toast(msg);
+					    // 清缓存
+					    try {
+						  wx.removeStorageSync('login');
+						} catch (e) {};
+						this.login = '';	// 初始化
+					} else {
+						this.$toast(msg, false);
+					}
+				});
 		}
-	}
+	},
+	onLoad () {
+		try {
+		  let login = wx.getStorageSync('login');
+		  if (login) {
+		    this.login = login;
+		  }
+		} catch (e) {}
+	},
 }
 </script>
 

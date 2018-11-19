@@ -2,7 +2,7 @@ export const apiName = '/api';
 
 export const ytApi = 'https://ytxcx.6mo.cc';
 export const gsApi = 'https://gs.6mo.cc';
-export const pgjApi = 'http://www.wdpgj.com';
+export const pgjApi = 'http://www.pgj.com';
 
 export const api = {
 	STROE_LIST: '/Wxapi/News/getMore',
@@ -21,4 +21,9 @@ export const fullApi = {
 	KEFU_INIT: pgjApi + apiName + '/index/kefu_init',
 	NEWS_INIT: pgjApi + apiName + '/index/news_init',
 	NEWS_LOAD: pgjApi + apiName + '/index/news_load',
+	LOGIN: pgjApi + apiName + '/index/login_ko',
+	LOGOUT: pgjApi + apiName + '/index/logout',
+	SEND_CODE: pgjApi + apiName + '/index/sendcode',
+	RESET_PWD: pgjApi + apiName + '/index/forgetpwd',
+	REGISTER: pgjApi + apiName + '/index/register_ko',
 };
