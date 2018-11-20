@@ -50,9 +50,10 @@
 		<section class="zp-container card-box">
 			<store-item v-for='(item, index) in storeList' :key='index'
 		        color='189ccd'
-		        :url="'/pages/min/assign-detail/main?id=' + item.id"
+		        url="/pages/min/assign-detail/main"
+		        :query='item'
 		        :show='item.show'
-		        :src='img_url + item.images_path'
+		        :src='img_url + item.images_path[0].pic_path'
 		        def='https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png'
 		        :title='item.title'
 		        :area='item.area'

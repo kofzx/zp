@@ -121,7 +121,8 @@ export default {
 			return new Promise(resolve => {
 				this.$flyio.post(fullApi.REGISTER, qs.stringify({
 						phone: formObj.phone,
-						password: formObj.password
+						password: formObj.password,
+						code: formObj.code
 					}))
 					.then(res => {
 						resolve(res);
@@ -150,7 +151,7 @@ export default {
 		    	this.register(value)
 		    		.then(res => {
 		    			let { code, msg } = res.data;
-		    			if (code == 2) {
+		    			if (code == 1) {
 		    				this.$toast(msg);
 		    				wx.switchTab({
 						    	url: '../user/main'

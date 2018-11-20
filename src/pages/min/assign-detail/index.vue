@@ -2,8 +2,12 @@
 	<div>
 		<!-- 轮播 -->
 	    <swiper class='carousel swiper-box' autoplay circular indicator-dots>
-	      <swiper-item v-for='(item, index) in 3' :key='index'>
-	        <img class="carousel-img" src='../../../../static/images/banner1.png' />
+	      <swiper-item 
+	      	v-for='(item, index) in detail.images_path' 
+	      	:key='index'>
+	        <img 
+	        	class="carousel-img" 
+	        	:src='img_url + item.pic_path' />
 	      </swiper-item>
 	    </swiper>
 
@@ -85,13 +89,16 @@
 </template>
 
 <script>
+import { pgjApi } from '@/service/api' 
+
 import callCard from '@/components/core/common/call-card'
 import callBottom from '@/components/core/common/call-bottom'
 
 export default {
 	data() {
 		return {
-			detail: {}
+			detail: {},
+			img_url: pgjApi
 		}
 	},
 	components: {

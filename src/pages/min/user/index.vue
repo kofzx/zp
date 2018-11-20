@@ -29,19 +29,25 @@
 		    <div class="icon-box">
 		        <ul class="l-icon-list">
 		            <li class="l-user-icon">
-		                <a href="">
+		                <a 
+		                	href="/pages/min/quick/main?type=assign"
+		                	hover-class='none'>
 		                    <img src="../../../images/navs/quick.png">
 		                    <p>快速转店</p>
 		                </a>
 		            </li>
 		            <li class="l-user-icon">
-		                <a href="">
+		                <a 
+		                	href="/pages/min/quick/main?type=seek"
+		                	hover-class='none'>
 		                    <img src="../../../images/navs/seek.png">
 		                    <p>快速找店</p>
 		                </a>
 		            </li>
 		            <li class="l-user-icon">
-		                <a href="join.html">
+		                <a 
+		                	href="/pages/min/join/main"
+		                	hover-class='none'>
 		                    <img src="../../../images/navs/hezuo.png">
 		                    <p>项目加盟</p>
 		                </a>
@@ -89,7 +95,6 @@ export default {
 		logout () {
 			this.$flyio.get(fullApi.LOGOUT)
 				.then(res => {
-					console.log(res);
 					let { code, msg } = res.data;
 					if (code == 1) {
 						this.$toast(msg);
@@ -104,7 +109,7 @@ export default {
 				});
 		}
 	},
-	onLoad () {
+	onShow () {
 		try {
 		  let login = wx.getStorageSync('login');
 		  if (login) {

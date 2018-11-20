@@ -20,8 +20,8 @@ npm run build --report
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-1. 登录
-2. 忘记密码
-3. 登出
+1. 两大表单
+	+ 写入轮播
 
 await. 当前位置接口
+await. 详情轮播图

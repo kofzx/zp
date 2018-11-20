@@ -151,8 +151,9 @@ export default {
 			return new Promise(resolve => {
 				this.$flyio.post(fullApi.RESET_PWD, qs.stringify({
 						phone: formObj.phone,
-						password: formObj.password,
-						repassword: formObj.repassword
+						password: formObj.new_pwd,
+						repassword: formObj.confirm_pwd,
+						code: formObj.code
 					}))
 					.then(res => {
 						resolve(res);

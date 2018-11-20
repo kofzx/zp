@@ -66,6 +66,34 @@ function objectToArray(object) {
   return array
 }
 
+/*
+ * platform: 小程序
+ * 单图上传
+ * @param url  开发者服务器
+ * @param file 图片临时路径
+ * @param name 文件对应的 key，开发者在服务端可以通过这个 key 获取文件的二进制内容
+ * @param data 传给后台的额外参数
+*/
+function uploadImg(url, file, name, data = null) {
+  return new Promise((resolve, reject) => {
+    wx.uploadFile({
+      url: url,
+      filePath: file,
+      name: name,
+      header: {
+        'content-type': 'multipart/form-data'
+      },
+      formData: data,
+      success: res => {
+        resolve(res);
+      },
+      fail: err => {
+        reject(err);
+      }
+    })
+  });
+}
+
 export default {
   formatNumber,
   formatTime,
@@ -75,5 +103,6 @@ export default {
   getScreenHeight,
   getScrollTop,
   getScrollHeight,
-  objectToArray
+  objectToArray,
+  uploadImg
 }

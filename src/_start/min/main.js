@@ -18,6 +18,15 @@ Vue.prototype.$toast = (title, flag = true) => {
       	icon: icon
     });
 }
+Vue.prototype.$loading = (title, isMask = true) => {
+	wx.showLoading({
+		title: title,
+		mask: isMask
+	});
+}
+Vue.prototype.$unLoading = () => {
+	wx.hideLoading();
+}
 
 const app = new Vue(App)
 app.$mount()

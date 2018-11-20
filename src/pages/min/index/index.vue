@@ -140,7 +140,7 @@
         color='189ccd'
         url="../assign-detail/main"
         :query='item'
-        :src='img_url + item.images_path'
+        :src='img_url + item.images_path[0].pic_path'
         :title='item.title'
         :area='item.area'
         :cate='item.cat_name'
@@ -162,7 +162,7 @@
         color='189ccd'
         url="../case-detail/main"
         :query='item'
-        :src='img_url + item.images_path'
+        :src='img_url + item.images_path[0].pic_path'
         :title='item.title'
         :area='item.area'
         :cate='item.cat_name'
