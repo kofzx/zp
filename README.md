@@ -20,8 +20,5 @@ npm run build --report
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-1. 两大表单
-	+ 写入轮播
-
-await. 当前位置接口
-await. 详情轮播图
+1. 行业二级
+2. 表单区域三级

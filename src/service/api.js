@@ -18,6 +18,7 @@ export const fullApi = {
 	ASSIGN_INIT: pgjApi + apiName + '/index/assign_init',
 	ASSIGN_LOAD: pgjApi + apiName + '/index/assign_load',
 	ASSIGN_ADD: pgjApi + apiName + '/index/shell_add',
+	SEEK_ADD: pgjApi + apiName + '/index/buy_add',
 	CASE_INIT: pgjApi + apiName + '/index/case_init',
 	JOIN_INIT: pgjApi + apiName + '/index/league_init',
 	KEFU_INIT: pgjApi + apiName + '/index/kefu_init',
@@ -29,4 +30,5 @@ export const fullApi = {
 	RESET_PWD: pgjApi + apiName + '/index/forgetpwd',
 	REGISTER: pgjApi + apiName + '/index/register_ko',
 	UPLOAD: pgjApi + apiName + '/index/uploadimage',
+	GETCITYID: pgjApi + apiName + '/index/get_city_id',
 };

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<p class="cur-location pd-box">定位城市：<span class="cur-location__light">{{location}}</span></p>
+		<p class="cur-location pd-box">定位城市：<span class="cur-location__light">{{curCity}}</span></p>
 		<city-item 
 			v-for="(val, key, index) in cityList" 
 			:key="index" 
@@ -81,6 +81,14 @@ export default {
 	created () {
 		this.fetchCityList();
 	},
+	onShow () {
+		try {
+			let ding = wx.getStorageSync('ding');
+			if (ding) {
+				this.curCity = ding;
+			}
+		} catch (e) {}
+	}
 }
 </script>
 

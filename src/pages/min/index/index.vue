@@ -2,7 +2,10 @@
   <div class='index-wrapper'>
     <div class="top-wrapper container row">
         <!-- 定位 -->
-        <navigator class="top-wrapper__url white" hover-class='none' url="/pages/min/ding/main">东莞</navigator>
+        <navigator 
+          class="top-wrapper__url white" 
+          hover-class='none' 
+          url="/pages/min/ding/main">{{curCity}}</navigator>
         <div class="flex-1">
           <!-- 搜索 -->
           <search-box 
@@ -39,6 +42,7 @@
       </div>
       <!-- 头条 -->
       <headline 
+        url='../assign-detail/main'
         light-color='#f86648'
         :news-list='urgentList'
         news-title-field='title'
@@ -150,6 +154,12 @@
         tag-field='name'>
       </store-item>
     </section>
+    <section 
+      class="expect"
+      v-if='!normalList'>
+        <p class="g6">该区域暂无数据</p>
+        <p></p>
+    </section>
     <!-- 成功案例 -->
     <section class="like zp-container">
       <!-- 标题 -->
@@ -172,6 +182,12 @@
         tag-field='name'>
       </store-item>
     </section>
+    <section 
+      class="expect"
+      v-if='!finishList'>
+        <p class="g6">该区域暂无数据</p>
+        <p></p>
+    </section>
     <section class="expect">
         <p>更多内容，敬请期待</p>
         <p></p>
@@ -182,8 +198,11 @@
 
 <script>
 import Index from '@/pages/common/index/index'
+import makePhone from '@/mixins/make-phone/index'
+import getLocation from '@/mixins/get-location/index.min'
 
 import wx from 'wx'
+import qs from 'qs'
 import localData from '@/pages/common/index/localData'
 import { pgjApi, fullApi } from '@/service/api'
 
@@ -192,7 +211,7 @@ import searchBox from '@/components/core/min/search-box/index'
 import headline from '@/components/core/min/headline/index'
 
 export default {
-  mixins: [Index],
+  mixins: [Index, makePhone, getLocation],
   data() {
     return {
       navBar: localData.navBar,
@@ -202,7 +221,8 @@ export default {
       finishList: [],
       normalList: [],
       urgentList: [],
-      league: []
+      league: [],
+      curCity: '定位'
     }
   },
   components: {
@@ -230,7 +250,10 @@ export default {
       });
     },
     fetchIndex () {
-      this.$flyio.get(fullApi.INDEX_DATA)
+      let curCity = this.curCity;
+      this.$flyio.post(fullApi.INDEX_DATA, qs.stringify({
+        city_name: curCity
+      }))
         .then(res => {
 
           let { carousel, customer, is_finish, is_normal, is_urgent, league } = res.data;
@@ -240,17 +263,35 @@ export default {
           this.normalList = is_normal;
           this.urgentList = is_urgent;
           this.league = league;
+
+          this.$unLoading();
         });
     },
-    makeCall (phone) {
-      wx.makePhoneCall({
-        phoneNumber: phone
-      });
-    }
   },
   created () {
-    // this.getStoreList();
-    this.fetchIndex();
+    this.getLocation()
+      .then(res => {
+        let curCity = res.result.address_component.city;
+        wx.setStorageSync('ding', curCity);
+        this.curCity = curCity;
+
+        this.fetchIndex();
+      })
+      .catch(res => {
+        console.log(res);
+      });
+  },
+  onShow () {
+    try {
+      let ding = wx.getStorageSync('ding');
+      if (ding) {
+        if (this.curCity != ding) {
+          this.curCity = ding;
+          this.$loading('数据更新中...');
+          this.fetchIndex();
+        }
+      }
+    } catch (e) {}
   }
 }
 </script>

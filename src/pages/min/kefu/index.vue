@@ -27,19 +27,15 @@
 </template>
 
 <script>
+import makePhone from '@/mixins/make-phone/index'
+
 import wx from 'wx'
 
 export default {
+	mixins: [makePhone],
 	data() {
 		return {
 			phone: '2333'
-		}
-	},
-	methods: {
-		makeCall (phone) {
-			wx.makePhoneCall({
-				phoneNumber: phone
-			});
 		}
 	}
 }

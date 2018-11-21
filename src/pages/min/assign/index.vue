@@ -99,6 +99,7 @@ export default {
 			regionName: '',
 			areaName: '',
 			rentName: '',
+			curCity: '东莞市'
 		}
 	},
 	components: {
@@ -130,7 +131,10 @@ export default {
 			});
 	    },
 	    getSelectors () {
-	    	this.$flyio.get(fullApi.ASSIGN_INIT)
+	    	let curCity = this.curCity;
+	    	this.$flyio.post(fullApi.ASSIGN_INIT, qs.stringify({
+	    		city_name: curCity
+	    	}))
 		    	.then(res => {
 		    		let { cat, region, area, rent, list } = res.data;
 		    		this.tradeArray = cat;
@@ -139,6 +143,13 @@ export default {
 		    		this.rentArray = rent;
 		    		this.storeList = list;
 		    	});
+	    },
+	    reset () {
+	    	this.selectorName = '';
+	    	this.tradeName = '';
+			this.regionName = '';
+			this.areaName = '';
+			this.rentName = '';
 	    },
 	    onSelector (name) {
 	    	this.selectorName = name;
@@ -205,15 +216,21 @@ export default {
 	    }
 	},
 	created () {
-	    // this.getStoreList()
-	    // 	.then(storeList => {
-	    // 		this.storeList = this.modifyStoreList(storeList, true);
-	    // 	});
 	    this.getSelectors();
+	},
+	onShow () {
+		this.reset();
+		try {
+	      let ding = wx.getStorageSync('ding');
+	      if (ding) {
+	      	this.curCity = ding;
+	      	this.getSelectors();
+	      }
+	    } catch (e) {}
 	},
 	onPageScroll () {
 	  this.lazyLoad(".store-item__left");
-	}
+	},
 }
 </script>
 

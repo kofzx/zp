@@ -10,7 +10,7 @@ let { cityList, cityTitles } = mock;
 export default {
 	data () {
 		return {
-			location: '东莞',
+			curCity: '',
 			cityList: cityList,
 			cityTitles: cityTitles
 		}
@@ -18,7 +18,8 @@ export default {
 	methods: {
 		// 更换城市
 		changeCity (detail) {
-			this.location = detail.name;
+			this.curCity = detail.area_name;
+			wx.setStorageSync('ding', detail.area_name);
 		},
 		// 右侧字母目录点击
 		titleClick (title) {

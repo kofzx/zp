@@ -21,11 +21,14 @@
 </template>
 
 <script>
+import makePhone from '@/mixins/make-phone/index'
+
 import wx from 'wx'
 
 import { pgjApi, fullApi } from '@/service/api'
 
 export default {
+	mixins: [makePhone],
 	data() {
 		return {
 			img_url: pgjApi,
@@ -40,11 +43,6 @@ export default {
 		            	this.list = res.data.data;
 		            });
 		    });
-		},
-		makeCall (phone) {
-			wx.makePhoneCall({
-				phoneNumber: phone
-			});
 		}
 	},
 	created () {

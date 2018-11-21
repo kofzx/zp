@@ -2,12 +2,20 @@
 	<div class="headline-wrapper container row">
 		<img class="headline-wrapper__logo" src="https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png" alt="">
 	    <swiper class='headline-wrapper__carousel rel flex-1' autoplay circular vertical='true'>
-	      <swiper-item class='container row' v-for='(item, index) in newsList' :key='index'>
-	        <p class="container row flex-1">
+	      <swiper-item 
+	      	class='container row' 
+	      	v-for='(item, index) in newsList' 
+	      	:key='index'>
+	        <p 
+	        	class="container row flex-1"
+	        	@click='routeTo(url, item)'>
 	        	<span class="headline-wrapper__title f12">{{item[newsTitleField]}}</span>
 	        	<span class="f10" :style="{color: lightColor}">{{item[newsTimeField]}}</span>
 	        </p>
-	        <img class="headline-wrapper__img" :src="img_url + item[newsSrcField]" alt="">
+	        <img 
+	        	class="headline-wrapper__img" 
+	        	:src="img_url + item[newsSrcField][0].pic_path"
+	        	@click='routeTo(url, item)'>
 	      </swiper-item>
 	    </swiper>
 	</div>
@@ -18,6 +26,8 @@ import { pgjApi } from '@/service/api'
 
 export default {
 	props: {
+		url: String,
+		query: [Object, String, Array, Number, Boolean],
 		newsList: Array,	// 新闻列表
 		newsTitleField: String,		// 新闻标题字段
 		newsTimeField: String,		// 新闻时间字段
@@ -30,6 +40,13 @@ export default {
 	data() {
 		return {
 			img_url: pgjApi
+		}
+	},
+	methods: {
+		routeTo (url, query) {
+			wx.navigateTo({
+				url: url + '?data=' + JSON.stringify(query) 
+			});
 		}
 	},
 }
