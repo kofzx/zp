@@ -16,7 +16,7 @@ export default {
 	@import '~@/style/common/variables.less';
 
 	.l-qk-tf-bgbox {
-	    background-image: url('../../../../static/images/t2.jpg');
+	    background-image: url('http://www.pgj.com/Mobile/images/bg.jpg');
 	    background-repeat: no-repeat;
 	    background-position: center; 
 	}
@@ -98,7 +98,7 @@ export default {
 		}
 	}
 	.l-qk-tf-swrv {
-	    background: url('../../../../static/images/t2.jpg');
+	    background: url('http://www.pgj.com/Mobile/images/bg.jpg');
 	    background-repeat: no-repeat;
 	    background-position: center; 
 	    text-align: center;

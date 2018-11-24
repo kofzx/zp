@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<!--表单-->
-		<div class="l-r-tf-box">
+		<div class="l-r-tf-box" v-if="!isLoad">
 			<form
 				@submit='seekSubmit'
 				@reset='seekReset'>
@@ -21,12 +21,14 @@
 						<div class="layui-input-block clearfix">
 							<picker 
 				            	class='layui-input layui-input--picker fl' 
-				            	mode="selector" 
+				            	mode="multiSelector" 
 				            	:range='tradeArray'
 				            	range-key='cname'
 				            	name='trade'
-				            	@change='changeTrade'>
-				                  <div>{{tradeName != '' ? tradeName : '请选择'}}</div>
+				            	@change='changeTrade'
+				            	@columnchange='changeColTrade'>
+				                  <div v-if='firstCat'>请选择</div>
+				                  <div v-else>{{tradeArray[0][multiCatIndex[0]].cname}}{{tradeArray[1].length != 0 ? '-'+tradeArray[1][multiCatIndex[1]].cname : ''}}</div>
 				            </picker>
 				            <i class="iconfont icon-arrow-right icon--fix fr g6 mr-10"></i>
 						</div>
@@ -36,12 +38,14 @@
 						<div class="layui-input-block clearfix">
 							<picker 
 				            	class='layui-input layui-input--picker fl' 
-				            	mode="selector" 
+				            	mode="multiSelector" 
 				            	:range='regionArray'
 				            	range-key='area_name'
 				            	name='region'
-				            	@change='changeRegion'>
-				                  <div>{{regionName != '' ? regionName : '请选择'}}</div>
+				            	@change='changeRegion'
+				            	@columnchange='changeColRegion'>
+				            	  <div v-if='firstRegion'>请选择</div>
+				                  <div v-else>{{regionArray[0][multiIndex[0]].area_name}}{{regionArray[1].length != 0 ? '-'+regionArray[1][multiIndex[1]].area_name : ''}}{{regionArray[2].length != 0 ? '-'+regionArray[2][multiIndex[2]].area_name : ''}}</div>
 				            </picker>
 				            <i class="iconfont icon-arrow-right icon--fix fr g6 mr-10"></i>
 						</div>
@@ -109,47 +113,92 @@
 				</div>
 			</form>
 		</div>
+		<ko-loading :is-load='isLoad'></ko-loading>
 	</div>
 </template>
 
 <script>
+import nextLevel from '@/mixins/next-level/index'
+
 import Validator from '@/utils/strategy/controller/Validator'
 
 import mock from '@/pages/mock'
 import qs from 'qs'
 import { fullApi, pgjApi } from '@/service/api'
 
+import loading from '@/components/layouts/ko-loading/index'
+
 let { tradeArray, regionArray, orderArray } = mock;
 
+function multIdx(newVal) {
+	let length = newVal.length;
+	for (let i = length - 1; i >= 0; i--) {
+		if (newVal[i] == null || newVal[i] == 'undefined') {
+			newVal[i] = 0;
+		} 
+	}
+}
+
 export default {
+	mixins: [nextLevel],
 	data() {
 		return {
 			tradeArray,
 			regionArray,
 			tradeName: '',
 			regionName: '',
+			multiIndex: [0,0,0],
+			multiCatIndex: [0,0],
+			firstRegion: true,
+			firstCat: true,
+			isLoad: true,
 		}
+	},
+	watch: {
+		multiIndex: multIdx,
+		multiCatIndex: multIdx
 	},
 	methods: {
 		init () {
-			this.$flyio.get(fullApi.ASSIGN_INIT)
+			this.$flyio.get(fullApi.REGION)
 		    	.then(res => {
+		    		let newRegionArray = [],
+		    			newCatArray = [];
+
 		    		let { cat, region } = res.data;
-		    		this.tradeArray = cat;
-		    		this.regionArray = region;
+		    		newCatArray.push(cat);
+		    		newCatArray.push(cat[0].pid_value);
+
+		    		newRegionArray.push(region);
+		    		newRegionArray.push(region[0].child);
+		    		newRegionArray.push(region[0].child[0].child);
+
+		    		this.tradeArray = newCatArray;
+		    		this.regionArray = newRegionArray;
+		    		this.isLoad = false;
 		    	});
 		},
-		changeTrade (e) {
-	    	let value = e.mp.detail.value,
-	    		_name = this.tradeArray[value].cname;
+	    changeTrade (e) {
+	    	let value = e.mp.detail.value;
+	    	this.multiCatIndex = value;
+	    	this.firstCat = false;
+	    },
+	    changeColTrade (e) {
+	    	let detail = e.mp.detail,
+	    		{ column, value } = detail;
 
-	    	this.tradeName = _name;
+	    	this.nextLevel(this.tradeArray, 'pid_value', detail.column, detail.value);
 	    },
 	    changeRegion (e) {
-	    	let value = e.mp.detail.value,
-	    		_name = this.regionArray[value].area_name;
+	    	let value = e.mp.detail.value;
+	    	this.multiIndex = value;
+	    	this.firstRegion = false;
+	    },
+	    changeColRegion (e) {
+	    	let detail = e.mp.detail,
+	    		{ column, value } = detail;
 
-	    	this.regionName = _name;
+	    	this.nextLevel(this.regionArray, 'child', detail.column, detail.value);
 	    },
 	    _submit (formObj) {
 	    	return new Promise(resolve => {
@@ -184,8 +233,12 @@ export default {
 			if (errMsg) {
 				this.$toast(errMsg, false);
 			} else {
-				value.cid = this.tradeArray[value.trade].cid;
-				value.town_id = this.regionArray[value.region].id;
+				let lastTradeIndex = value.trade.length - 1,
+					lastRegionIndex = value.region.length - 1;
+
+				value.cid = this.tradeArray[lastTradeIndex][value.trade[lastTradeIndex]].cid;
+				value.town_id = this.regionArray[lastRegionIndex][value.region[lastRegionIndex]].id;
+
 				this._submit(value)
 					.then(res => {
 						let { code, msg } = res.data;
@@ -200,9 +253,12 @@ export default {
 			}
 		},
 		seekReset () {
-			this.tradeName = '';
-			this.regionName = '';
+			this.firstRegion = true;
+			this.firstCat = true;
 		}
+	},
+	components: {
+		'ko-loading': loading
 	},
 	created () {
 		this.init();

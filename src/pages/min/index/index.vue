@@ -9,12 +9,11 @@
         <div class="flex-1">
           <!-- 搜索 -->
           <search-box 
-            ss-color='189ccd' 
+            ss-color='ffae1a' 
             :has-ding='true' 
-            :is-jump='true' 
-            jump-url='/pages/min/ding/main'
+            :is-jump='false' 
             placeholder='找店铺/找项目'>
-              <a href="/pages/min/ding/main" hover-class='none' class="white ml-10">搜索</a>
+              <p class="white ml-10" @click='proding'>搜索</p>
           </search-box>
         </div>
     </div>
@@ -23,7 +22,7 @@
       <swiper-item 
         v-for='(item, index) in carousel' 
         :key='index'>
-        <img class='carousel-img' :src='img_url + item.pic_path' />
+        <img class='carousel-img' :src='ep_url + item.pic_path' />
       </swiper-item>
     </swiper>
     <!-- 导航块 -->
@@ -34,7 +33,7 @@
           :key='index'
           class="nav-item tc"
           :open-type='item.openType'
-          :href='item.url'
+          :href="login ? item.url : item.loginUrl"
           hover-class='none'>
           <img class="inb img-box--mini" :src="item.pic" />
           <p class='f12'>{{item.title}}</p>
@@ -141,10 +140,10 @@
       </div>
       <!-- 商铺列表 -->
       <store-item v-for='(item, index) in normalList' :key='index'
-        color='189ccd'
+        color='ffae1a'
         url="../assign-detail/main"
         :query='item'
-        :src='img_url + item.images_path[0].pic_path'
+        :src='ep_url + item.images_path[0].pic_path'
         :title='item.title'
         :area='item.area'
         :cate='item.cat_name'
@@ -154,12 +153,9 @@
         tag-field='name'>
       </store-item>
     </section>
-    <section 
-      class="expect"
-      v-if='!normalList'>
-        <p class="g6">该区域暂无数据</p>
-        <p></p>
-    </section>
+    <no-data 
+      :show='!normalList'
+      text='该区域暂无数据'></no-data>
     <!-- 成功案例 -->
     <section class="like zp-container">
       <!-- 标题 -->
@@ -169,7 +165,7 @@
       </div>
       <!-- 商铺列表 -->
       <store-item v-for='(item, index) in finishList' :key='index'
-        color='189ccd'
+        color='ffae1a'
         url="../case-detail/main"
         :query='item'
         :src='img_url + item.images_path[0].pic_path'
@@ -182,16 +178,14 @@
         tag-field='name'>
       </store-item>
     </section>
-    <section 
-      class="expect"
-      v-if='!finishList'>
-        <p class="g6">该区域暂无数据</p>
-        <p></p>
-    </section>
-    <section class="expect">
+    <no-data 
+      :show='!finishList'
+      text='该区域暂无数据'></no-data>
+    <no-data text='更多内容，敬请期待'></no-data>
+    <!-- <section class="expect">
         <p>更多内容，敬请期待</p>
         <p></p>
-    </section>
+    </section> -->
     <!-- <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a> -->
   </div>
 </template>
@@ -207,6 +201,7 @@ import localData from '@/pages/common/index/localData'
 import { pgjApi, fullApi } from '@/service/api'
 
 import storeItem from '@/components/core/common/store-item/index'
+import noData from '@/components/core/common/no-data/index'
 import searchBox from '@/components/core/min/search-box/index'
 import headline from '@/components/core/min/headline/index'
 
@@ -216,18 +211,21 @@ export default {
     return {
       navBar: localData.navBar,
       img_url: pgjApi,
+      ep_url: '',
       carousel: [],
       customer: [],
       finishList: [],
       normalList: [],
       urgentList: [],
       league: [],
-      curCity: '定位'
+      curCity: '定位',
+      login: ''
     }
   },
   components: {
     'search-box': searchBox,
     'store-item': storeItem,
+    'no-data': noData,
     headline
   },
   methods: {
@@ -267,6 +265,12 @@ export default {
           this.$unLoading();
         });
     },
+    proding () {
+      this.$loading('产品开发中...');
+      setTimeout(() => {
+        this.$unLoading();
+      }, 1000);
+    }
   },
   created () {
     this.getLocation()
@@ -283,6 +287,12 @@ export default {
   },
   onShow () {
     try {
+      // 登陆
+      let login = wx.getStorageSync('login');
+      if (login) {
+        this.login = login;
+      }
+      // 定位
       let ding = wx.getStorageSync('ding');
       if (ding) {
         if (this.curCity != ding) {

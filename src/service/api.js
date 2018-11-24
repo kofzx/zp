@@ -2,7 +2,8 @@ export const apiName = '/api';
 
 export const ytApi = 'https://ytxcx.6mo.cc';
 export const gsApi = 'https://gs.6mo.cc';
-export const pgjApi = 'http://www.pgj.com';
+export const pgjApi = 'https://www.puguanjiacn.com';
+// export const pgjApi = 'http://www.pgj.com';
 
 export const api = {
 	STROE_LIST: '/Wxapi/News/getMore',
@@ -30,5 +31,5 @@ export const fullApi = {
 	RESET_PWD: pgjApi + apiName + '/index/forgetpwd',
 	REGISTER: pgjApi + apiName + '/index/register_ko',
 	UPLOAD: pgjApi + apiName + '/index/uploadimage',
-	GETCITYID: pgjApi + apiName + '/index/get_city_id',
+	REGION: pgjApi + apiName + '/index/region_ko',
 };

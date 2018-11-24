@@ -43,14 +43,14 @@
 			<div class="top-filter--fix"></div>
 		</form> -->
 		<!-- 商铺列表 -->
-		<section class="zp-container card-box">
+		<section class="zp-container card-box" v-if='storeList'>
 			<store-item v-for='(item, index) in storeList' :key='index'
-		        color='189ccd'
+		        color='ffae1a'
 		        url='../case-detail/main'
 		        :query='item'
 		        :show='item.show'
-		        :src='img_url + item.images_path'
-		        def='https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png'
+		        :src='ep_url + item.images_path'
+		        def='http://www.pgj.com/pgj.jpg'
 		        :title='item.title'
 		        :area='item.area'
 		        :cate='item.rname'
@@ -60,6 +60,9 @@
 		        tag-field='name'>
 		    </store-item>
 		</section>
+		<no-data 
+	      :show='!storeList'
+	      text='暂无数据'></no-data>
 		<ko-loading 
 	      :is-load='isLoading'
 	      :no-more='showNoMore'></ko-loading>
@@ -75,6 +78,7 @@ import { pgjApi, fullApi } from '@/service/api'
 
 import loading from '@/components/layouts/ko-loading/index'
 import storeItem from '@/components/core/common/store-item/index'
+import noData from '@/components/core/common/no-data/index'
 
 let { tradeArray, regionArray, areaArray, orderArray } = mock;
 
@@ -83,6 +87,7 @@ export default {
 	data() {
 		return {
 			img_url: pgjApi,
+			ep_url: '',
 			selectorName: '',
 			selectorNames: ['trade', 'region', 'area', 'order'],
 			tradeArray,
@@ -93,7 +98,8 @@ export default {
 	},
 	components: {
 		'store-item': storeItem,
-		'ko-loading': loading
+		'ko-loading': loading,
+		'no-data': noData,
 	},
 	methods: {
 		getStoreList (cat_id = this.catActive, page = 1) {

@@ -1,6 +1,6 @@
 <template>
 	<div class="headline-wrapper container row">
-		<img class="headline-wrapper__logo" src="https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png" alt="">
+		<!-- <img class="headline-wrapper__logo" src="https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png" alt=""> -->
 	    <swiper class='headline-wrapper__carousel rel flex-1' autoplay circular vertical='true'>
 	      <swiper-item 
 	      	class='container row' 
@@ -14,7 +14,7 @@
 	        </p>
 	        <img 
 	        	class="headline-wrapper__img" 
-	        	:src="img_url + item[newsSrcField][0].pic_path"
+	        	:src="ep_url + item[newsSrcField][0].pic_path"
 	        	@click='routeTo(url, item)'>
 	      </swiper-item>
 	    </swiper>
@@ -39,7 +39,8 @@ export default {
 	},
 	data() {
 		return {
-			img_url: pgjApi
+			img_url: pgjApi,
+			ep_url: ''
 		}
 	},
 	methods: {

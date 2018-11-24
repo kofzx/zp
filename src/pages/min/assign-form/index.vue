@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<!--多图片上传-->
-		<div class="l-r-tf-box" style="margin-top: 0">
+		<div class="l-r-tf-box" style="margin-top: 0" v-if="!isLoad">
 			<div class="l-center">
 				<div class="layui-upload">
 					<blockquote class="layui-elem-quote layui-quote-nm">
@@ -24,7 +24,7 @@
 			</div>
 		</div>
 		<!--表单-->
-		<div class="l-r-tf-box">
+		<div class="l-r-tf-box" v-if="!isLoad">
 			<form 
 				@submit='assignSubmit'
 				@reset='assignReset'>
@@ -44,12 +44,14 @@
 						<div class="layui-input-block clearfix">
 							<picker 
 				            	class='layui-input layui-input--picker fl' 
-				            	mode="selector" 
+				            	mode="multiSelector" 
 				            	:range='tradeArray'
 				            	range-key='cname'
 				            	name='trade'
-				            	@change='changeTrade'>
-				                  <div>{{tradeName != '' ? tradeName : '请选择'}}</div>
+				            	@change='changeTrade'
+				            	@columnchange='changeColTrade'>
+				                  <div v-if='firstCat'>请选择</div>
+				                  <div v-else>{{tradeArray[0][multiCatIndex[0]].cname}}{{tradeArray[1].length != 0 ? '-'+tradeArray[1][multiCatIndex[1]].cname : ''}}</div>
 				            </picker>
 				            <i class="iconfont icon-arrow-right icon--fix fr g6 mr-10"></i>
 						</div>
@@ -59,12 +61,14 @@
 						<div class="layui-input-block clearfix">
 							<picker 
 				            	class='layui-input layui-input--picker fl' 
-				            	mode="selector" 
+				            	mode="multiSelector" 
 				            	:range='regionArray'
 				            	range-key='area_name'
 				            	name='region'
-				            	@change='changeRegion'>
-				                  <div>{{regionName != '' ? regionName : '请选择'}}</div>
+				            	@change='changeRegion'
+				            	@columnchange='changeColRegion'>
+				            	  <div v-show='firstRegion'>请选择</div>
+				                  <div v-show='!firstRegion'>{{regionArray[0][multiIndex[0]].area_name}}{{regionArray[1].length != 0 ? '-'+regionArray[1][multiIndex[1]].area_name : ''}}{{regionArray[2].length != 0 ? '-'+regionArray[2][multiIndex[2]].area_name : ''}}</div>
 				            </picker>
 				            <i class="iconfont icon-arrow-right icon--fix fr g6 mr-10"></i>
 						</div>
@@ -76,8 +80,11 @@
 								type="text" 
 								name="addr" 
 								placeholder="请填写" 
+								:value='curLocation'
 								class="layui-input fl">
-							<div class="l-rel-sapan fr"><i class="iconfont icon-ding-normal main-color"></i></div>
+							<div 
+								class="l-rel-sapan fr"
+								@click='fetchDing'><i class="iconfont icon-ding-normal main-color"></i></div>
 						</div>
 					</div>
 					<div class="layui-form-item">
@@ -155,10 +162,14 @@
 				</div>
 			</form>
 		</div>
+		<ko-loading :is-load='isLoad'></ko-loading>
 	</div>
 </template>
 
 <script>
+import nextLevel from '@/mixins/next-level/index'
+import getLocation from '@/mixins/get-location/index.min'
+
 import Validator from '@/utils/strategy/controller/Validator'
 
 import util from '@/utils/index'
@@ -167,9 +178,21 @@ import mock from '@/pages/mock'
 import qs from 'qs'
 import { fullApi, pgjApi } from '@/service/api'
 
+import loading from '@/components/layouts/ko-loading/index'
+
 let { tradeArray, regionArray, areaArray, orderArray } = mock;
 
+function multIdx(newVal) {
+	let length = newVal.length;
+	for (let i = length - 1; i >= 0; i--) {
+		if (newVal[i] == null || newVal[i] == 'undefined') {
+			newVal[i] = 0;
+		} 
+	}
+}
+
 export default {
+	mixins: [nextLevel, getLocation],
 	data() {
 		return {
 			tradeArray,
@@ -177,8 +200,17 @@ export default {
 			uploadPics: [],
 			tradeName: '',
 			regionName: '',
-			curCity: '东莞市'
+			multiIndex: [0,0,0],
+			multiCatIndex: [0,0],
+			firstRegion: true,
+			firstCat: true,
+			isLoad: true,
+			curLocation: '',
 		}
+	},
+	watch: {
+		multiIndex: multIdx,
+		multiCatIndex: multIdx
 	},
 	methods: {
 		_chooseImg () {
@@ -244,30 +276,58 @@ export default {
 			}
 		},
 		init () {
-			let curCity = this.curCity;
-			this.$flyio.post(fullApi.ASSIGN_INIT, qs.stringify({
-				city_name: curCity
-			}))
+			this.$flyio.get(fullApi.REGION)
 		    	.then(res => {
+		    		let newRegionArray = [],
+		    			newCatArray = [];
+
 		    		let { cat, region } = res.data;
-		    		this.tradeArray = cat;
-		    		this.regionArray = region;
+		    		newCatArray.push(cat);
+		    		newCatArray.push(cat[0].pid_value);
+
+		    		newRegionArray.push(region);
+		    		newRegionArray.push(region[0].child);
+		    		newRegionArray.push(region[0].child[0].child);
+
+		    		this.tradeArray = newCatArray;
+		    		this.regionArray = newRegionArray;
+		    		this.isLoad = false;
 		    	});
 		},
 		delImg (index) {
 			this.uploadPics.splice(index, 1);
 		},
+		fetchDing () {
+			this.getLocation()
+				.then(res => {
+					console.log(res);
+					this.curLocation = res.result.address;
+				})
+				.catch(res => {
+					console.log(res);
+				});
+		},
 		changeTrade (e) {
-	    	let value = e.mp.detail.value,
-	    		_name = this.tradeArray[value].cname;
+	    	let value = e.mp.detail.value;
+	    	this.multiCatIndex = value;
+	    	this.firstCat = false;
+	    },
+	    changeColTrade (e) {
+	    	let detail = e.mp.detail,
+	    		{ column, value } = detail;
 
-	    	this.tradeName = _name;
+	    	this.nextLevel(this.tradeArray, 'pid_value', column, value);
 	    },
 	    changeRegion (e) {
-	    	let value = e.mp.detail.value,
-	    		_name = this.regionArray[value].area_name;
+	    	let value = e.mp.detail.value;
+	    	this.multiIndex = value;
+	    	this.firstRegion = false;
+	    },
+	    changeColRegion (e) {
+	    	let detail = e.mp.detail,
+	    		{ column, value } = detail;
 
-	    	this.regionName = _name;
+	    	this.nextLevel(this.regionArray, 'child', column, value);
 	    },
 	    _submit (formObj) {
 	    	return new Promise(resolve => {
@@ -308,9 +368,13 @@ export default {
 			if (errMsg) {
 				this.$toast(errMsg, false);
 			} else {
+				let lastTradeIndex = value.trade.length - 1,
+					lastRegionIndex = value.region.length - 1;
+
 				value.uploadPics = uploadPics;
-				value.cid = this.tradeArray[value.trade].cid;
-				value.town_id = this.regionArray[value.region].id;
+				value.cid = this.tradeArray[lastTradeIndex][value.trade[lastTradeIndex]].cid;
+				value.town_id = this.regionArray[lastRegionIndex][value.region[lastRegionIndex]].id;
+
 				this._submit(value)
 					.then(res => {
 						let { code, msg } = res.data;
@@ -327,11 +391,14 @@ export default {
 		},
 		assignReset () {
 			this.uploadPics = [];
-			this.tradeName = '';
-			this.regionName = '';
+			this.firstRegion = true;
+			this.firstCat = true;
 		}
 	},
-	created () {
+	components: {
+		'ko-loading': loading
+	},
+	onLoad () {
 		this.init();
 	},
 	onShow () {

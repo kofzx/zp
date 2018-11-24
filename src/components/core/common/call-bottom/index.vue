@@ -1,7 +1,7 @@
 <template>
 	<div class="call-bottom--fix">
 	    <div href="" class="call-bottom">
-	        <p>欧阳先生</p>
+	        <p>{{person}}</p>
 	        <p 
 	        	class="call-bottom__tel"
 	        	@click='makeCall(phone)'>{{phone}}</p>
@@ -19,7 +19,8 @@ import wx from 'wx'
 export default {
 	props: {
 		phone: [String, Number],
-		color: String
+		color: String,
+		person: String
 	},
 	computed: {
 		tel: function() {

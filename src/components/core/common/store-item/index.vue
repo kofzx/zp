@@ -53,8 +53,10 @@
 		},
 		methods: {
 			routeTo (url, query) {
+				let queryStr = JSON.stringify(query);
+				queryStr = encodeURIComponent(queryStr);
 				wx.navigateTo({
-					url: url + '?data=' + JSON.stringify(query) 
+					url: `${url}?data=${queryStr}`
 				});
 			}
 		},

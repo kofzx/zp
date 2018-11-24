@@ -41,7 +41,7 @@
 	                        <p class="l-news-time">发布时间：{{item.addtime}} <span>{{item.click}}浏览</span></p>
 	                    </div>
 	                    <div class="l-news-bor-img">
-	                        <img :src="img_url + item.pic_path" alt="">
+	                        <img :src="ep_url + item.pic_path" alt="">
 	                    </div>
 	                </a>
 	            </li>
@@ -67,6 +67,7 @@ export default {
 	data() {
 		return {
 			img_url: pgjApi,
+			ep_url: '',
 			cate: [],
 		}
 	},

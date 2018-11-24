@@ -30,7 +30,7 @@
 		        <ul class="l-icon-list">
 		            <li class="l-user-icon">
 		                <a 
-		                	href="/pages/min/quick/main?type=assign"
+		                	:href="login ? '/pages/min/assign-form/main' : '/pages/min/login/main'" 
 		                	hover-class='none'>
 		                    <img src="../../../images/navs/quick.png">
 		                    <p>快速转店</p>
@@ -38,7 +38,7 @@
 		            </li>
 		            <li class="l-user-icon">
 		                <a 
-		                	href="/pages/min/quick/main?type=seek"
+		                	:href="login ? '/pages/min/seek-form/main' : '/pages/min/login/main'" 
 		                	hover-class='none'>
 		                    <img src="../../../images/navs/seek.png">
 		                    <p>快速找店</p>
@@ -154,7 +154,7 @@ export default {
 	    display: block;
 	}
 	.l-user-login {
-		background: url('https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png') no-repeat;
+		background: url('http://www.pgj.com/Mobile/images/user-top.png') no-repeat;
     	background-size: 380px 184px;
 		background-position: -2px -2px;
 	}

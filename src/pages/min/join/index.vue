@@ -58,7 +58,7 @@ export default {
 	    margin: 10px 0;
 	}
 	.l-join-bor {
-	    background: url('https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png') no-repeat center;
+	    background: url('http://www.pgj.com/Mobile/images/bg.jpg') no-repeat center;
 	    border-radius: 5px;
 	    display: flex;
 	    align-items: center;
@@ -109,6 +109,6 @@ export default {
 	    padding: 5px 12px;
 	    border-radius: 15px;
 	    font-size: 13px;
-	    color: #2196F3;
+	    color: @main;
 	}
 </style>
