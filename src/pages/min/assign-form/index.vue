@@ -167,6 +167,7 @@
 </template>
 
 <script>
+import share from '@/mixins/share/index'
 import nextLevel from '@/mixins/next-level/index'
 import getLocation from '@/mixins/get-location/index.min'
 
@@ -192,7 +193,7 @@ function multIdx(newVal) {
 }
 
 export default {
-	mixins: [nextLevel, getLocation],
+	mixins: [share, nextLevel, getLocation],
 	data() {
 		return {
 			tradeArray,

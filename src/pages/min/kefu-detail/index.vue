@@ -42,12 +42,14 @@
 </template>
 
 <script>
+import share from '@/mixins/share/index' 
 import util from '@/utils/index'
 import Tween from '@/utils/Tween'
 
 import callBottom from '@/components/core/common/call-bottom'
 
 export default {
+    mixins: [share],
     data () {
         return {
             divisor: 90,       // 除数

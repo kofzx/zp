@@ -57,10 +57,12 @@
 </template>
 
 <script>
+import share from '@/mixins/share/index'	
 import callCard from '@/components/core/common/call-card'
 import callBottom from '@/components/core/common/call-bottom'
 
 export default {
+	mixins: [share],
 	components: {
 		'call-card': callCard,
 		'call-bottom': callBottom

@@ -17,6 +17,7 @@
 
 <script>
 import Ding from '@/pages/common/ding/index.vue'
+import share from '@/mixins/share/index'
 
 import wx from 'wx'
 import util from '@/utils/index'
@@ -26,6 +27,7 @@ import cityItem from '@/components/core/common/city-item/index'
 import cityFixed from '@/components/core/common/city-fixed/index'
 
 export default {
+	mixins: [share],
 	extends: Ding,
 	data () {
 		return {

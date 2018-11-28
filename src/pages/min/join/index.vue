@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import share from '@/mixins/share/index'	
 import makePhone from '@/mixins/make-phone/index'
 
 import wx from 'wx'
@@ -28,7 +29,7 @@ import wx from 'wx'
 import { pgjApi, fullApi } from '@/service/api'
 
 export default {
-	mixins: [makePhone],
+	mixins: [share, makePhone],
 	data() {
 		return {
 			img_url: pgjApi,
@@ -58,7 +59,7 @@ export default {
 	    margin: 10px 0;
 	}
 	.l-join-bor {
-	    background: url('http://www.pgj.com/Mobile/images/bg.jpg') no-repeat center;
+	    background: url('https://www.puguanjiacn.com/Public/Mobile/images/bg.jpg') no-repeat center;
 	    border-radius: 5px;
 	    display: flex;
 	    align-items: center;

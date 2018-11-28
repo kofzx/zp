@@ -13,7 +13,10 @@
 </template>
 
 <script>
+import share from '@/mixins/share/index'
+
 export default {
+	mixins: [share],
 	data() {
 		return {
 			detail: {}

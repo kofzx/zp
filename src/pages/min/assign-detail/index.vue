@@ -80,12 +80,14 @@
 </template>
 
 <script>
+import share from '@/mixins/share/index'
 import { pgjApi } from '@/service/api' 
 
 import callCard from '@/components/core/common/call-card'
 import callBottom from '@/components/core/common/call-bottom'
 
 export default {
+	mixins: [share],
 	data() {
 		return {
 			detail: {},

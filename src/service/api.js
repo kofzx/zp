@@ -32,4 +32,5 @@ export const fullApi = {
 	REGISTER: pgjApi + apiName + '/index/register_ko',
 	UPLOAD: pgjApi + apiName + '/index/uploadimage',
 	REGION: pgjApi + apiName + '/index/region_ko',
+	SEARCH: pgjApi + apiName + '/index/search',
 };

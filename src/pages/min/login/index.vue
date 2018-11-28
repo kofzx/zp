@@ -42,12 +42,14 @@
 </template>
 
 <script>
+import share from '@/mixins/share/index'	
 import Validator from '@/utils/strategy/controller/Validator'
 
 import qs from 'qs'
 import { fullApi } from '@/service/api'
 
 export default {
+	mixins: [share],
 	data() {
 		return {
 			eyeType: 'password'

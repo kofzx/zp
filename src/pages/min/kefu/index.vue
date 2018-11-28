@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<img class="kefu-logo" src="../../../../static/images/logo.jpg">
-		<p class="kefu-title">找铺</p>
+		<img class="kefu-logo" src="https://www.puguanjiacn.com/Public/Home/images/logo.png">
+		<p class="kefu-title">铺莞家</p>
 		<div class="contact-card">
 			<div 
 				class="contact-card__item container row no-stretch"
@@ -9,7 +9,7 @@
 				<i class="iconfont icon-phone"></i>
 				<div class="contact-card__phone flex-1 container row">
 					<p class="f12">点击拨打客服热线</p>
-					<p class="f12">400-888-888</p>
+					<p class="f12">400-0889-003</p>
 				</div>
 				<i class="iconfont icon-arrow-right icon-fix"></i>
 			</div>
@@ -27,15 +27,16 @@
 </template>
 
 <script>
+import share from '@/mixins/share/index'	
 import makePhone from '@/mixins/make-phone/index'
 
 import wx from 'wx'
 
 export default {
-	mixins: [makePhone],
+	mixins: [share, makePhone],
 	data() {
 		return {
-			phone: '2333'
+			phone: '400-0889-003'
 		}
 	}
 }
@@ -47,7 +48,8 @@ export default {
 	}
 	.kefu-logo {
 		width: 75px;
-		height: 75px;
+		// height: 75px;
+		height: 45px;
 		display: block;
 		margin: 75px auto 20px;
 	}

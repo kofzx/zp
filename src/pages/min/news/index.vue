@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import share from '@/mixins/share/index'	
 import reachBottom from '@/mixins/reach-bottom/index.min'
 
 import qs from 'qs'
@@ -63,7 +64,7 @@ import { pgjApi, fullApi } from '@/service/api'
 import loading from '@/components/layouts/ko-loading/index'
 
 export default {
-	mixins: [reachBottom],
+	mixins: [share, reachBottom],
 	data() {
 		return {
 			img_url: pgjApi,

@@ -66,6 +66,7 @@
 </template>
 
 <script>
+import share from '@/mixins/share/index'	
 import reachBottom from '@/mixins/reach-bottom/index.min'
 
 import mock from '@/pages/mock'
@@ -78,7 +79,7 @@ import seekItem from '@/components/core/common/seek-item/index'
 let { tradeArray, regionArray, areaArray, orderArray } = mock;
 
 export default {
-	mixins: [reachBottom],
+	mixins: [share, reachBottom],
 	data() {
 		return {
 			selectorName: '',

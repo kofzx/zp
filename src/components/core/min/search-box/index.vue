@@ -3,7 +3,12 @@
     	<div class="search-wrapper container row">
 	      <div class='search-wrapper__box flex-1 white rel container row'>
 	      	<div class="search-wrapper__icon--ss" :style="{'background-image': ssUrl}"></div>
-	      	<input class="search-wrapper__input flex-1" type="text" :placeholder="placeholder">
+	      	<input 
+	      		class="search-wrapper__input flex-1" 
+	      		name='search'
+	      		type="text" 
+	      		placeholder-class='search-wrapper__input--plc'
+	      		:placeholder="placeholder">
 	      	<!-- 遮罩层 -->
 	      	<navigator class="search-wrapper__mask abs" hover-class='none' :url="jumpUrl" v-if='isJump'></navigator>
 	      </div>
@@ -37,8 +42,8 @@
 			}
 		},
 		methods: {
-			searchSubmit () {
-				console.log(111);
+			searchSubmit (e) {
+				this.$emit('searchSubmit', e);
 			}
 		}
 	}
@@ -73,9 +78,13 @@
 		text-align: center;
 		color: #afafaf;
 	}
+	.search-wrapper__input--plc {
+		color: #afafaf;
+	}
 	.search-wrapper__btn {
+		font-size: 14px;
 		background: transparent;
 		color: white;
-		padding: 0 0 0 10px;
+		padding: 0 0 0 10px !important;
 	}
 </style>

@@ -49,7 +49,7 @@ const localData = {
 			"loginUrl": "/pages/min/case/main",
 			"url": "/pages/min/case/main",
 			"pic": "../../../images/navs/case.png",
-			"title": "经典案例"
+			"title": "成功案例"
 		},
 		{
 			"openType": "navigate",

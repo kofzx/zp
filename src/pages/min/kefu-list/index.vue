@@ -10,11 +10,13 @@
 </template>
 
 <script>
+import share from '@/mixins/share/index'	
 import { pgjApi, fullApi } from '@/service/api'
 
 import callItem from '@/components/core/common/call-item/index'
 
 export default {
+	mixins: [share],
 	data() {
 		return {
 			img_url: pgjApi,

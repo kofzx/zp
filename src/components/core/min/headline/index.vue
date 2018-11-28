@@ -14,7 +14,7 @@
 	        </p>
 	        <img 
 	        	class="headline-wrapper__img" 
-	        	:src="ep_url + item[newsSrcField][0].pic_path"
+	        	:src="ep_url + item[newsSrcField] ? item[newsSrcField][0].pic_path : ''"
 	        	@click='routeTo(url, item)'>
 	      </swiper-item>
 	    </swiper>

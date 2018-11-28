@@ -103,9 +103,11 @@
 </template>
 
 <script>
+import share from '@/mixins/share/index'	
 import Quick from '@/pages/common/quick/index'
 
 export default {
+	mixins: [share],
 	extends: Quick,
 	data() {
 		return {

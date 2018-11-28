@@ -62,9 +62,11 @@
 </template>
 
 <script>
+import share from '@/mixins/share/index'	
 import { pgjApi } from '@/service/api' 
 
 export default {
+	mixins: [share],
 	data() {
 		return {
 			detail: {},

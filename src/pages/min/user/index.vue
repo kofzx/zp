@@ -56,37 +56,84 @@
 		    </div>
 		</div>
 		<!-- 个人中心 -->
-		<!-- <div class="l-center l-user-box">
+		<div class="l-center l-user-box">
 		    <ul class="l-user-list">
-		        <li><a href=""><i class="iconfont icon-publish color-03A9F4"></i><p>我的发布</p></a></li>
-		        <li><a href="building.html" hover-class='none'><i class="iconfont icon-card color-FF5722"></i><p>积分卡券</p></a></li>
-		        <li><a href="building.html" hover-class='none'><i class="iconfont icon-feet color-009688"></i><p>浏览记录</p></a></li>
-		        <li><a href="building.html"><i class="iconfont icon-love color-f00"></i><p>我的关注</p></a></li>
-		        <li><a href="building.html"><i class="iconfont icon-eval color-E91E63"></i><p>我的评估</p></a></li>
-		        <li><a href="building.html"><i class="iconfont icon-comment color-88d430"></i><p>我的留言</p></a></li>
-		        <li><a href="building.html"><i class="iconfont icon-circle color-9C27B0"></i><p>我的圈子</p></a></li>
-		        <li><a href="set-suggest.html"><i class="iconfont icon-suggest color-03A9F4"></i><p>意见板块</p></a></li>
-		        <li><a href=""><i class="iconfont icon-kefu color-ffae1a"></i><p>在线客服</p></a></li>
-		        <li><a href=""><i class="iconfont icon-tel color-FF5722"></i><p>免费热线</p></a></li>
-		        <li><a href="building.html"><i class="iconfont icon-yq color-ffae1a"></i><p>我要邀请</p></a></li>
-		        <li><a href="building.html"><i class="iconfont icon-record color-f00"></i><p>我的邀请</p></a></li>
+		        <li>
+		        	<!-- <a 
+		        		href="/pages/min/my-publish/main"
+		        		hover-class='none'>
+		        		<i class="iconfont icon-publish color-03A9F4"></i>
+		        		<p>我的发布</p>
+		        	</a> -->
+		        	<a @click='proding'>
+		        		<i class="iconfont icon-publish color-03A9F4"></i>
+		        		<p>我的发布</p>
+		        	</a>
+		        </li>
+		        <li>
+	        		<a @click='proding'>
+		        		<i class="iconfont icon-love color-f00"></i>
+			        	<p>我的收藏</p>
+		        	</a>
+		    	</li>
+		        <li>
+		        	<a @click='proding'>
+			        	<i class="iconfont icon-suggest color-03A9F4"></i>
+			        	<p>意见板块</p>
+		        	</a>
+		        </li>
+		        <li>
+		        	<a @click="makeCall('400-0889-003')">
+		        		<i class="iconfont icon-tel color-FF5722"></i>
+		        		<p>免费热线</p>
+		        	</a>
+		        </li>
+		        <li>
+		        	<button
+		        		class='kefu-online btn-clear'
+		        		open-type="contact">
+			        	<i class="iconfont icon-kefu color-ffae1a"></i>
+			        	<p>在线客服</p>
+			    	</button>
+		    	</li>
+		        <li>
+		        	<!-- <a 
+						href="/pages/min/authorize/main"
+		        		hover-class='none'>
+		        		<i class="iconfont icon-yq color-ffae1a"></i>
+		        		<p>我要邀请</p>
+			    	</a> -->
+		        	<a @click='proding'>
+		        		<i class="iconfont icon-yq color-ffae1a"></i>
+		        		<p>我要邀请</p>
+			    	</a>
+		    	</li>
 		    </ul>
-		</div> -->
+		</div>
 	</div>
 </template>
 
 <script>
+import share from '@/mixins/share/index'	
+import makePhone from '@/mixins/make-phone/index'
 import wx from 'wx'
 
 import { fullApi } from '@/service/api'
 
 export default {
+	mixins: [share, makePhone],
 	data() {
 		return {
 			login: ''
 		}
 	},
 	methods: {
+		proding () {
+			this.$loading('产品开发中');
+			setTimeout(() => {
+				this.$unLoading();
+			}, 1000);
+		},
 		goLogin () {
 			wx.navigateTo({
 				url: '../login/main'
@@ -154,7 +201,7 @@ export default {
 	    display: block;
 	}
 	.l-user-login {
-		background: url('http://www.pgj.com/Mobile/images/user-top.png') no-repeat;
+		background: url('https://www.puguanjiacn.com/Public/Mobile/images/user-top.png') no-repeat;
     	background-size: 380px 184px;
 		background-position: -2px -2px;
 	}
@@ -231,5 +278,11 @@ export default {
 		    	margin-right: 0;
 		    }
 	    }
+	}
+	.kefu-online {
+		box-sizing: border-box;
+		font-size: 14px;
+		line-height: normal;
+		background: #fff;
 	}
 </style>

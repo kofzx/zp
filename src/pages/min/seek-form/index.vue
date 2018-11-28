@@ -118,6 +118,7 @@
 </template>
 
 <script>
+import share from '@/mixins/share/index'	
 import nextLevel from '@/mixins/next-level/index'
 
 import Validator from '@/utils/strategy/controller/Validator'
@@ -140,7 +141,7 @@ function multIdx(newVal) {
 }
 
 export default {
-	mixins: [nextLevel],
+	mixins: [share, nextLevel],
 	data() {
 		return {
 			tradeArray,

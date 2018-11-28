@@ -70,6 +70,7 @@
 </template>
 
 <script>
+import share from '@/mixins/share/index'	
 import Validator from '@/utils/strategy/controller/Validator'
 
 import sendCode from '@/mixins/send-code/index.min'
@@ -78,7 +79,7 @@ import qs from 'qs'
 import { fullApi } from '@/service/api'
 
 export default {
-	mixins: [sendCode],
+	mixins: [share, sendCode],
 	data() {
 		return {
 			newEyeType: 'password',

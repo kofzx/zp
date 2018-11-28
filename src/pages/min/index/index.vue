@@ -11,18 +11,19 @@
           <search-box 
             ss-color='ffae1a' 
             :has-ding='true' 
-            :is-jump='false' 
+            :is-jump='true' 
+            jump-url='/pages/min/search/main'
             placeholder='找店铺/找项目'>
-              <p class="white ml-10" @click='proding'>搜索</p>
+              <a href='/pages/min/search/main' hover-class='none' class="white ml-10">搜索</a>
           </search-box>
         </div>
     </div>
     <!-- 轮播 -->
-    <swiper class='carousel swiper-box' autoplay circular indicator-dots>
+    <swiper class='carousel swiper-box' style='height: 136px' autoplay circular indicator-dots>
       <swiper-item 
         v-for='(item, index) in carousel' 
         :key='index'>
-        <img class='carousel-img' :src='ep_url + item.pic_path' />
+        <img class='carousel-img' style='height: 136px' :src='ep_url + item.pic_path' />
       </swiper-item>
     </swiper>
     <!-- 导航块 -->
@@ -143,7 +144,7 @@
         color='ffae1a'
         url="../assign-detail/main"
         :query='item'
-        :src='ep_url + item.images_path[0].pic_path'
+        :src="ep_url + item.images_path != 'null' ? item.images_path[0].pic_path : ''"
         :title='item.title'
         :area='item.area'
         :cate='item.cat_name'
@@ -164,11 +165,11 @@
         <a href='/pages/min/case/main' hover-class='none'>查看更多 &gt; </a>
       </div>
       <!-- 商铺列表 -->
-      <store-item v-for='(item, index) in finishList' :key='index'
+      <store-item v-for='(item, index) in finishList' :key='item'
         color='ffae1a'
         url="../case-detail/main"
         :query='item'
-        :src='img_url + item.images_path[0].pic_path'
+        :src="ep_url + item.images_path != 'null' ? item.images_path[0].pic_path : ''"
         :title='item.title'
         :area='item.area'
         :cate='item.cat_name'
@@ -192,6 +193,7 @@
 
 <script>
 import Index from '@/pages/common/index/index'
+import share from '@/mixins/share/index'
 import makePhone from '@/mixins/make-phone/index'
 import getLocation from '@/mixins/get-location/index.min'
 
@@ -206,7 +208,7 @@ import searchBox from '@/components/core/min/search-box/index'
 import headline from '@/components/core/min/headline/index'
 
 export default {
-  mixins: [Index, makePhone, getLocation],
+  mixins: [Index, share, makePhone, getLocation],
   data() {
     return {
       navBar: localData.navBar,
@@ -253,7 +255,7 @@ export default {
         city_name: curCity
       }))
         .then(res => {
-
+          console.log(res);
           let { carousel, customer, is_finish, is_normal, is_urgent, league } = res.data;
           this.carousel = carousel;
           this.customer = customer;
@@ -262,7 +264,7 @@ export default {
           this.urgentList = is_urgent;
           this.league = league;
 
-          this.$unLoading();
+          // this.$unLoading();
         });
     },
     proding () {
@@ -297,11 +299,11 @@ export default {
       if (ding) {
         if (this.curCity != ding) {
           this.curCity = ding;
-          this.$loading('数据更新中...');
+          // this.$loading('数据更新中...');
           this.fetchIndex();
         }
       }
-    } catch (e) {}
+    } catch (e) { console.log(e) }
   }
 }
 </script>

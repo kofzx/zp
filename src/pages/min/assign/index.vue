@@ -47,13 +47,15 @@
 			<div class="top-filter--fix"></div>
 		</form>
 		<!-- 商铺列表 -->
-		<section class="zp-container card-box" v-if='storeList'>
+		<section 
+			class="zp-container card-box" 
+			v-if='storeList'>
 			<store-item v-for='(item, index) in storeList' :key='index'
 		        color='ffae1a'
 		        url="/pages/min/assign-detail/main"
 		        :query='item'
 		        :show='item.show'
-		        :src='ep_url + item.images_path[0].pic_path'
+		        :src="ep_url + item.images_path != 'null' ? item.images_path[0].pic_path : ''"
 		        def='http://www.pgj.com/pgj.jpg'
 		        :title='item.title'
 		        :area='item.area'
@@ -74,6 +76,7 @@
 </template>
 
 <script>
+import share from '@/mixins/share/index'
 import reachBottom from '@/mixins/reach-bottom/index.min'
 
 import qs from 'qs'
@@ -89,7 +92,7 @@ import noData from '@/components/core/common/no-data/index'
 let { tradeArray, regionArray, areaArray, orderArray } = mock;
 
 export default {
-	mixins: [reachBottom],
+	mixins: [share, reachBottom],
 	data() {
 		return {
 			img_url: pgjApi,

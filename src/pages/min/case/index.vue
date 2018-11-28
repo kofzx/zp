@@ -49,7 +49,7 @@
 		        url='../case-detail/main'
 		        :query='item'
 		        :show='item.show'
-		        :src='ep_url + item.images_path'
+		        :src="ep_url + item.images_path != 'null' ? item.images_path[0].pic_path : ''"
 		        def='http://www.pgj.com/pgj.jpg'
 		        :title='item.title'
 		        :area='item.area'
@@ -71,6 +71,7 @@
 
 <script>
 import reachBottom from '@/mixins/reach-bottom/index.min'
+import share from '@/mixins/share/index'
 
 import mock from '@/pages/mock'
 import qs from 'qs'
@@ -83,7 +84,7 @@ import noData from '@/components/core/common/no-data/index'
 let { tradeArray, regionArray, areaArray, orderArray } = mock;
 
 export default {
-	mixins: [reachBottom],
+	mixins: [reachBottom, share],
 	data() {
 		return {
 			img_url: pgjApi,

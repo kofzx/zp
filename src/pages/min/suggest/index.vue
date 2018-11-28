@@ -31,8 +31,10 @@
 </template>
 
 <script>
-export default {
+import share from '@/mixins/share/index'
 
+export default {
+	mixins: [share],
 }
 </script>
 
