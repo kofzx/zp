@@ -3,19 +3,17 @@
 		<!-- 发布 -->
 		<div class="l-center mt-10">
 		    <navigator 
-		    	:url="login ? '/pages/min/assign-form/main' : '/pages/min/login/main'" 
+		    	url="/pages/min/my-assign/main" 
 		    	class="l-release-box">
-		        <p class="title">帮您快速转让店铺</p>
-		        <p>正在转铺6666家</p>
-		        <a>店铺转让</a>
+		        <p class="title">我的转让店铺信息</p>
+		        <a>我的转让</a>
 		        <i class="iconfont icon-assign l-ico-release"></i>
 		    </navigator>
 		    <navigator 
-		    	:url="login ? '/pages/min/seek-form/main' : '/pages/min/login/main'" 
+		    	url="/pages/min/my-seek/main" 
 		    	class="l-release-box mt-10">
-		        <p class="title">快速帮您找到店铺</p>
-		        <p>在线找店4567人</p>
-		        <a>选店找址</a>
+		        <p class="title">我的找店选址信息</p>
+		        <a>我的找店</a>
 		        <i class="iconfont icon-ding-sp l-ico-release"></i>
 		    </navigator>
 		</div>
@@ -49,6 +47,7 @@ export default {
 	    background-size: 100%;
 	    border-radius: 6px;
 	    color: #fff;
+	    height: 120px;
 	    position: relative;
 	    p {
 	    	padding: 5px 25px;
@@ -61,7 +60,7 @@ export default {
 	    	border: 1px solid #fff;
 		    padding: 5px 25px;
 		    display: inline-block;
-		    margin: 20px 0 20px 25px;
+		    margin: 11px 0 20px 25px;
 		    border-radius: 20px;
 		    color: #fff;
 		    font-size: 16px;
@@ -71,6 +70,6 @@ export default {
 	    position: absolute;
 	    right: 34px;
 	    font-size: 90px !important;
-	    top: 27px;
+	    top: 11px;
 	}
 </style>

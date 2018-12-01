@@ -30,7 +30,6 @@ export default {
 	      display: inline-block;
 	      position: relative;
 	      background-color: rgb(239, 239, 244);
-	      position: relative;
 	      z-index: 2;
 	      color: #666;
 	  }

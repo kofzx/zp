@@ -58,7 +58,7 @@
 		    <ul class="center">
 		        <li><i class="iconfont icon-yq"></i> 转让信息</li>
 		        <li>转让费用 : {{detail.rent_money}}万</li>
-		        <li>是否空转 : {{detail.is_empty == '0' ? '不可空转' : '可空转'}}</li>
+		        <!-- <li>是否空转 : {{detail.is_empty == '0' ? '不可空转' : '可空转'}}</li> -->
 		    </ul>
 		</div>
 		<!-- 信息描述-->

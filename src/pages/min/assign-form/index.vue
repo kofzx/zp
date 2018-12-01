@@ -341,6 +341,7 @@ export default {
 					description: formObj.desc,
 					area: formObj.area,
 					cid: formObj.cid,
+					rent_money: formObj.assign_fee,
 					town_id: formObj.town_id,
 					pic_path: formObj.uploadPics
 				}))

@@ -46,7 +46,7 @@
 		            </li>
 		            <li class="l-user-icon">
 		                <a 
-		                	href="/pages/min/join/main"
+		                	:href="auth ? '/pages/min/join/main' : '/pages/min/join/main'"
 		                	hover-class='none'>
 		                    <img src="../../../images/navs/hezuo.png">
 		                    <p>项目加盟</p>
@@ -59,16 +59,16 @@
 		<div class="l-center l-user-box">
 		    <ul class="l-user-list">
 		        <li>
-		        	<!-- <a 
-		        		href="/pages/min/my-publish/main"
+		        	<a 
+		        		:href="login ? '/pages/min/my-publish/main' : '/pages/min/login/main'"
 		        		hover-class='none'>
 		        		<i class="iconfont icon-publish color-03A9F4"></i>
 		        		<p>我的发布</p>
-		        	</a> -->
-		        	<a @click='proding'>
+		        	</a>
+		        	<!-- <a @click='proding'>
 		        		<i class="iconfont icon-publish color-03A9F4"></i>
 		        		<p>我的发布</p>
-		        	</a>
+		        	</a> -->
 		        </li>
 		        <li>
 	        		<a @click='proding'>
@@ -97,16 +97,16 @@
 			    	</button>
 		    	</li>
 		        <li>
-		        	<!-- <a 
-						href="/pages/min/authorize/main"
+		        	<a 
+						:href="auth ? '/pages/min/share-qrcode/main' : '/pages/min/authorize/main'"
 		        		hover-class='none'>
 		        		<i class="iconfont icon-yq color-ffae1a"></i>
 		        		<p>我要邀请</p>
-			    	</a> -->
-		        	<a @click='proding'>
+			    	</a>
+		        	<!-- <a @click='proding'>
 		        		<i class="iconfont icon-yq color-ffae1a"></i>
 		        		<p>我要邀请</p>
-			    	</a>
+			    	</a> -->
 		    	</li>
 		    </ul>
 		</div>
@@ -124,7 +124,8 @@ export default {
 	mixins: [share, makePhone],
 	data() {
 		return {
-			login: ''
+			login: '',
+			auth: false
 		}
 	},
 	methods: {
@@ -158,9 +159,13 @@ export default {
 	},
 	onShow () {
 		try {
-		  let login = wx.getStorageSync('login');
+		  let login = wx.getStorageSync('login'),
+		  	  openid = wx.getStorageSync('openid');
 		  if (login) {
 		    this.login = login;
+		  }
+		  if (openid) {
+		  	this.auth = true;
 		  }
 		} catch (e) {}
 	},

@@ -16,10 +16,13 @@
 
 <script>
 import share from '@/mixins/share/index'
+import getOpenId from '@/mixins/get-openid/index'
 import wx from 'wx'
 
+import { fullApi } from '@/service/api'
+
 export default {
-	mixins: [share],
+	mixins: [share, getOpenId],
 	data() {
 		return {
 			canIUse: wx.canIUse('button.open-type.getUserInfo')
@@ -27,21 +30,25 @@ export default {
 	},
 	methods: {
 		bindGetUserInfo (e) {
-			console.log(e);
-		    // wx.setStorageSync('userInfo', e.detail.userInfo);
-		    // let code = wx.getStorageSync('code');
-		    // if (code) {
-		    //   app.getOpenId(code, () => {
-		    //     // 授权成功提示
-		    //     wx.showToast({
-		    //       title: '授权成功',
-		    //       icon: 'success'
-		    //     })
-		    //     wx.navigateBack({
-		    //       delta: 1
-		    //     })
-		    //   });
-		    // }
+			try {
+				wx.setStorageSync('userInfo', e.mp.detail.userInfo);
+			    let code = wx.getStorageSync('code');
+			    if (code) {
+			      this.getOpenId(code)
+			      	.then((res) => {
+			      		wx.setStorageSync('openid', res.data.openid);
+			      		wx.setStorageSync('access_token', res.data.access_token);
+			      		this.$toast('授权成功');
+			      		setTimeout(() => {
+			      			wx.navigateBack({
+				      			delta: 1
+				      		}); 
+			      		}, 1500);
+			      	});
+			    }
+			} catch(e) {
+				console.log(e);
+			}
 		},
 	}
 }

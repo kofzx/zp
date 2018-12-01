@@ -22,9 +22,9 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 
 问题:
 1. 获取undefined
-2. 分享
-3. 关于我们图片
-4. 人物头像添加
+2. 人物头像添加
+3. 授权
+4. 推广二维码
 
 剩余:
 1. 详情页收藏入口
@@ -47,3 +47,17 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 更新 / 新增接口:
 1. 搜索接口 - search
 2. getIndex
+3. 我的发布转店 - my_transfer
+   我的发布找店 - my_seek
+	+ shellModel
+		->my_transfer
+	+ buyModel
+		->my_seek
+4. 授权接口
+	+ Login
+		->getAccessToken
+		->getopenid
+
+	function
+		->curl_post_contents
+		->getAccessToken
