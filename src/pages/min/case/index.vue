@@ -50,7 +50,7 @@
 		        :query='item'
 		        :show='item.show'
 		        :src="ep_url + item.images_path != 'null' ? item.images_path[0].pic_path : ''"
-		        def='http://www.pgj.com/pgj.jpg'
+		        :def="defaultImg"
 		        :title='item.title'
 		        :area='item.area'
 		        :cate='item.rname'
@@ -75,7 +75,7 @@ import share from '@/mixins/share/index'
 
 import mock from '@/pages/mock'
 import qs from 'qs'
-import { pgjApi, fullApi } from '@/service/api'
+import { pgjImg, pgjApi, fullApi } from '@/service/api'
 
 import loading from '@/components/layouts/ko-loading/index'
 import storeItem from '@/components/core/common/store-item/index'
@@ -89,6 +89,7 @@ export default {
 		return {
 			img_url: pgjApi,
 			ep_url: '',
+			defaultImg: pgjImg,
 			selectorName: '',
 			selectorNames: ['trade', 'region', 'area', 'order'],
 			tradeArray,
@@ -120,7 +121,7 @@ export default {
 
 			          this.isReachBottom = false;
 			          
-			          this.storeList = this.storeList.concat(this.onLazyLoad(storeList));
+			          this.storeList = this.storeList.concat(this.offLazyLoad(storeList));
 
 			          resolve(storeList);
 			        });

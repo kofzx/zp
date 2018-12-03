@@ -23,8 +23,8 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 问题:
 1. 获取undefined
 2. 人物头像添加
-3. 授权
-4. 推广二维码
+3. 懒加载优化
+4. 定位锚点失效 √
 
 剩余:
 1. 详情页收藏入口
@@ -32,7 +32,7 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 	+ 接口对接
 3. 设置（可设置）
 4. 我的发布 + 我的收藏 + 意见版块 + 免费热线 + 在线客服 + 我要邀请
-	+ 我的发布
+	+ 我的发布 √
 	+ 我的收藏
 	+ 意见版块 
 	+ 免费热线 √
@@ -61,3 +61,7 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 	function
 		->curl_post_contents
 		->getAccessToken
+5. 收藏接口 - collect
+	+ shellModel
+		->collect
+		->_collect

@@ -75,13 +75,15 @@
 		<call-bottom
 			color='ffae1a'
 			:person='detail.linkman'
-			:phone='detail.phone' />
+			:phone='detail.phone'
+			:is-collect='isCollect'
+			@switchCollect='switchCollect' />
 	</div>
 </template>
 
 <script>
 import share from '@/mixins/share/index'
-import { pgjApi } from '@/service/api' 
+import { pgjApi, fullApi } from '@/service/api' 
 
 import callCard from '@/components/core/common/call-card'
 import callBottom from '@/components/core/common/call-bottom'
@@ -92,12 +94,31 @@ export default {
 		return {
 			detail: {},
 			img_url: pgjApi,
-			ep_url: ''
+			ep_url: '',
+			isCollect: false,
 		}
 	},
 	components: {
 		'call-card': callCard,
 		'call-bottom': callBottom
+	},
+	methods: {
+		switchCollect (status) {
+			let detail = this.detail;
+			// 请求接口
+			this.$flyio.get(fullApi.COLLECT, {
+				id: detail.sid
+			})
+				.then(res => {
+					let { code, msg } = res.data;
+					if (code == 1) {
+						this.isCollect = status;
+						this.$toast(msg);
+					} else {
+						this.$toast(msg);
+					}
+				});
+		}
 	},
 	mounted () {
 		let data_decodeURI = decodeURIComponent(this.$mp.query.data);

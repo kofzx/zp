@@ -7,7 +7,7 @@
 			class="l-join-box">
 		    <div class="l-center">
 		        <div class="l-join-bor">
-		            <div class="l-join-img"><img :src="img_url + item.pic_path"></div>
+		            <div class="l-join-img"><img :src="item.pic_path ? item.pic_path : defaultImg"></div>
 		            <div class="l-join-word">
 		                <p class="l-join-tit">{{item.title}}</p>
 		                <p class="l-join-mint">{{item.description}}</p>
@@ -26,13 +26,14 @@ import makePhone from '@/mixins/make-phone/index'
 
 import wx from 'wx'
 
-import { pgjApi, fullApi } from '@/service/api'
+import { pgjImg, pgjApi, fullApi } from '@/service/api'
 
 export default {
 	mixins: [share, makePhone],
 	data() {
 		return {
 			img_url: pgjApi,
+			defaultImg: pgjImg,
 			list: []
 		}
 	},

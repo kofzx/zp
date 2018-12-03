@@ -1,6 +1,6 @@
 <template>
 	<div class="headline-wrapper container row">
-		<!-- <img class="headline-wrapper__logo" src="https://7n.w3cschool.cn/attachments/day_161010/201610101756173797.png" alt=""> -->
+		<!-- <img class="headline-wrapper__logo" :src="logo"> -->
 	    <swiper class='headline-wrapper__carousel rel flex-1' autoplay circular vertical='true'>
 	      <swiper-item 
 	      	class='container row' 
@@ -40,13 +40,15 @@ export default {
 	data() {
 		return {
 			img_url: pgjApi,
-			ep_url: ''
-		}
+			ep_url: '',
+	 	}
 	},
 	methods: {
 		routeTo (url, query) {
+			let queryStr = JSON.stringify(query);
+			queryStr = encodeURIComponent(queryStr);
 			wx.navigateTo({
-				url: url + '?data=' + JSON.stringify(query) 
+				url: `${url}?data=${queryStr}`
 			});
 		}
 	},

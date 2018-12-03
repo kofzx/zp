@@ -60,7 +60,7 @@ export default {
 
 			          this.isReachBottom = false;
 			          
-			          this.storeList = this.storeList.concat(this.onLazyLoad(storeList));
+			          this.storeList = this.storeList.concat(this.offLazyLoad(storeList));
 
 			          resolve(storeList);
 			        });

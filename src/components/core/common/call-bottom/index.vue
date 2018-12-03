@@ -1,6 +1,6 @@
 <template>
 	<div class="call-bottom--fix">
-	    <div href="" class="call-bottom">
+	    <div class="call-bottom">
 	        <p>{{person}}</p>
 	        <p 
 	        	class="call-bottom__tel"
@@ -9,6 +9,12 @@
 	        	class="icon-svg"
 	        	:style="{'background-image': tel}"
 	        	@click='makeCall(phone)'></i>
+	        <!-- 收藏 -->
+	        <span 
+				class="call-collect iconfont icon-love abs"
+				:class="{'collected': isCollect}"
+				@click='switchCollect(isCollect)'
+				></span>
 	    </div>
 	</div>
 </template>
@@ -20,7 +26,11 @@ export default {
 	props: {
 		phone: [String, Number],
 		color: String,
-		person: String
+		person: String,
+		isCollect: {
+			type: Boolean,
+			default: false
+		}
 	},
 	computed: {
 		tel: function() {
@@ -32,6 +42,9 @@ export default {
 			wx.makePhoneCall({
 				phoneNumber: phone
 			});
+		},
+		switchCollect (status) {
+			this.$emit('switchCollect', !status);
 		}
 	}
 }
@@ -71,5 +84,17 @@ export default {
 	}
 	.call-bottom__tel {
 		font-size: 16px;
+	}
+	.call-collect {
+	    top: 12px;
+	    right: 77px;
+	    color: #e4e4e4;
+	    width: 37px;
+	    height: 37px;
+	    font-size: 30px !important;
+	    transition: all .25s ease;
+	    &.collected {
+	        color: red;
+	    }
 	}
 </style>

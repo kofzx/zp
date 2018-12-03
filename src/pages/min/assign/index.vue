@@ -56,7 +56,7 @@
 		        :query='item'
 		        :show='item.show'
 		        :src="ep_url + item.images_path != 'null' ? item.images_path[0].pic_path : ''"
-		        def='http://www.pgj.com/pgj.jpg'
+		        :def="defaultImg"
 		        :title='item.title'
 		        :area='item.area'
 		        :cate='item.rname'
@@ -81,7 +81,7 @@ import reachBottom from '@/mixins/reach-bottom/index.min'
 
 import qs from 'qs'
 import globalData from '@/_start/min/config'
-import { pgjApi, fullApi } from '@/service/api'
+import { pgjImg, pgjApi, fullApi } from '@/service/api'
 import mock from '@/pages/mock'
 
 import loading from '@/components/layouts/ko-loading/index'
@@ -97,6 +97,7 @@ export default {
 		return {
 			img_url: pgjApi,
 			ep_url: '',
+			defaultImg: pgjImg,
 			selectorName: '',
 			selectorNames: ['trade', 'region', 'area', 'order'],
 			tradeArray,
@@ -133,7 +134,7 @@ export default {
 
 			          this.isReachBottom = false;
 			          
-			          this.storeList = this.storeList.concat(this.onLazyLoad(storeList));
+			          this.storeList = this.storeList.concat(this.offLazyLoad(storeList));
 
 			          resolve(storeList);
 			        });
@@ -174,7 +175,6 @@ export default {
 	    			trade_id: _selectorId
 	    		}))
 	    		.then(res => {
-	    			console.log(res);
 	    			this.storeList = res.data.data;
 	    		});
 	    },
@@ -189,7 +189,6 @@ export default {
 	    			town_id: _selectorId
 	    		}))
 	    		.then(res => {
-	    			console.log(res);
 	    			this.storeList = res.data.data;
 	    		});
 	    },
@@ -204,7 +203,6 @@ export default {
 	    			area: _selectorId
 	    		}))
 	    		.then(res => {
-	    			console.log(res);
 	    			this.storeList = res.data.data;
 	    		});
 	    },
@@ -219,7 +217,6 @@ export default {
 	    			rent: _selectorId
 	    		}))
 	    		.then(res => {
-	    			console.log(res);
 	    			this.storeList = res.data.data;
 	    		});
 	    }

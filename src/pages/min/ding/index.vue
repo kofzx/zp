@@ -4,6 +4,7 @@
 		<city-item 
 			v-for="(val, key, index) in cityList" 
 			:key="index" 
+			:id='key'
 			:title='key' 
 			:city-list='val'
 			city-field='area_name'
