@@ -40,4 +40,6 @@ export const fullApi = {
 	MY_SEEK: pgjApi + apiName + '/my_seek',
 	QRCODE: pgjApi + apiName + '/qrcode',
 	COLLECT: pgjApi + apiName + '/collect',
+	IS_COLLECT: pgjApi + apiName + '/is_collect',
+	COLLECT_LIST: pgjApi + apiName + '/collect_list',
 };

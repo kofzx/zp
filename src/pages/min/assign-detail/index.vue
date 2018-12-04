@@ -96,6 +96,7 @@ export default {
 			img_url: pgjApi,
 			ep_url: '',
 			isCollect: false,
+			login: '',
 		}
 	},
 	components: {
@@ -103,7 +104,24 @@ export default {
 		'call-bottom': callBottom
 	},
 	methods: {
+		get_is_collect () {
+			let detail = this.detail;
+			this.$flyio.get(fullApi.IS_COLLECT, {
+				id: detail.sid
+			})
+				.then(res => {
+					let { code, is_collect } = res.data;
+					if (code == 1) {
+						this.isCollect = is_collect;
+					}
+				});
+		},
 		switchCollect (status) {
+			let login = this.login;
+			if (!login) {
+				this.goLogin();
+				return;
+			}
 			let detail = this.detail;
 			// 请求接口
 			this.$flyio.get(fullApi.COLLECT, {
@@ -112,18 +130,38 @@ export default {
 				.then(res => {
 					let { code, msg } = res.data;
 					if (code == 1) {
-						this.isCollect = status;
-						this.$toast(msg);
-					} else {
-						this.$toast(msg);
+						this.isCollect = true;
+					} else if (code == 0) {
+						this.isCollect = false;
 					}
+					this.$toast(msg);
 				});
+		},
+		goLogin () {
+			wx.navigateTo({
+				url: '../login/main'
+			});
 		}
 	},
-	mounted () {
-		let data_decodeURI = decodeURIComponent(this.$mp.query.data);
+	// mounted () {
+	// 	let data_decodeURI = decodeURIComponent(this.$mp.query.data);
+	// 	let data_json = JSON.parse(data_decodeURI);
+	// 	this.detail = data_json;
+	// },
+	onLoad (options) {
+		let data_decodeURI = decodeURIComponent(options.data);
 		let data_json = JSON.parse(data_decodeURI);
 		this.detail = data_json;
+	},
+	onShow () {
+		try {
+		  let login = wx.getStorageSync('login');
+		  if (login) {
+		    this.login = login;
+		    // 请求
+			this.get_is_collect();
+		  }
+		} catch (e) {}
 	}
 }
 </script>

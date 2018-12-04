@@ -62,6 +62,8 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 		->curl_post_contents
 		->getAccessToken
 5. 收藏接口 - collect
-	+ shellModel
-		->collect
-		->_collect
+	# + shellModel
+	#	 ->collect
+	#	 ->_collect
+	collectModel
+6. 查询详情收藏接口 - is_collect

@@ -11,6 +11,7 @@
     "pages/min/seek-form/main",
     "pages/min/case/main",
     "pages/min/case-detail/main",
+    "pages/min/collect/main",
     "pages/min/join/main",
     "pages/min/kefu/main",
     "pages/min/kefu-list/main",

@@ -43,7 +43,9 @@
 			<div class="top-filter--fix"></div>
 		</form> -->
 		<!-- 商铺列表 -->
-		<section class="zp-container card-box" v-if='storeList'>
+		<section 
+			class="zp-container card-box" 
+			v-if='storeList.length != 0'>
 			<store-item v-for='(item, index) in storeList' :key='index'
 		        color='ffae1a'
 		        url='../case-detail/main'
@@ -61,11 +63,11 @@
 		    </store-item>
 		</section>
 		<no-data 
-	      :show='!storeList'
+	      :show='storeList.length == 0'
 	      text='暂无数据'></no-data>
 		<ko-loading 
 	      :is-load='isLoading'
-	      :no-more='showNoMore'></ko-loading>
+	      :no-more='showNoMore && storeList.length != 0'></ko-loading>
 	</div>
 </template>
 
@@ -115,7 +117,9 @@ export default {
 			          if (storeList == null || storeList == 'undefined') {
 			            this.isReachLastPage = true;
 			            this.loadingHide();
-			            this.showNoMore = true;
+			            if (this.isReachBottom) {
+			            	this.showNoMore = true;
+			            }
 			            return;
 			          }
 
@@ -140,8 +144,8 @@ export default {
 	created () {
 	    this.getCase();
 	},
-	onPageScroll () {
-	  this.lazyLoad(".store-item__left");
+	onShow () {
+		this.getCase();
 	}
 }
 </script>

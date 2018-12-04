@@ -268,10 +268,10 @@ export default {
         });
     },
     proding () {
-      this.$loading('产品开发中...');
-      setTimeout(() => {
-        this.$unLoading();
-      }, 1000);
+      this.$loading('产品开发中...', true, 1000)
+        .then(() => {
+          this.$unLoading();
+        });
     }
   },
   created () {

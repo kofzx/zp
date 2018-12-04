@@ -2,23 +2,25 @@
 	<div>
 		<!-- 商铺列表 -->
 		<section 
-			class="zp-container card-box"
+			class="zp-container card-box" 
 			v-if='storeList.length != 0'>
-			<seek-item v-for='(item, index) in storeList' :key='index'
+			<store-item v-for='(item, index) in storeList' :key='index'
 		        color='ffae1a'
-		        url="/pages/min/seek-detail/main"
+		        url="/pages/min/assign-detail/main"
 		        :query='item'
+		        :show='item.show'
+		        :src="ep_url + item.images_path != 'null' ? item.images_path[0].pic_path : ''"
+		        def='http://www.pgj.com/pgj.jpg'
 		        :title='item.title'
 		        :area='item.area'
-		        :region='item.rname'
-		        :cate='item.cat_name'
+		        :cate='item.rname'
 		        :rental='item.rent'
 		        :time='item.addtime'>
-		    </seek-item>
+		    </store-item>
 		</section>
 		<no-data 
 	      :show='storeList.length == 0'
-	      text='暂无数据'></no-data>
+	      text='暂无收藏'></no-data>
 		<ko-loading 
 	      :is-load='isLoading'
 	      :no-more='showNoMore && storeList.length != 0'></ko-loading>
@@ -26,34 +28,38 @@
 </template>
 
 <script>
-import share from '@/mixins/share/index'	
+import share from '@/mixins/share/index'
 import reachBottom from '@/mixins/reach-bottom/index.min'
 
 import qs from 'qs'
 import { pgjApi, fullApi } from '@/service/api'
 
 import loading from '@/components/layouts/ko-loading/index'
-import seekItem from '@/components/core/common/seek-item/index'
+
+import storeItem from '@/components/core/common/store-item/index'
+import noData from '@/components/core/common/no-data/index'
 
 export default {
 	mixins: [share, reachBottom],
 	data() {
 		return {
-			
+			img_url: pgjApi,
+			ep_url: ''
 		}
 	},
 	components: {
-		'seek-item': seekItem,
+		'store-item': storeItem,
 		'ko-loading': loading,
+		'no-data': noData,
 	},
 	methods: {
 		getStoreList (cat_id = this.catActive, page = 1) {
 			return new Promise((resolve) => {
-				this.$flyio.post(fullApi.MY_SEEK, qs.stringify({
+				this.$flyio.post(fullApi.COLLECT_LIST, qs.stringify({
 						start: page
 		    		}))
 			        .then(res => {
-			          let storeList = res.data.seek;
+			          let storeList = res.data;
 
 			          if (storeList == null || storeList == 'undefined') {
 			            this.isReachLastPage = true;

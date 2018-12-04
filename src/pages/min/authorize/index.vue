@@ -38,12 +38,12 @@ export default {
 			      	.then((res) => {
 			      		wx.setStorageSync('openid', res.data.openid);
 			      		wx.setStorageSync('access_token', res.data.access_token);
-			      		this.$toast('授权成功');
-			      		setTimeout(() => {
-			      			wx.navigateBack({
-				      			delta: 1
-				      		}); 
-			      		}, 1500);
+			      		this.$toast('授权成功')
+			      			.then(() => {
+			      				wx.navigateBack({
+					      			delta: 1
+					      		}); 
+			      			});
 			      	});
 			    }
 			} catch(e) {

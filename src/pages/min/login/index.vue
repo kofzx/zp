@@ -95,12 +95,14 @@ export default {
 		    		.then(res => {
 		    			let { code, msg, data } = res.data;
 		    			if (code == 1) {
-		    				this.$toast(msg);
-						    wx.switchTab({
-						    	url: '../user/main'
-						    });
-						    // 已登录
-						    data.phone = value.phone;	// 后端没返回phone，自行加上
+		    				this.$toast(msg)
+		    					.then(() => {
+		    						wx.navigateBack({
+				    					delta: 1
+				    				});
+		    					});
+		    				// 已登录
+		    				data.phone = value.phone;	// 后端没返回phone，自行加上
 						    wx.setStorageSync('login', data);
 		    			} else {
 		    				this.$toast(msg, false);
