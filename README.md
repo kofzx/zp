@@ -25,6 +25,8 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 2. 人物头像添加
 3. 懒加载优化
 4. 定位锚点失效 √
+5. 邀请canvas布局 √
+6. 下拉刷新
 
 剩余:
 1. 详情页收藏入口
@@ -67,3 +69,5 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 	#	 ->_collect
 	collectModel
 6. 查询详情收藏接口 - is_collect
+7. 建议接口 - suggest
+	suggestModel

@@ -1,10 +1,10 @@
-// export const apiName = '/api';
-export const apiName = '/api/index';
+export const apiName = '/api';
+// export const apiName = '/api/index';
 
 export const ytApi = 'https://ytxcx.6mo.cc';
 export const gsApi = 'https://gs.6mo.cc';
-// export const pgjApi = 'https://www.puguanjiacn.com';
-export const pgjApi = 'http://www.pgj.com';
+export const pgjApi = 'https://www.puguanjiacn.com';
+// export const pgjApi = 'http://www.pgj.com';
 export const pgjImg = pgjApi + '/pgj.jpg';
 
 export const api = {
@@ -38,8 +38,9 @@ export const fullApi = {
 	SEARCH: pgjApi + apiName + '/search',
 	MY_ASSIGN: pgjApi + apiName + '/my_transfer',
 	MY_SEEK: pgjApi + apiName + '/my_seek',
-	QRCODE: pgjApi + apiName + '/qrcode',
+	// QRCODE: pgjApi + apiName + '/qrcode',
 	COLLECT: pgjApi + apiName + '/collect',
 	IS_COLLECT: pgjApi + apiName + '/is_collect',
 	COLLECT_LIST: pgjApi + apiName + '/collect_list',
+	SUGGEST: pgjApi + apiName + '/suggest',
 };

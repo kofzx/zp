@@ -18,6 +18,13 @@ export default {
 	methods: {
 		// 更换城市
 		changeCity (detail) {
+			this.$loading('更新地址中', true, 500)
+				.then(() => {
+					this.$unLoading();
+					wx.navigateBack({
+						delta: 1
+					});
+				});
 			this.curCity = detail.area_name;
 			wx.setStorageSync('ding', detail.area_name);
 		},
@@ -32,11 +39,20 @@ export default {
 <style lang="less">
 	@import '~@/style/common/variables.less';
 
+	@cur_location_height: 50px;
+
 	.cur-location {
-		height: 50px;
-		line-height: 50px;
+		height: @cur_location_height;
+		line-height: @cur_location_height;
 		color: #333;
 		background: white;
+		position: fixed;
+		top: 46px;
+		left: 0;
+		right: 0;
+	}
+	.cur-location--fix {
+		height: @cur_location_height;
 	}
 	.cur-location__light {
 		color: @main;

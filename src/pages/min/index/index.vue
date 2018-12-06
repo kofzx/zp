@@ -103,11 +103,11 @@
             class='flex-1 tc' 
             hover-class='none' 
             v-for='(item, index) in customer' 
-            :key='index'
-            @click='makeCall(item.phone)'>
+            :key='index'>
             <img 
               class="online__avator inb" 
-              :src="img_url + item.headimg">
+              :src="img_url + item.headimg"
+              @click="previewImage(img_url + item.headimg)">
             <p class="online__name inb">{{item.name}}</p>
           </a>
       </div>
@@ -194,7 +194,7 @@
 <script>
 import Index from '@/pages/common/index/index'
 import share from '@/mixins/share/index'
-import makePhone from '@/mixins/make-phone/index'
+import previewImage from '@/mixins/preview-image/index'
 import getLocation from '@/mixins/get-location/index.min'
 
 import wx from 'wx'
@@ -208,7 +208,10 @@ import searchBox from '@/components/core/min/search-box/index'
 import headline from '@/components/core/min/headline/index'
 
 export default {
-  mixins: [Index, share, makePhone, getLocation],
+  config: {
+    "enablePullDownRefresh": true
+  },
+  mixins: [Index, share, previewImage, getLocation],
   data() {
     return {
       navBar: localData.navBar,
@@ -311,4 +314,5 @@ export default {
 <style lang="less">
   @import '~@/pages/common/index/index.less';
   @import '~@/style/min/swiper.less';
+  // @import '~@/style/common/variables.less';
 </style>

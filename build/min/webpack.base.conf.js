@@ -105,6 +105,12 @@ module.exports = {
     }], {
       context: 'src/_start/min/'
     }),
+    new CopyWebpackPlugin([{
+      from: '**/*.json',
+      to: path.resolve(__dirname, '../../dist/pages/min/')
+    }], {
+      context: 'src/pages/min/'
+    }),
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, '../../static'),

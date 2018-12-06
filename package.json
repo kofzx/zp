@@ -46,7 +46,7 @@
     "layui-src": "^2.4.5",
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
-    "mpvue-loader": "^1.1.2",
+    "mpvue-loader": "^1.1.2-rc.4",
     "mpvue-template-compiler": "^1.0.11",
     "mpvue-webpack-target": "^1.0.0",
     "node-notifier": "^5.1.2",

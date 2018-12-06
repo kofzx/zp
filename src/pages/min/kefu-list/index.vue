@@ -56,4 +56,8 @@ export default {
 	    	color: @main !important;
 	    }
 	}
+	// 更改组件样式
+	.call-item__avatar {
+		border-radius: 0 !important;
+	}
 </style>

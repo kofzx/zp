@@ -1,10 +1,8 @@
 <template>
     <a 
     	class="call-item"
-    	:href='url'
-    	hover-class='none'
     	>
-        <img class="call-item__avatar" :src="src">
+        <img class="call-item__avatar" :src="src" @click="previewImage(src)">
         <div class="call-item__info">
             <p>网络客服： {{title}}</p>
             <p>电话: {{phone}}</p>
@@ -30,6 +28,11 @@ export default {
 		makeCall (phone) {
 			wx.makePhoneCall({
 				phoneNumber: phone
+			});
+		},
+		previewImage (src) {
+			wx.previewImage({
+				urls: [src]
 			});
 		}
 	}

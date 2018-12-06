@@ -13,7 +13,7 @@
 								class="layui-upload-img">
 								<img class="upload-img" :src="item">
 								<img 
-									class='close' src='../../../images/close.png'
+									class='close' src='/static/images/close.png'
 									@click='delImg(index)'>
 							</div>
 						</div>

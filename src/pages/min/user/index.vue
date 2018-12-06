@@ -32,7 +32,7 @@
 		                <a 
 		                	:href="login ? '/pages/min/assign-form/main' : '/pages/min/login/main'" 
 		                	hover-class='none'>
-		                    <img src="../../../images/navs/quick.png">
+		                    <img src="/static/images/navs/quick.png">
 		                    <p>快速转店</p>
 		                </a>
 		            </li>
@@ -40,7 +40,7 @@
 		                <a 
 		                	:href="login ? '/pages/min/seek-form/main' : '/pages/min/login/main'" 
 		                	hover-class='none'>
-		                    <img src="../../../images/navs/seek.png">
+		                    <img src="/static/images/navs/seek.png">
 		                    <p>快速找店</p>
 		                </a>
 		            </li>
@@ -48,7 +48,7 @@
 		                <a 
 		                	:href="auth ? '/pages/min/join/main' : '/pages/min/join/main'"
 		                	hover-class='none'>
-		                    <img src="../../../images/navs/hezuo.png">
+		                    <img src="/static/images/navs/hezuo.png">
 		                    <p>项目加盟</p>
 		                </a>
 		            </li>
@@ -59,30 +59,36 @@
 		<div class="l-center l-user-box">
 		    <ul class="l-user-list">
 		        <li>
-		        	<a 
+		        	<!-- <a 
 		        		:href="login ? '/pages/min/my-publish/main' : '/pages/min/login/main'"
 		        		hover-class='none'>
 		        		<i class="iconfont icon-publish color-03A9F4"></i>
 		        		<p>我的发布</p>
-		        	</a>
-		        	<!-- <a @click='proding'>
+		        	</a> -->
+		        	<a @click='proding'>
 		        		<i class="iconfont icon-publish color-03A9F4"></i>
 		        		<p>我的发布</p>
-		        	</a> -->
+		        	</a>
 		        </li>
 		        <li>
-		        	<a 
-		        		href="/pages/min/collect/main"
+		        	<!-- <a 
+		        		:href="login ? '/pages/min/collect/main' : '/pages/min/login/main'"
 		        		hover-class='none'>
 		        		<i class="iconfont icon-love color-f00"></i>
 			        	<p>我的收藏</p>
-		        	</a>
-	        		<!-- <a @click='proding'>
+		        	</a> -->
+	        		<a @click='proding'>
 		        		<i class="iconfont icon-love color-f00"></i>
 			        	<p>我的收藏</p>
-		        	</a> -->
+		        	</a>
 		    	</li>
 		        <li>
+		        	<!-- <a 
+		        		:href="login ? '/pages/min/suggest/main' : '/pages/min/login/main'"
+		        		hover-class='none'>
+		        		<i class="iconfont icon-suggest color-03A9F4"></i>
+			        	<p>意见板块</p>
+		        	</a> -->
 		        	<a @click='proding'>
 			        	<i class="iconfont icon-suggest color-03A9F4"></i>
 			        	<p>意见板块</p>
@@ -103,16 +109,16 @@
 			    	</button>
 		    	</li>
 		        <li>
-		        	<a 
+		        	<!-- <a 
 						href="/pages/min/share-qrcode/main"
 		        		hover-class='none'>
 		        		<i class="iconfont icon-yq color-ffae1a"></i>
 		        		<p>我要邀请</p>
-			    	</a>
-		        	<!-- <a @click='proding'>
+			    	</a> -->
+		        	<a @click='proding'>
 		        		<i class="iconfont icon-yq color-ffae1a"></i>
 		        		<p>我要邀请</p>
-			    	</a> -->
+			    	</a>
 		    	</li>
 		    </ul>
 		</div>
