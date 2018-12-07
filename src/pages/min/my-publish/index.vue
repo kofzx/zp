@@ -43,7 +43,7 @@ export default {
 
 <style lang="less">
 	.l-release-box {
-	    background: url('http://www.pgj.com/Mobile/images/bg.jpg') no-repeat center;
+	    background: url('https://www.puguanjiacn.com/Public/Mobile/images/bg.jpg') no-repeat center;
 	    background-size: 100%;
 	    border-radius: 6px;
 	    color: #fff;

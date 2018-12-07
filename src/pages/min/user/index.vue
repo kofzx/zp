@@ -59,40 +59,40 @@
 		<div class="l-center l-user-box">
 		    <ul class="l-user-list">
 		        <li>
-		        	<!-- <a 
+		        	<a 
 		        		:href="login ? '/pages/min/my-publish/main' : '/pages/min/login/main'"
 		        		hover-class='none'>
 		        		<i class="iconfont icon-publish color-03A9F4"></i>
 		        		<p>我的发布</p>
-		        	</a> -->
-		        	<a @click='proding'>
+		        	</a>
+		        	<!-- <a @click='proding'>
 		        		<i class="iconfont icon-publish color-03A9F4"></i>
 		        		<p>我的发布</p>
-		        	</a>
+		        	</a> -->
 		        </li>
 		        <li>
-		        	<!-- <a 
+		        	<a 
 		        		:href="login ? '/pages/min/collect/main' : '/pages/min/login/main'"
 		        		hover-class='none'>
 		        		<i class="iconfont icon-love color-f00"></i>
 			        	<p>我的收藏</p>
-		        	</a> -->
-	        		<a @click='proding'>
+		        	</a>
+	        		<!-- <a @click='proding'>
 		        		<i class="iconfont icon-love color-f00"></i>
 			        	<p>我的收藏</p>
-		        	</a>
+		        	</a> -->
 		    	</li>
 		        <li>
-		        	<!-- <a 
+		        	<a 
 		        		:href="login ? '/pages/min/suggest/main' : '/pages/min/login/main'"
 		        		hover-class='none'>
 		        		<i class="iconfont icon-suggest color-03A9F4"></i>
 			        	<p>意见板块</p>
-		        	</a> -->
-		        	<a @click='proding'>
+		        	</a>
+		        	<!-- <a @click='proding'>
 			        	<i class="iconfont icon-suggest color-03A9F4"></i>
 			        	<p>意见板块</p>
-		        	</a>
+		        	</a> -->
 		        </li>
 		        <li>
 		        	<a @click="makeCall('400-0889-003')">
@@ -109,16 +109,16 @@
 			    	</button>
 		    	</li>
 		        <li>
-		        	<!-- <a 
+		        	<a 
 						href="/pages/min/share-qrcode/main"
 		        		hover-class='none'>
 		        		<i class="iconfont icon-yq color-ffae1a"></i>
 		        		<p>我要邀请</p>
-			    	</a> -->
-		        	<a @click='proding'>
+			    	</a>
+		        	<!-- <a @click='proding'>
 		        		<i class="iconfont icon-yq color-ffae1a"></i>
 		        		<p>我要邀请</p>
-			    	</a>
+			    	</a> -->
 		    	</li>
 		    </ul>
 		</div>

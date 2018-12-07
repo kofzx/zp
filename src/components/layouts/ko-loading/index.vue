@@ -81,6 +81,7 @@ export default {
 	.loading {
 	  margin: 0 auto;
 	  text-align: center;
+	  height: 30px;
 	}
 	.weui-loadmore__tips {
 	  display:inline-block;
@@ -108,7 +109,7 @@ export default {
 	.loading__line-dot {
 	  width: 6px;
 	  height: 6px;
-	  margin: 0 3px;
+	  margin: 0 5px;
 	  background-color: #FF9C00;
 	  border-radius: 50%;
 	  display: inline-block;

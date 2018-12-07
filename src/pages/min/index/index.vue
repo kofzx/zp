@@ -208,9 +208,6 @@ import searchBox from '@/components/core/min/search-box/index'
 import headline from '@/components/core/min/headline/index'
 
 export default {
-  config: {
-    "enablePullDownRefresh": true
-  },
   mixins: [Index, share, previewImage, getLocation],
   data() {
     return {

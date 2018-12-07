@@ -134,7 +134,7 @@ export default {
 				this._timer(120);
 				this.$flyio.get(fullApi.SEND_CODE, {
 						phone: phone,
-						type: '2'
+						type: '3'
 					})
 					.then(res => {
 						console.log(res);
@@ -198,6 +198,12 @@ export default {
 		    		});
 		    }
 		},
+		resetReset () {
+			this.phone = '';
+		}
+	},
+	onShow () {
+		this.resetReset();
 	}
 }
 </script>
