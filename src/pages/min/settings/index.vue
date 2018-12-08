@@ -3,24 +3,68 @@
 		<div class="l-set-box">
 		    <div class="l-center">
 		        <div class="l-set-list">
-		            <a hover-class='none' href=""><p>头像</p><img src="../../../../static/images/header.png" alt="head" title="head"><i class="iconfont icon-arrow-right"></i></a>
-		            <a hover-class='none'><p>用户</p><p>123456789</p></a>
-		            <a hover-class='none'><p>手机号码</p><p>987654321</p></a>
+		            <a
+		            	href=""
+		            	hover-class='none'
+		             	class="alink"   
+		             	style="padding-right: 35px">
+		             	<p>头像</p>
+		             	<img src="../../../../static/images/header.png">
+		             	<i class="iconfont icon-arrow-right"></i>
+		            </a>
+		            <a hover-class='none' class="alink">
+		            	<p>用户名</p>
+		            	<p class="input-mask" v-show='user_input' @click="showInput('user_input')">{{username}}</p>
+		            	<input 
+		            		v-show='!user_input'
+		            		type="text"
+		            		:value='username'
+		            		class="input-real"
+		            		@blur='blur'>
+		            </a>
+		            <a hover-class='none' class="alink">
+		            	<p>手机号码</p>
+		            	<p class="input-mask" v-show='phone_input' @click="showInput('phone_input')">{{phone}}</p>
+		            	<input 
+							v-show='!phone_input'
+		            		type="number"
+		            		:value='phone'
+		            		maxlength="11" 
+		            		class="input-real">
+		            </a>
 		        </div>
 		    </div>
 		</div>
 		<div class="l-set-box">
 		    <div class="l-center">
 		        <div class="l-set-list">
-		            <a hover-class='none' href='/pages/min/suggest/main'><p>意见反馈</p><i class="iconfont icon-arrow-right"></i></a>
-		            <a hover-class='none' href="set-pwd.html"><p>修改密码</p><i class="iconfont icon-arrow-right"></i></a>
+		            <a
+		            	href="/pages/min/alter/main"
+		            	hover-class='none'
+		             	class='alink'>
+		             	<p>修改密码</p>
+		             	<i class="iconfont icon-arrow-right icon-arrow-right--fix"></i>
+		             </a>
+		            <a
+		            	href='/pages/min/suggest/main'
+		            	hover-class='none'
+		             	class='alink'>
+		             	<p>意见反馈</p>
+		             	<i class="iconfont icon-arrow-right icon-arrow-right--fix"></i>
+		             </a>
 		        </div>
 		    </div>
 		</div>
 		<div class="l-set-box">
 		    <div class="l-center">
 		        <div class="l-set-list">
-		            <a hover-class='none' href="about.html"><p>关于我们</p><i class="iconfont icon-arrow-right"></i></a>
+		            <a 
+		            	href="/pages/min/about/main" 
+		            	hover-class='none'
+		            	class='alink'>
+		            	<p>关于我们</p>
+		            	<i class="iconfont icon-arrow-right icon-arrow-right--fix"></i>
+		            </a>
 		        </div>
 		    </div>
 		</div>
@@ -32,6 +76,27 @@ import share from '@/mixins/share/index'
 
 export default {
 	mixins: [share],
+	data() {
+		return {
+			user_input: true,
+			phone_input: true,
+			username: 'kofzx',
+			phone: '987654321'
+		}
+	},
+	methods: {
+		showInput (status) {
+			setTimeout(() => {
+				this[status] = false;
+			}, 300);
+		},
+		blur (e) {
+			let value = e.mp.detail.value;
+			if (value != "") {
+				console.log('blur');
+			}
+		}
+	}
 }
 </script>
 
@@ -40,22 +105,27 @@ export default {
 	    background-color: #fff;
 	    margin-top: 10px;
 	}
-	.l-set-list a{
+	.l-set-list .alink{
+		position: relative;
 	    display: flex;
 	    align-items: center;
 	    justify-content: space-between;
 	    padding: 15px 30px 15px 10px;
 	    border-bottom: 1px solid #eaeaea;
 	}
-	.l-set-list a img {
+	.l-set-list .alink img {
 	    width: 40px;
 	    height: 40px;
 	}
 	.l-set-list .iconfont{
 	    position: absolute;
-	    font-size: 20px;
+	    font-size: 20px !important;
 	    color: #999;
 	    right: 10px;
+	}
+	.l-set-list .icon-arrow-right--fix {
+		position: absolute;
+		top: 11px;
 	}
 	.l-set-pagebox{
 	    background-color: #fff;
@@ -72,5 +142,17 @@ export default {
 	}
 	.l-set-pagebox .login-form{
 	    margin-top: 0;
+	}
+	.input-mask,
+	.input-real {
+		flex: 1;
+		text-align: right;
+		height: 20px;
+		line-height: 20px;
+		min-height: 0;
+		font-size: 14px;
+	}
+	.input-mask:hover {
+		background-color: #f5f7f9;
 	}
 </style>

@@ -9,6 +9,7 @@
     "pages/min/seek/main",
     "pages/min/seek-detail/main",
     "pages/min/seek-form/main",
+    "pages/min/wx-setting/main",
     "pages/min/case/main",
     "pages/min/case-detail/main",
     "pages/min/collect/main",

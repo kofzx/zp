@@ -66,6 +66,18 @@ function objectToArray(object) {
   return array
 }
 
+function changeEye(type) {
+  switch (type) {
+    case 'password':
+      type = 'text';
+      break;
+    case 'text':
+      type = 'password';
+      break;
+  }
+  return type;
+}
+
 /*
  * platform: 小程序
  * 单图上传
@@ -104,5 +116,6 @@ export default {
   getScrollTop,
   getScrollHeight,
   objectToArray,
-  uploadImg
+  uploadImg,
+  changeEye
 }

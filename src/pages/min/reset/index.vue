@@ -33,7 +33,7 @@
 			                	maxlength="12" 
 			                	placeholder="请输入新的密码：" 
 			                	class="password layui-input login-inp">
-			                <i class="iconfont icon-eye eye" @click='switchNewEye'></i>
+			                <i class="iconfont icon-eye eye" @click="switchEye('newEyeType')"></i>
 			            </div>
 			            <div class="layui-form-item">
 			                <i class="iconfont icon-lock ico-1"></i>
@@ -41,9 +41,9 @@
 			                	:type="confirmEyeType" 
 			                	name="confirm_pwd" 
 			                	maxlength="12" 
-			                	placeholder="请再次输入密码：" 
+			                	placeholder="请再次输入新密码：" 
 			                	class="password layui-input login-inp">
-			                <i class="iconfont icon-eye eye" @click='switchConfirmEye'></i>
+			                <i class="iconfont icon-eye eye" @click="switchEye('confirmEyeType')"></i>
 			            </div>
 						<div class="layui-form-item rel">
 			                <i class="iconfont icon-lock ico-1"></i>
@@ -75,6 +75,7 @@ import Validator from '@/utils/strategy/controller/Validator'
 
 import sendCode from '@/mixins/send-code/index.min'
 
+import util from '@/utils/index'
 import qs from 'qs'
 import { fullApi } from '@/service/api'
 
@@ -88,32 +89,8 @@ export default {
 		}
 	},
 	methods: {
-		_switchEye (eyeType) {
-			return new Promise((resolve, reject) => {
-				if (eyeType === 'password') {
-					resolve();
-				} else if (eyeType === 'text') {
-					reject();
-				}
-			});
-		},
-		switchNewEye () {
-			this._switchEye(this.newEyeType)
-				.then(() => {
-					this.newEyeType = 'text';
-				})
-				.catch(() => {
-					this.newEyeType = 'password';
-				});
-		},
-		switchConfirmEye () {
-			this._switchEye(this.confirmEyeType)
-				.then(() => {
-					this.confirmEyeType = 'text';
-				})
-				.catch(() => {
-					this.confirmEyeType = 'password';
-				});
+		switchEye (eyeType) {
+			this[eyeType] = util.changeEye(this[eyeType]);
 		},
 		// 手机输入事件
 		telInput (e) {
@@ -188,10 +165,12 @@ export default {
 		    		.then(res => {
 		    			let { code, msg } = res.data;
 		    			if (code == 1) {
-		    				this.$toast(msg);
-		    				wx.switchTab({
-						    	url: '../user/main'
-						    });
+		    				this.$toast(msg, true, 1000)
+		    					.then(() => {
+		    						wx.switchTab({
+								    	url: '../user/main'
+								    });
+		    					});
 		    			} else {
 		    				this.$toast(msg, false);
 		    			}

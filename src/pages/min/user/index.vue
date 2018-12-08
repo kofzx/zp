@@ -23,6 +23,11 @@
 		            <p v-if="login" @click='logout'>安全登出</p>
 		        </div>
 		    </div>
+		    <a 
+		    	href='/pages/min/settings/main'
+		    	hover-class='none'
+		    	class="settings iconfont icon-setting"
+		    	v-if="login"></a>
 		</div>
 		<!-- 横条 -->
 		<div class="l-center">
@@ -301,5 +306,12 @@ export default {
 		font-size: 14px;
 		line-height: normal;
 		background: #fff;
+	}
+	.settings {
+		position: absolute;
+		top: 15px;
+		right: 15px;
+		color: white;
+		font-size: 40px !improtant;
 	}
 </style>

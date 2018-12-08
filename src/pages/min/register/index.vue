@@ -31,7 +31,7 @@
 			                	maxlength="12" 
 			                	placeholder="请输入密码：" 
 			                	class="password layui-input login-inp">
-			                <i class="iconfont icon-eye eye" @click='switchEye'></i>
+			                <i class="iconfont icon-eye eye" @click="switchEye('eyeType')"></i>
 			            </div>
 			            <div class="layui-form-item">
 			                <i class="iconfont icon-lock ico-1"></i>
@@ -66,6 +66,7 @@ import Validator from '@/utils/strategy/controller/Validator'
 
 import sendCode from '@/mixins/send-code/index.min'
 
+import util from '@/utils/index'
 import qs from 'qs'
 import { fullApi } from '@/service/api'
 
@@ -78,12 +79,7 @@ export default {
 	},
 	methods: {
 		switchEye () {
-			let eyeType = this.eyeType;
-			if (eyeType === 'password') {
-				this.eyeType = 'text';
-			} else if (eyeType === 'text') {
-				this.eyeType = 'password';
-			}
+			this[eyeType] = util.changeEye(this[eyeType]);
 		},
 		// 手机输入事件
 		telInput (e) {
@@ -153,10 +149,12 @@ export default {
 		    		.then(res => {
 		    			let { code, msg } = res.data;
 		    			if (code == 1) {
-		    				this.$toast(msg);
-		    				wx.switchTab({
-						    	url: '../user/main'
-						    });
+		    				this.$toast(msg, true, 1000)
+		    					.then(() => {
+		    						wx.switchTab({
+								    	url: '../user/main'
+								    });
+		    					});
 		    			} else {
 		    				this.$toast(msg, false);
 		    			}

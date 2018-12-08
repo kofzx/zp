@@ -1,10 +1,10 @@
-export const apiName = '/api_';
-// export const apiName = '/mobile/api/';
+// export const apiName = '/api_';
+export const apiName = '/mobile/api/';
 
 export const ytApi = 'https://ytxcx.6mo.cc';
 export const gsApi = 'https://gs.6mo.cc';
-export const pgjApi = 'https://www.puguanjiacn.com';
-// export const pgjApi = 'http://www.pgj.com';
+// export const pgjApi = 'https://www.puguanjiacn.com';
+export const pgjApi = 'http://www.pgj.com';
 export const pgjImg = pgjApi + '/pgj.jpg';
 
 export const api = {
@@ -20,6 +20,7 @@ export const fullApi = {
 	// QRCODE: pgjApi + apiName + '/qrcode',
 	INDEX_DATA: pgjApi + apiName + 'getIndex',
 	CITY_LIST: pgjApi + apiName + 'citylist',
+	ABOUT: pgjApi + apiName + 'about_ko',
 	ASSIGN_INIT: pgjApi + apiName + 'assignInit',
 	ASSIGN_LOAD: pgjApi + apiName + 'assignLoad',
 	ASSIGN_ADD: pgjApi + apiName + 'shellAdd',
@@ -33,6 +34,7 @@ export const fullApi = {
 	LOGOUT: pgjApi + apiName + 'logout',
 	SEND_CODE: pgjApi + apiName + 'sendcode',
 	RESET_PWD: pgjApi + apiName + 'forgetpwd',
+	UPDATE_PWD: pgjApi + apiName + 'updatePwd',
 	REGISTER: pgjApi + apiName + 'registerKo',
 	UPLOAD: pgjApi + apiName + 'uploadimage',
 	REGION: pgjApi + apiName + 'regionKo',

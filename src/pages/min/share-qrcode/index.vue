@@ -92,6 +92,9 @@ export default {
 				},
 				fail: res => {
 					this.$toast('保存失败');
+					wx.navigateTo({
+						url: '../wx-setting/main'
+					});
 				}
 			});
 		},

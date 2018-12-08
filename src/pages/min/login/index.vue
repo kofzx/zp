@@ -21,10 +21,15 @@
 			            </div>
 			            <div class="layui-form-item">
 			                <i class="iconfont icon-lock ico-1"></i>
-			                <input :type="eyeType" name="password" maxlength="12" placeholder="请输入密码：" class="password layui-input login-inp">
+			                <input 
+			                	:type="eyeType" 
+			                	name="password" 
+			                	maxlength="12" 
+			                	placeholder="请输入密码：" 
+			                	class="password layui-input login-inp">
 			                <i 
 			                	class="iconfont icon-eye eye"
-			                	@click='switchEye'></i>
+			                	@click="switchEye('eyeType')"></i>
 			            </div>
 			            <div class="l-login-pw">
 			            	<a 
@@ -45,6 +50,7 @@
 import share from '@/mixins/share/index'	
 import Validator from '@/utils/strategy/controller/Validator'
 
+import util from '@/utils/index'
 import qs from 'qs'
 import { fullApi } from '@/service/api'
 
@@ -56,13 +62,8 @@ export default {
 		}
 	},
 	methods: {
-		switchEye () {
-			let eyeType = this.eyeType;
-			if (eyeType === 'password') {
-				this.eyeType = 'text';
-			} else if (eyeType === 'text') {
-				this.eyeType = 'password';
-			}
+		switchEye (eyeType) {
+			this[eyeType] = util.changeEye(this[eyeType]);
 		},
 		login (formObj) {
 			return new Promise(resolve => {

@@ -272,20 +272,24 @@ export default {
         .then(() => {
           this.$unLoading();
         });
-    }
-  },
-  created () {
-    this.getLocation()
-      .then(res => {
-        let curCity = res.result.address_component.city;
-        wx.setStorageSync('ding', curCity);
-        this.curCity = curCity;
+    },
+    // 请求定位
+    fetchDing () {
+      this.getLocation()
+          .then(res => {
+            let curCity = res.result.address_component.city;
+            wx.setStorageSync('ding', curCity);
+            this.curCity = curCity;
 
-        this.fetchIndex();
-      })
-      .catch(res => {
-        console.log(res);
-      });
+            this.fetchIndex();
+          })
+          .catch(res => {
+            console.log(res);
+            wx.navigateTo({
+              url: '../wx-setting/main'
+            });
+          });
+    }
   },
   onShow () {
     try {
@@ -302,6 +306,8 @@ export default {
           // this.$loading('数据更新中...');
           this.fetchIndex();
         }
+      } else {
+        this.fetchDing();
       }
     } catch (e) { console.log(e) }
   }

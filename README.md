@@ -23,7 +23,6 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 问题:
 1. 获取undefined
 2. 人物头像添加
-3. 懒加载优化
 
 剩余:
 2. 搜索
@@ -62,3 +61,6 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 1. api
 	->sendcode
 	->forgetpwd
+	->about_ko
+	admin/view/config/index.html
+	configModel
