@@ -45,4 +45,6 @@ export const fullApi = {
 	IS_COLLECT: pgjApi + apiName + 'isCollect',
 	COLLECT_LIST: pgjApi + apiName + 'collectList',
 	SUGGEST: pgjApi + apiName + 'suggest',
+	MODIFY_INFO: pgjApi + apiName + 'modify_info',
+	USERINFO: pgjApi + apiName + 'userinfo',
 };

@@ -64,3 +64,7 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 	->about_ko
 	admin/view/config/index.html
 	configModel
+
+18/12/10
+api
+	->modify_info

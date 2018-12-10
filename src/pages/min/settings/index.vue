@@ -20,7 +20,7 @@
 		            		type="text"
 		            		:value='username'
 		            		class="input-real"
-		            		@blur='blur'>
+		            		@blur='userBlur'>
 		            </a>
 		            <a hover-class='none' class="alink">
 		            	<p>手机号码</p>
@@ -30,7 +30,8 @@
 		            		type="number"
 		            		:value='phone'
 		            		maxlength="11" 
-		            		class="input-real">
+		            		class="input-real"
+		            		@blur='phoneBlur'>
 		            </a>
 		        </div>
 		    </div>
@@ -74,6 +75,9 @@
 <script>
 import share from '@/mixins/share/index'
 
+import qs from 'qs'
+import { fullApi } from '@/service/api'
+
 export default {
 	mixins: [share],
 	data() {
@@ -81,21 +85,67 @@ export default {
 			user_input: true,
 			phone_input: true,
 			username: 'kofzx',
-			phone: '987654321'
+			phone: '987654321',
+			headimg: '',
 		}
 	},
 	methods: {
+		render () {
+			this.$flyio.get(fullApi.USERINFO)
+				.then(res => {
+					console.log(res);
+					if (res.data.code == 1) {
+						let { headimg, phone, username } = res.data.data;
+						this.username = username;
+						this.phone = phone;
+						this.headimg = headimg;
+	 				}
+				});
+		},
 		showInput (status) {
 			setTimeout(() => {
 				this[status] = false;
 			}, 300);
 		},
-		blur (e) {
+		userBlur (e) {
 			let value = e.mp.detail.value;
 			if (value != "") {
-				console.log('blur');
+				console.log('userBlur');
+				this.user_input = true;		// 开启遮罩层
+				this.$flyio.post(fullApi.MODIFY_INFO, qs.stringify({
+					username: value
+				}))
+				.then(res => {
+					console.log(res);
+					let { code, msg } = res.data;
+					if (code == 1) {
+						this.$toast(msg);
+						this.render();
+					}
+				});
+			}
+		},
+		phoneBlur (e) {
+			let value = e.mp.detail.value;
+			if (value != "") {
+				console.log('phoneBlur');
+				this.phone_input = true;		// 开启遮罩层
+				this.$flyio.post(fullApi.MODIFY_INFO, qs.stringify({
+					phone: value
+				}))
+				.then(res => {
+					console.log(res);
+					let { code, msg } = res.data;
+					if (code == 1) {
+						this.$toast(msg);
+						this.render();
+					}
+				});
 			}
 		}
+	},
+	onLoad () {
+		this.render();
 	}
 }
 </script>
