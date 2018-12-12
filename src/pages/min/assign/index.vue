@@ -153,10 +153,13 @@ export default {
 		    		this.regionArray = region;
 		    		this.areaArray = area;
 		    		this.rentArray = rent;
-		    		this.storeList = list;
+		    		if (list != null) {
+		    			this.storeList = list;
+		    		}
 		    	});
 	    },
 	    reset () {
+	    	this.storeList = [];
 	    	this.selectorName = '';
 	    	this.tradeName = '';
 			this.regionName = '';
@@ -222,9 +225,6 @@ export default {
 	    			this.storeList = res.data.data;
 	    		});
 	    }
-	},
-	created () {
-	    this.getSelectors();
 	},
 	onShow () {
 		this.reset();

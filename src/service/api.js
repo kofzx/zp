@@ -3,6 +3,7 @@ export const apiName = '/mobile/api/';
 
 export const ytApi = 'https://ytxcx.6mo.cc';
 export const gsApi = 'https://gs.6mo.cc';
+export const pgjOss = 'https://pguanjiacn-3.oss-cn-qingdao.aliyuncs.com/';
 // export const pgjApi = 'https://www.puguanjiacn.com';
 export const pgjApi = 'http://www.pgj.com';
 export const pgjImg = pgjApi + '/pgj.jpg';
@@ -20,7 +21,7 @@ export const fullApi = {
 	// QRCODE: pgjApi + apiName + '/qrcode',
 	INDEX_DATA: pgjApi + apiName + 'getIndex',
 	CITY_LIST: pgjApi + apiName + 'citylist',
-	ABOUT: pgjApi + apiName + 'about_ko',
+	ABOUT: pgjApi + apiName + 'aboutKo',
 	ASSIGN_INIT: pgjApi + apiName + 'assignInit',
 	ASSIGN_LOAD: pgjApi + apiName + 'assignLoad',
 	ASSIGN_ADD: pgjApi + apiName + 'shellAdd',
@@ -45,6 +46,8 @@ export const fullApi = {
 	IS_COLLECT: pgjApi + apiName + 'isCollect',
 	COLLECT_LIST: pgjApi + apiName + 'collectList',
 	SUGGEST: pgjApi + apiName + 'suggest',
-	MODIFY_INFO: pgjApi + apiName + 'modify_info',
+	MODIFY_INFO: pgjApi + apiName + 'modifyInfo',
 	USERINFO: pgjApi + apiName + 'userinfo',
+	USERIMG: pgjApi + apiName + 'uploadimageUser',
+	CHECKPHONE: pgjApi + apiName + 'checkPhoneCode',
 };

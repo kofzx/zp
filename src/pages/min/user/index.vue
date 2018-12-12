@@ -9,16 +9,16 @@
 		<div class="l-user-login">
 		    <div class="l-user-header">
 		        <a class="l-user-head">
-		        	<img :src="login.headimg ? login.headimg : '/static/images/header.png'">
+		        	<img :src="login.headimg ? img_url + login.headimg : '/static/images/header.png'">
 		        </a>
 		        <div>
 		        	<p>TEL：
-		        		<span v-if="login.phone">{{login.phone}}</span>
+		        		<span v-if="login">{{login.phone}}</span>
 		        		<span v-else @click="goLogin">请登录</span>
 		        	</p>
 		        	<p class="l-user-header__id">名称：
-		        		<span v-if="login.name">{{login.name}}</span>
-		        		<span v-else-if="login.name != null || login.name === undefined" @click="goLogin">请登录</span>
+		        		<span v-if="login">{{login.name}}</span>
+		        		<span v-else @click="goLogin">请登录</span>
 		        	</p>
 		            <p v-if="login" @click='logout'>安全登出</p>
 		        </div>
@@ -135,12 +135,13 @@ import share from '@/mixins/share/index'
 import makePhone from '@/mixins/make-phone/index'
 import wx from 'wx'
 
-import { fullApi } from '@/service/api'
+import { pgjOss, fullApi } from '@/service/api'
 
 export default {
 	mixins: [share, makePhone],
 	data() {
 		return {
+			img_url: pgjOss,
 			login: '',
 			auth: false
 		}

@@ -62,9 +62,20 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 	->sendcode
 	->forgetpwd
 	->about_ko
-	admin/view/config/index.html
-	configModel
+	admin/view/config/index.html  √
+	configModel √
 
 18/12/10
 api
 	->modify_info
+	->loginKo
+	->userinfo
+	->uploadimage_user
+	->about_ko
+	->sendcode
+	->check_phone_code
+	
+buyModel
+	->my_seek
+
+15220396266

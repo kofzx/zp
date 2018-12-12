@@ -34,6 +34,7 @@ import { pgjApi, fullApi } from '@/service/api'
 
 import loading from '@/components/layouts/ko-loading/index'
 import seekItem from '@/components/core/common/seek-item/index'
+import noData from '@/components/core/common/no-data/index'
 
 export default {
 	mixins: [share, reachBottom],
@@ -45,6 +46,7 @@ export default {
 	components: {
 		'seek-item': seekItem,
 		'ko-loading': loading,
+		'no-data': noData,
 	},
 	methods: {
 		getStoreList (cat_id = this.catActive, page = 1) {

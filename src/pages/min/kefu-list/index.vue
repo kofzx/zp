@@ -3,7 +3,7 @@
 		<call-item
 			v-for='(item, index) in list'
 			:key='index'
-			:src="img_url + item.headimg"
+			:src="ep_url + item.headimg"
 			:title='item.name'
 			:phone='item.phone' />
 	</div>
@@ -20,6 +20,7 @@ export default {
 	data() {
 		return {
 			img_url: pgjApi,
+			ep_url: '',
 			list: []
 		}
 	},

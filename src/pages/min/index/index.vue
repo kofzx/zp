@@ -106,8 +106,8 @@
             :key='index'>
             <img 
               class="online__avator inb" 
-              :src="img_url + item.headimg"
-              @click="previewImage(img_url + item.headimg)">
+              :src="ep_url + item.headimg"
+              @click="previewImage(ep_url + item.headimg)">
             <p class="online__name inb">{{item.name}}</p>
           </a>
       </div>

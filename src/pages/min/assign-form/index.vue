@@ -177,7 +177,7 @@ import util from '@/utils/index'
 
 import mock from '@/pages/mock'
 import qs from 'qs'
-import { fullApi, pgjApi } from '@/service/api'
+import { fullApi, pgjOss } from '@/service/api'
 
 import loading from '@/components/layouts/ko-loading/index'
 
@@ -256,7 +256,7 @@ export default {
 							util.uploadImg(fullApi.UPLOAD, temp_path, 'aaa')
 								.then(res =>{
 									console.log(res);
-									let pic_path = pgjApi + JSON.parse(res.data).pic_path;
+									let pic_path = pgjOss + JSON.parse(res.data).pic_path;
 									if (pic_path) {
 										loadCount++;
 									}
