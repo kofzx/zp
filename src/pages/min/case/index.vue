@@ -45,7 +45,7 @@
 		<!-- 商铺列表 -->
 		<section 
 			class="zp-container card-box" 
-			v-if='storeList.length != 0'>
+			v-if='storeList && storeList.length != 0'>
 			<store-item v-for='(item, index) in storeList' :key='index'
 		        color='ffae1a'
 		        url='../case-detail/main'
@@ -63,7 +63,7 @@
 		    </store-item>
 		</section>
 		<no-data 
-	      :show='storeList.length == 0'
+	      :show='!storeList ? true : false || storeList.length == 0'
 	      text='暂无数据'></no-data>
 		<ko-loading 
 	      :is-load='isLoading'
@@ -108,11 +108,11 @@ export default {
 	methods: {
 		getStoreList (cat_id = this.catActive, page = 1) {
 			return new Promise((resolve) => {
-				this.$flyio.post(fullApi.ASSIGN_LOAD, qs.stringify({
+				this.$flyio.post(fullApi.CASE_INIT, qs.stringify({
 						start: page
 		    		}))
 			        .then(res => {
-			          let storeList = res.data.data;
+			          let storeList = res.data.list;
 
 			          if (storeList == null || storeList == 'undefined') {
 			            this.isReachLastPage = true;
@@ -131,6 +131,17 @@ export default {
 			        });
 			});
 	    },
+	    resetStoreList () {
+	    	this.storeList = [];
+	    },
+	    resetCurPage () {
+	    	this.curPage = 1;
+	    },
+	    reset () {
+	    	this.resetStoreList();
+	    	this.resetCurPage();
+	    	this.resetReachLastPage();
+	    },
 	    getCase () {
 	    	this.$flyio.get(fullApi.CASE_INIT)
 		    	.then(res => {
@@ -141,11 +152,16 @@ export default {
 	    	this.selectorName = name;
 	    }
 	},
-	created () {
+	onLoad () {
 	    this.getCase();
 	},
 	onShow () {
-		this.getCase();
+		try {
+	      	let case_detail_unload = wx.getStorageSync('case_detail_unload');
+	      	// 从详情返回来的话，不重置数据，否则重置
+	      	case_detail_unload ? wx.removeStorageSync('case_detail_unload')
+	      		: this.reset();
+	    } catch (e) {}
 	}
 }
 </script>

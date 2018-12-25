@@ -18,7 +18,7 @@ const localData = {
 		{
 			"openType": "navigate",
 			"loginUrl": "/pages/min/login/main",
-			"url": "/pages/min/seek-form/main",
+			"url": "/pages/min/my-seek/main",
 			"pic": "/static/images/navs/ding.png",
 			"title": "找店信息"
 		},

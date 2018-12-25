@@ -143,11 +143,6 @@ export default {
 			});
 		}
 	},
-	// mounted () {
-	// 	let data_decodeURI = decodeURIComponent(this.$mp.query.data);
-	// 	let data_json = JSON.parse(data_decodeURI);
-	// 	this.detail = data_json;
-	// },
 	onLoad (options) {
 		let data_decodeURI = decodeURIComponent(options.data);
 		let data_json = JSON.parse(data_decodeURI);
@@ -162,6 +157,9 @@ export default {
 			this.get_is_collect();
 		  }
 		} catch (e) {}
+	},
+	onUnload () {
+		wx.setStorageSync('assign_detail_unload', true);
 	}
 }
 </script>

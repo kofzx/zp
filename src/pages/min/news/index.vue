@@ -16,7 +16,9 @@
 		            			:class="[{
 		            				'icon-help': index === 0, 
 		            				'icon-ding-normal': index === 1, 
-		            				'icon-assign': index === 2
+		            				'icon-assign': index === 2,
+		            				'icon-news1': index === 3,
+		            				'icon-prove': index === 4,
 		            			}]"></i>
 		            		<p>{{item.value.cname}}</p>
 		            	</a>
@@ -109,10 +111,9 @@ export default {
 			        });
 			});
 	    },
-	    resetStatus () {
-	    	this.curPage = 1;
-	    	this.isReachLastPage = false;
-            this.showNoMore = false;
+	    reset () {
+	    	this.resetCurPage();
+	    	this.resetReachLastPage();
 	    },
 		switchTabbar (cur_cat) {
 			this.catActive = cur_cat;
@@ -121,9 +122,9 @@ export default {
 		    		}))
 			        .then(res => {
 			        	console.log(res);
-			          this.storeList = res.data.data;
-			          // 重置状态
-			          this.resetStatus();
+			          	this.storeList = res.data.data;
+			          	// 重置状态
+			          	this.reset();
 			        });
 		},
 		routeTo (url, query) {

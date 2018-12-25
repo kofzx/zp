@@ -49,7 +49,7 @@
 		<!-- 商铺列表 -->
 		<section 
 			class="zp-container card-box" 
-			v-if='storeList.length != 0'>
+			v-if='storeList && storeList.length != 0'>
 			<store-item v-for='(item, index) in storeList' :key='index'
 		        color='ffae1a'
 		        url="/pages/min/assign-detail/main"
@@ -67,7 +67,7 @@
 		    </store-item>
 		</section>
 		<no-data 
-	      :show='storeList.length == 0'
+	      :show='!storeList ? true : false || storeList.length == 0'
 	      text='暂无数据'></no-data>
 		<ko-loading 
 	      :is-load='isLoading'
@@ -120,7 +120,8 @@ export default {
 		getStoreList (cat_id = this.catActive, page = 1) {
 			return new Promise((resolve) => {
 				this.$flyio.post(fullApi.ASSIGN_LOAD, qs.stringify({
-						start: page
+						start: page,
+						city_name: this.curCity
 		    		}))
 			        .then(res => {
 			          let storeList = res.data.data;
@@ -143,9 +144,8 @@ export default {
 			});
 	    },
 	    getSelectors () {
-	    	let curCity = this.curCity;
 	    	this.$flyio.post(fullApi.ASSIGN_INIT, qs.stringify({
-	    		city_name: curCity
+	    		city_name: this.curCity
 	    	}))
 		    	.then(res => {
 		    		let { cat, region, area, rent, list } = res.data;
@@ -158,18 +158,25 @@ export default {
 		    		}
 		    	});
 	    },
-	    reset () {
-	    	this.storeList = [];
+	    resetSelector () {
 	    	this.selectorName = '';
 	    	this.tradeName = '';
 			this.regionName = '';
 			this.areaName = '';
 			this.rentName = '';
 	    },
+	    reset () {
+	    	this.resetStoreList();
+	    	this.resetCurPage();
+	    	this.resetReachLastPage();
+	    	this.resetSelector();
+	    },
 	    onSelector (name) {
 	    	this.selectorName = name;
 	    },
 	    changeTrade (e) {
+	    	this.resetStoreList();
+	    	this.resetCurPage();
 	    	let value = e.mp.detail.value,
 	    		_selectorId = this.tradeArray[value].cid,
 	    		_name = this.tradeArray[value].cname;
@@ -177,13 +184,16 @@ export default {
 	    	this.tradeName = _name;
 
 	    	this.$flyio.post(fullApi.ASSIGN_LOAD, qs.stringify({
-	    			trade_id: _selectorId
+	    			trade_id: _selectorId,
+	    			city_name: this.curCity
 	    		}))
 	    		.then(res => {
 	    			this.storeList = res.data.data;
 	    		});
 	    },
 	    changeRegion (e) {
+	    	this.resetStoreList();
+	    	this.resetCurPage();
 	    	let value = e.mp.detail.value,
 	    		_selectorId = this.regionArray[value].id,
 	    		_name = this.regionArray[value].area_name;
@@ -191,13 +201,16 @@ export default {
 	    	this.regionName = _name;
 
 	    	this.$flyio.post(fullApi.ASSIGN_LOAD, qs.stringify({
-	    			town_id: _selectorId
+	    			town_id: _selectorId,
+	    			city_name: this.curCity
 	    		}))
 	    		.then(res => {
 	    			this.storeList = res.data.data;
 	    		});
 	    },
 	    changeArea (e) {
+	    	this.resetStoreList();
+	    	this.resetCurPage();
 	    	let value = e.mp.detail.value,
 	    		_selectorId = this.areaArray[value].id,
 	    		_name = this.areaArray[value].name;
@@ -205,13 +218,16 @@ export default {
 	    	this.areaName = _name;
 
 	    	this.$flyio.post(fullApi.ASSIGN_LOAD, qs.stringify({
-	    			area: _selectorId
+	    			area: _selectorId,
+	    			city_name: this.curCity
 	    		}))
 	    		.then(res => {
 	    			this.storeList = res.data.data;
 	    		});
 	    },
 	    changeRent (e) {
+	    	this.resetStoreList();
+	    	this.resetCurPage();
 	    	let value = e.mp.detail.value,
 	    		_selectorId = this.rentArray[value].id,
 	    		_name = this.rentArray[value].name;
@@ -219,20 +235,26 @@ export default {
 	    	this.rentName = _name;
 
 	    	this.$flyio.post(fullApi.ASSIGN_LOAD, qs.stringify({
-	    			rent: _selectorId
+	    			rent: _selectorId,
+	    			city_name: this.curCity
 	    		}))
 	    		.then(res => {
 	    			this.storeList = res.data.data;
 	    		});
 	    }
 	},
+	onLoad () {
+		this.getSelectors();
+	},
 	onShow () {
-		this.reset();
 		try {
-	      let ding = wx.getStorageSync('ding');
+	      let ding = wx.getStorageSync('ding'),
+	      	  assign_detail_unload = wx.getStorageSync('assign_detail_unload');
 	      if (ding) {
 	      	this.curCity = ding;
-	      	this.getSelectors();
+	      	// 从详情返回来的话，不重置数据，否则重置
+	      	assign_detail_unload ? wx.removeStorageSync('assign_detail_unload')
+	      		: this.reset();
 	      }
 	    } catch (e) {}
 	}

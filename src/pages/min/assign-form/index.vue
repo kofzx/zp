@@ -381,11 +381,13 @@ export default {
 					.then(res => {
 						let { code, msg } = res.data;
 						if (code == 1) {
-							this.$toast(msg);
+							this.$toast(msg, true, 1000)
+		    					.then(() => {
+		    						wx.navigateBack({
+								    	delta: 1
+								    });
+		    					});
 							wx.setStorageSync('assign_add_success', true);	// 添加成功
-							wx.navigateBack({
-							    delta: 1
-							});
 						}
 					});
 			}

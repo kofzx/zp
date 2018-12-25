@@ -1,11 +1,11 @@
-// export const apiName = '/api_';
-export const apiName = '/mobile/api/';
+export const apiName = '/api_';
+// export const apiName = '/mobile/api/';
 
 export const ytApi = 'https://ytxcx.6mo.cc';
 export const gsApi = 'https://gs.6mo.cc';
 export const pgjOss = 'https://pguanjiacn-3.oss-cn-qingdao.aliyuncs.com/';
-// export const pgjApi = 'https://www.puguanjiacn.com';
-export const pgjApi = 'http://www.pgj.com';
+export const pgjApi = 'https://www.puguanjiacn.com';
+// export const pgjApi = 'http://www.pgj.com';
 export const pgjImg = pgjApi + '/pgj.jpg';
 
 export const api = {

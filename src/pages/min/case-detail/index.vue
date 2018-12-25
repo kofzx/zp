@@ -74,11 +74,14 @@ export default {
 			ep_url: ''
 		}
 	},
-	mounted () {
-		let data_decodeURI = decodeURIComponent(this.$mp.query.data);
+	onLoad (options) {
+		let data_decodeURI = decodeURIComponent(options.data);
 		let data_json = JSON.parse(data_decodeURI);
 		this.detail = data_json;
 	},
+	onUnload () {
+		wx.setStorageSync('case_detail_unload', true);
+	}
 }
 </script>
 
