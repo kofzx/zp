@@ -59,7 +59,7 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">区域</label>
 						<div class="layui-input-block clearfix">
-							<picker 
+							<!-- <picker 
 				            	class='layui-input layui-input--picker fl' 
 				            	mode="multiSelector" 
 				            	:range='regionArray'
@@ -69,7 +69,14 @@
 				            	@columnchange='changeColRegion'>
 				            	  <div v-show='firstRegion'>请选择</div>
 				                  <div v-show='!firstRegion'>{{regionArray[0][multiIndex[0]].area_name}}{{regionArray[1].length != 0 ? '-'+regionArray[1][multiIndex[1]].area_name : ''}}{{regionArray[2].length != 0 ? '-'+regionArray[2][multiIndex[2]].area_name : ''}}</div>
-				            </picker>
+				            </picker> -->
+			            	<custom-picker
+				            	:picker-show='pickerShow'
+								:value='value'
+								:data='regionArray'
+								field-name='area_name'
+								@pickerChange='regionChange'
+								@setPickerStorage='setPickerStorage1' />
 				            <i class="iconfont icon-arrow-right icon--fix fr g6 mr-10"></i>
 						</div>
 					</div>
@@ -180,6 +187,7 @@ import qs from 'qs'
 import { fullApi, pgjOss } from '@/service/api'
 
 import loading from '@/components/layouts/ko-loading/index'
+import customPicker from '@/components/core/min/custom-picker/index'
 
 let { tradeArray, regionArray, areaArray, orderArray } = mock;
 
@@ -207,6 +215,8 @@ export default {
 			firstCat: true,
 			isLoad: true,
 			curLocation: '',
+			pickerShow: true,
+			value: [0, 0, 0]
 		}
 	},
 	watch: {
@@ -330,6 +340,34 @@ export default {
 
 	    	this.nextLevel(this.regionArray, 'child', column, value);
 	    },
+	    setPickerStorage1() {
+		    wx.setStorageSync('picker_value1', this.value);
+		},
+	    regionChange(e) {
+	    	console.log(e);
+		    let value = e.mp.detail.value;
+		    console.log(value);
+		    // // 更新下一级
+		    // try {
+		    //   let picker_value1 = wx.getStorageSync('picker_value1');
+		    //   if (picker_value1) {
+		    //     // 对比数组，找出变更的列
+		    //     let result = util.compareArray(picker_value1, value);
+		    //     if (result) {
+		    //       if (typeof result == 'object') {
+		    //         let { index, value } = result;
+		    //         let newRegion = nextLevel(this.data.region, 'child', index, value);
+		    //         if (newRegion) {
+		    //           this.setData({
+		    //             region: newRegion
+		    //           });
+		    //         }
+		    //       }
+		    //     }
+		    //   }
+		    //   wx.setStorageSync('picker_value1', value);
+		    // } catch (e) { }
+		},
 	    _submit (formObj) {
 	    	return new Promise(resolve => {
 	    		this.$flyio.post(fullApi.ASSIGN_ADD, qs.stringify({
@@ -400,7 +438,8 @@ export default {
 		}
 	},
 	components: {
-		'ko-loading': loading
+		'ko-loading': loading,
+		'custom-picker': customPicker
 	},
 	onLoad () {
 		this.init();
