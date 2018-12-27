@@ -29,10 +29,8 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 2. 搜索
 	+ 接口对接
 
-18/12/20
+18/12/27
 api
 	->assignload
-shellModel
-	->is_success_ko
 
 15220396266

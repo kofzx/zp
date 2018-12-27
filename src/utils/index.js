@@ -66,6 +66,27 @@ function objectToArray(object) {
   return array
 }
 
+function compareArray(source, destination) {
+  if (!source) {
+    return false;
+  }
+  if (!destination) {
+    return false;
+  }
+  if (source.length != destination.length) {
+    return false;
+  }
+  for (let i = 0, l = source.length; i < l; i++) {
+    if (source[i] != destination[i]) {
+      return {
+        index: i,
+        value: destination[i]
+      };
+    }
+  }
+  return false;
+}
+
 function changeEye(type) {
   switch (type) {
     case 'password':
@@ -117,5 +138,6 @@ export default {
   getScrollHeight,
   objectToArray,
   uploadImg,
-  changeEye
+  changeEye,
+  compareArray
 }

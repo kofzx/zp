@@ -2,7 +2,8 @@
 	<div>
 		<view 
 		  class="ko-selector ko-transition"
-		  :class="{'ko--slide-in-up': pickerShow, 'ko--slide-out-down': !pickerShow}">
+		  :class="pickerShow ? 'ko--slide-in-up' : 'ko--slide-out-down'"
+		  >
 		  <picker-view
 		    class='picker-view' 
 		    indicator-class='ko--selected'
@@ -11,7 +12,7 @@
 		    <block
 		      v-for='(parent, index) in data'
 		      :key="index">
-		      <picker-view-column>
+		      <picker-view-column class='picker-view-column'>
 		        <view 
 		          v-for='(child, idx) in parent'
 		          :key="idx"
@@ -41,11 +42,11 @@ export default {
 	    fieldName: String,
 	},
 	created () {
-      this.setPickerStorage();
+      	this.setPickerStorage();
     },
     methods: {
 	    closePicker () {
-	    	this.pickerShow = false;
+	    	this.$emit('close');
 	    },
 	    pickerChange (e) {
 	      this.$emit('pickerChange', e);
@@ -70,12 +71,16 @@ export default {
 	  right: 0;
 	  bottom: 0;
 	  box-shadow: 0px -12px 75px 0px #e0dddd, 0px -30px 75px 0px #f1f2f3;
-	  z-index: 1000000;
+	  z-index: 100;
 	  opacity: 0;
 	}
 	.ko-selector .picker-view {
-	  height: 310rpx;
+	  height: 200px;
 	  background: white;
+	  padding-bottom: 50px;
+	}
+	.ko-selector .picker-view .picker-view-column {
+		top: -40px;
 	}
 	.ko-selector .item {
 	  font-size: 16px;
@@ -97,8 +102,5 @@ export default {
 	.ko--selected {
 	  border-top: 1px solid #F8F8F8;
 	  border-bottom: 1px solid #F8F8F8;
-	}
-	.ko-layer {
-	  opacity: 0 !important;
 	}
 </style>

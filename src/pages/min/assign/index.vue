@@ -149,6 +149,10 @@ export default {
 	    	}))
 		    	.then(res => {
 		    		let { cat, region, area, rent, list } = res.data;
+		    		cat.unshift({cid: "all", cname: "全部"});
+		    		region.unshift({id: "all", area_name: "全部"});
+		    		area.unshift({id: "all", name: "全部"});
+		    		rent.unshift({id: "all", name: "全部"});
 		    		this.tradeArray = cat;
 		    		this.regionArray = region;
 		    		this.areaArray = area;

@@ -42,7 +42,7 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">行业</label>
 						<div class="layui-input-block clearfix">
-							<picker 
+							<!-- <picker 
 				            	class='layui-input layui-input--picker fl' 
 				            	mode="multiSelector" 
 				            	:range='tradeArray'
@@ -52,7 +52,21 @@
 				            	@columnchange='changeColTrade'>
 				                  <div v-if='firstCat'>请选择</div>
 				                  <div v-else>{{tradeArray[0][multiCatIndex[0]].cname}}{{tradeArray[1].length != 0 ? '-'+tradeArray[1][multiCatIndex[1]].cname : ''}}</div>
-				            </picker>
+				            </picker> -->
+				            <div 
+				            	class="layui-input layui-input--picker fl"
+				            	@click='openTradePicker'>
+								<div v-if='firstCat'>请选择</div>
+								<div v-else>{{tradeArray[0][trade_value[0]].cname}}{{tradeArray[1].length != 0 ? '-'+tradeArray[1][trade_value[1]].cname : ''}}</div>
+				            </div>
+			            	<custom-picker
+				            	:picker-show='trade_picker_show'
+								:value='trade_value'
+								:data='tradeArray'
+								field-name='cname'
+								@pickerChange='tradeChange'
+								@setPickerStorage='setTradePickerStorage'
+								@close='closeTradePicker' />
 				            <i class="iconfont icon-arrow-right icon--fix fr g6 mr-10"></i>
 						</div>
 					</div>
@@ -70,13 +84,20 @@
 				            	  <div v-show='firstRegion'>请选择</div>
 				                  <div v-show='!firstRegion'>{{regionArray[0][multiIndex[0]].area_name}}{{regionArray[1].length != 0 ? '-'+regionArray[1][multiIndex[1]].area_name : ''}}{{regionArray[2].length != 0 ? '-'+regionArray[2][multiIndex[2]].area_name : ''}}</div>
 				            </picker> -->
+				            <div 
+				            	class="layui-input layui-input--picker fl"
+				            	@click='openRegionPicker'>
+								<div v-if='firstRegion'>请选择</div>
+								<div v-else>{{regionArray[0][region_value[0]].area_name}}{{regionArray[1].length != 0 ? '-'+regionArray[1][region_value[1]].area_name : ''}}{{regionArray[2].length != 0 ? '-'+regionArray[2][region_value[2]].area_name : ''}}</div>
+				            </div>
 			            	<custom-picker
-				            	:picker-show='pickerShow'
-								:value='value'
+				            	:picker-show='region_picker_show'
+								:value='region_value'
 								:data='regionArray'
 								field-name='area_name'
 								@pickerChange='regionChange'
-								@setPickerStorage='setPickerStorage1' />
+								@setPickerStorage='setRegionPickerStorage'
+								@close='closeRegionPicker' />
 				            <i class="iconfont icon-arrow-right icon--fix fr g6 mr-10"></i>
 						</div>
 					</div>
@@ -133,10 +154,15 @@
 					<div class="layui-form-item layui-form-text">
 						<label class="layui-form-label">详细信息</label>
 						<div class="layui-input-block">
+							<div
+								v-show='!show_textarea'
+								class="layui-textarea">{{textarea_value ? textarea_value : '请填写店铺信息'}}</div>
 							<textarea 
+								v-show="show_textarea"
 								name="desc" 
 								placeholder="请填写店铺信息" 
-								class="layui-textarea"></textarea>
+								class="layui-textarea"
+								@input='textareaInput'></textarea>
 						</div>
 					</div>
 					<div class="layui-form-item">
@@ -215,13 +241,35 @@ export default {
 			firstCat: true,
 			isLoad: true,
 			curLocation: '',
-			pickerShow: true,
-			value: [0, 0, 0]
+			region_picker_show: false,
+			region_value: [0, 0, 0],
+			trade_picker_show: false,
+			trade_value: [0, 0],
+			show_textarea: true,
+			textarea_value: '请填写店铺信息',
 		}
 	},
 	watch: {
 		multiIndex: multIdx,
-		multiCatIndex: multIdx
+		multiCatIndex: multIdx,
+		region_picker_show: function(newVal, oldVal) {
+			if (newVal) {
+				this.show_textarea = false;
+			} else {
+				setTimeout(() => {
+					this.show_textarea = true;
+				}, 250);
+			}
+		},
+		trade_picker_show: function(newVal, oldVal) {
+			if (newVal) {
+				this.show_textarea = false;
+			} else {
+				setTimeout(() => {
+					this.show_textarea = true;
+				}, 250);
+			}
+		}
 	},
 	methods: {
 		_chooseImg () {
@@ -318,55 +366,89 @@ export default {
 					console.log(res);
 				});
 		},
-		changeTrade (e) {
-	    	let value = e.mp.detail.value;
-	    	this.multiCatIndex = value;
+		textareaInput (e) {
+			let value = e.mp.detail.value;
+			this.textarea_value = value;
+		},
+		// changeTrade (e) {
+	 //    	let value = e.mp.detail.value;
+	 //    	this.multiCatIndex = value;
+	 //    	this.firstCat = false;
+	 //    },
+	 //    changeColTrade (e) {
+	 //    	let detail = e.mp.detail,
+	 //    		{ column, value } = detail;
+
+	 //    	this.nextLevel(this.tradeArray, 'pid_value', column, value);
+	 //    },
+	    // changeRegion (e) {
+	    // 	let value = e.mp.detail.value;
+	    // 	this.multiIndex = value;
+	    // 	this.firstRegion = false;
+	    // },
+	    // changeColRegion (e) {
+	    // 	let detail = e.mp.detail,
+	    // 		{ column, value } = detail;
+
+	    // 	this.nextLevel(this.regionArray, 'child', column, value);
+	    // },
+	    openTradePicker () {
+	    	this.trade_picker_show = true;
+	    },
+	    closeTradePicker () {
+	    	this.trade_picker_show = false;
+	    },
+	    setTradePickerStorage() {
+		    wx.setStorageSync('trade_picker_value', this.trade_value);
+		},
+		tradeChange(e) {
 	    	this.firstCat = false;
+		    let value = e.mp.detail.value;
+		    this.trade_value = value;
+		    // 更新下一级
+		    try {
+		      let trade_picker_value = wx.getStorageSync('trade_picker_value');
+		      if (trade_picker_value) {
+		        // 对比数组，找出变更的列
+		        let result = util.compareArray(trade_picker_value, value);
+		        if (result) {
+		          if (typeof result == 'object') {
+		            let { index, value } = result;
+		            this.nextLevel(this.tradeArray, 'pid_value', index, value);
+		          }
+		        }
+		      }
+		      wx.setStorageSync('trade_picker_value', value);
+		    } catch (e) { }
+		},
+	    openRegionPicker () {
+	    	this.region_picker_show = true;
 	    },
-	    changeColTrade (e) {
-	    	let detail = e.mp.detail,
-	    		{ column, value } = detail;
-
-	    	this.nextLevel(this.tradeArray, 'pid_value', column, value);
+	    closeRegionPicker () {
+	    	this.region_picker_show = false;
 	    },
-	    changeRegion (e) {
-	    	let value = e.mp.detail.value;
-	    	this.multiIndex = value;
-	    	this.firstRegion = false;
-	    },
-	    changeColRegion (e) {
-	    	let detail = e.mp.detail,
-	    		{ column, value } = detail;
-
-	    	this.nextLevel(this.regionArray, 'child', column, value);
-	    },
-	    setPickerStorage1() {
-		    wx.setStorageSync('picker_value1', this.value);
+	    setRegionPickerStorage() {
+		    wx.setStorageSync('region_picker_value', this.region_value);
 		},
 	    regionChange(e) {
-	    	console.log(e);
+	    	this.firstRegion = false;
 		    let value = e.mp.detail.value;
-		    console.log(value);
-		    // // 更新下一级
-		    // try {
-		    //   let picker_value1 = wx.getStorageSync('picker_value1');
-		    //   if (picker_value1) {
-		    //     // 对比数组，找出变更的列
-		    //     let result = util.compareArray(picker_value1, value);
-		    //     if (result) {
-		    //       if (typeof result == 'object') {
-		    //         let { index, value } = result;
-		    //         let newRegion = nextLevel(this.data.region, 'child', index, value);
-		    //         if (newRegion) {
-		    //           this.setData({
-		    //             region: newRegion
-		    //           });
-		    //         }
-		    //       }
-		    //     }
-		    //   }
-		    //   wx.setStorageSync('picker_value1', value);
-		    // } catch (e) { }
+		    this.region_value = value;
+		    // 更新下一级
+		    try {
+		      let region_picker_value = wx.getStorageSync('region_picker_value');
+		      if (region_picker_value) {
+		        // 对比数组，找出变更的列
+		        let result = util.compareArray(region_picker_value, value);
+		        if (result) {
+		          if (typeof result == 'object') {
+		            let { index, value } = result;
+		            this.nextLevel(this.regionArray, 'child', index, value);
+		          }
+		        }
+		      }
+		      wx.setStorageSync('region_picker_value', value);
+		    } catch (e) { }
 		},
 	    _submit (formObj) {
 	    	return new Promise(resolve => {
@@ -408,12 +490,12 @@ export default {
 			if (errMsg) {
 				this.$toast(errMsg, false);
 			} else {
-				let lastTradeIndex = value.trade.length - 1,
-					lastRegionIndex = value.region.length - 1;
+				let lastTradeIndex = this.trade_value.length - 1,
+					lastRegionIndex = this.region_value.length - 1;
 
 				value.uploadPics = uploadPics;
-				value.cid = this.tradeArray[lastTradeIndex][value.trade[lastTradeIndex]].cid;
-				value.town_id = this.regionArray[lastRegionIndex][value.region[lastRegionIndex]].id;
+				value.cid = this.tradeArray[lastTradeIndex][this.trade_value[lastTradeIndex]].cid;
+				value.town_id = this.regionArray[lastRegionIndex][this.region_value[lastRegionIndex]].id;
 
 				this._submit(value)
 					.then(res => {
@@ -474,5 +556,8 @@ export default {
 			margin-left: -14px;
 			margin-top: -6px;
 		}
+	}
+	.ko-layer {
+	  opacity: 0.1 !important;
 	}
 </style>
