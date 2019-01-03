@@ -2,7 +2,7 @@
 	<div>
 		<view 
 		  class="ko-selector ko-transition"
-		  :class="pickerShow ? 'ko--slide-in-up' : 'ko--slide-out-down'"
+		  :class="pickerShow ? 'ko--slide-in-up' : initComplete ? 'ko--slide-out-down' : ''"
 		  >
 		  <picker-view
 		    class='picker-view' 
@@ -40,6 +40,10 @@ export default {
 	    default: Array,
 	    data: Array,
 	    fieldName: String,
+	    initComplete: {		// 初始化状态量，用于防止初始页面触发slideDown bug
+	      type: Boolean,
+	      default: false
+	    }
 	},
 	created () {
       	this.setPickerStorage();
@@ -72,7 +76,9 @@ export default {
 	  bottom: 0;
 	  box-shadow: 0px -12px 75px 0px #e0dddd, 0px -30px 75px 0px #f1f2f3;
 	  z-index: 100;
+	  // 初始状态
 	  opacity: 0;
+	  transform: translate3d(0,100%,0);
 	}
 	.ko-selector .picker-view {
 	  height: 200px;

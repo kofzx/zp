@@ -29,6 +29,9 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 2. 搜索
 	+ 接口对接
 
+组件问题：
+1. custom-picker 初始化不过渡
+
 18/12/27
 api
 	->assignload

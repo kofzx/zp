@@ -38,6 +38,7 @@
 				            </div>
 			            	<custom-picker
 				            	:picker-show='trade_picker_show'
+				            	:init-complete='trade_picker_show'
 								:value='trade_value'
 								:data='tradeArray'
 								field-name='cname'
@@ -69,6 +70,7 @@
 				            </div>
 			            	<custom-picker
 				            	:picker-show='region_picker_show'
+				            	:init-complete='region_picker_show'
 								:value='region_value'
 								:data='regionArray'
 								field-name='area_name'
@@ -167,6 +169,8 @@ import customPicker from '@/components/core/min/custom-picker/index'
 
 let { tradeArray, regionArray, orderArray } = mock;
 
+const defaultPlc = '请填写店铺信息';
+
 function multIdx(newVal) {
 	let length = newVal.length;
 	for (let i = length - 1; i >= 0; i--) {
@@ -194,7 +198,7 @@ export default {
 			trade_picker_show: false,
 			trade_value: [0, 0],
 			show_textarea: true,
-			textarea_value: '请填写店铺信息',
+			textarea_value: defaultPlc,
 		}
 	},
 	watch: {
@@ -380,6 +384,7 @@ export default {
 		seekReset () {
 			this.firstRegion = true;
 			this.firstCat = true;
+			this.textarea_value = defaultPlc;
 		}
 	},
 	components: {
